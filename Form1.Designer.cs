@@ -229,12 +229,18 @@
             // 
             // modListBox
             // 
+            modListBox.AllowDrop = true;
+            modListBox.CheckOnClick = true;
             modListBox.Dock = DockStyle.Fill;
             modListBox.FormattingEnabled = true;
             modListBox.Location = new Point(0, 0);
             modListBox.Name = "modListBox";
+            modListBox.ScrollAlwaysVisible = true;
             modListBox.Size = new Size(136, 251);
             modListBox.TabIndex = 0;
+            modListBox.DragDrop += modListBox_DragDrop;
+            modListBox.DragOver += modListBox_DragOver;
+            modListBox.MouseDown += modListBox_MouseDown;
             // 
             // modLoaderButton
             // 

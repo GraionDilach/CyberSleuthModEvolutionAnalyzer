@@ -45,5 +45,53 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             logBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "] " + message + Environment.NewLine);
         }
+
+        private void modListBox_DragDrop(object sender, DragEventArgs e)
+        {
+            if (modListBox.SelectedItem == null) { return; }
+            var selectedIndex = modListBox.SelectedIndex;
+
+            Point point = modListBox.PointToClient(new Point(e.X, e.Y));
+            int index = modListBox.IndexFromPoint(point);
+            if (index < 0)
+            {
+                index = modListBox.Items.Count - 1;
+            }
+            if (index != selectedIndex)
+            {
+                var checkedItems = new HashSet<DSCSMod>();
+                for (int i = 0; i < modListBox.Items.Count; i++)
+                {
+                    if (modListBox.GetItemChecked(i))
+                    {
+                        checkedItems.Add(dscsMods[i]);
+                    }
+                }
+                var item = dscsMods[selectedIndex];
+                dscsMods.Remove(item);
+                dscsMods.Insert(index, item);
+                modListBox.DataSource = null;
+                modListBox.DataSource = dscsMods;
+                modListBox.SelectedIndex = index;
+                for (int i = 0; i < modListBox.Items.Count; i++)
+                {
+                    if (checkedItems.Contains(dscsMods[i]))
+                    {
+                        modListBox.SetItemChecked(i, true);
+                    }
+                }
+            }
+        }
+
+        private void modListBox_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void modListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (modListBox.SelectedItem == null) return;
+            modListBox.DoDragDrop(modListBox.SelectedItem, DragDropEffects.Move);
+        }
     }
 }
