@@ -110,7 +110,7 @@
             // 
             // modGenerator
             // 
-            modGenerator.Location = new Point(567, 20);
+            modGenerator.Location = new Point(745, 21);
             modGenerator.Name = "modGenerator";
             modGenerator.Size = new Size(117, 23);
             modGenerator.TabIndex = 3;
@@ -119,7 +119,7 @@
             // 
             // modsLocationBrowser
             // 
-            modsLocationBrowser.Location = new Point(486, 20);
+            modsLocationBrowser.Location = new Point(664, 21);
             modsLocationBrowser.Name = "modsLocationBrowser";
             modsLocationBrowser.Size = new Size(75, 23);
             modsLocationBrowser.TabIndex = 2;
@@ -140,7 +140,7 @@
             // 
             modsLocation.Location = new Point(3, 21);
             modsLocation.Name = "modsLocation";
-            modsLocation.Size = new Size(477, 23);
+            modsLocation.Size = new Size(655, 23);
             modsLocation.TabIndex = 0;
             // 
             // rootLogging
@@ -176,7 +176,7 @@
             // 
             modData.Panel2.Controls.Add(digimonListWrapper);
             modData.Size = new Size(865, 309);
-            modData.SplitterDistance = 171;
+            modData.SplitterDistance = 136;
             modData.TabIndex = 0;
             // 
             // modList
@@ -194,7 +194,7 @@
             // modList.Panel2
             // 
             modList.Panel2.Controls.Add(modReloadWrapper);
-            modList.Size = new Size(171, 309);
+            modList.Size = new Size(136, 309);
             modList.SplitterDistance = 25;
             modList.TabIndex = 0;
             // 
@@ -223,7 +223,7 @@
             // modReloadWrapper.Panel2
             // 
             modReloadWrapper.Panel2.Controls.Add(modLoaderButton);
-            modReloadWrapper.Size = new Size(171, 280);
+            modReloadWrapper.Size = new Size(136, 280);
             modReloadWrapper.SplitterDistance = 251;
             modReloadWrapper.TabIndex = 0;
             // 
@@ -233,7 +233,7 @@
             modListBox.FormattingEnabled = true;
             modListBox.Location = new Point(0, 0);
             modListBox.Name = "modListBox";
-            modListBox.Size = new Size(171, 251);
+            modListBox.Size = new Size(136, 251);
             modListBox.TabIndex = 0;
             // 
             // modLoaderButton
@@ -241,7 +241,7 @@
             modLoaderButton.Dock = DockStyle.Fill;
             modLoaderButton.Location = new Point(0, 0);
             modLoaderButton.Name = "modLoaderButton";
-            modLoaderButton.Size = new Size(171, 25);
+            modLoaderButton.Size = new Size(136, 25);
             modLoaderButton.TabIndex = 0;
             modLoaderButton.Text = "Reload Mods";
             modLoaderButton.UseVisualStyleBackColor = true;
@@ -260,8 +260,8 @@
             // digimonListWrapper.Panel2
             // 
             digimonListWrapper.Panel2.Controls.Add(digimonDataContainer);
-            digimonListWrapper.Size = new Size(690, 309);
-            digimonListWrapper.SplitterDistance = 133;
+            digimonListWrapper.Size = new Size(725, 309);
+            digimonListWrapper.SplitterDistance = 301;
             digimonListWrapper.TabIndex = 0;
             // 
             // digimonList
@@ -279,7 +279,7 @@
             digimonList.Name = "digimonList";
             digimonList.Padding = new Point(0, 3);
             digimonList.SelectedIndex = 0;
-            digimonList.Size = new Size(133, 309);
+            digimonList.Size = new Size(301, 309);
             digimonList.TabIndex = 0;
             // 
             // digimonListInTraining1Tab
@@ -288,7 +288,7 @@
             digimonListInTraining1Tab.Location = new Point(4, 24);
             digimonListInTraining1Tab.Name = "digimonListInTraining1Tab";
             digimonListInTraining1Tab.Padding = new Padding(3);
-            digimonListInTraining1Tab.Size = new Size(125, 281);
+            digimonListInTraining1Tab.Size = new Size(293, 281);
             digimonListInTraining1Tab.TabIndex = 0;
             digimonListInTraining1Tab.Text = "IT1";
             digimonListInTraining1Tab.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@
             digimonListInTraining2Tab.Location = new Point(4, 24);
             digimonListInTraining2Tab.Name = "digimonListInTraining2Tab";
             digimonListInTraining2Tab.Padding = new Padding(3);
-            digimonListInTraining2Tab.Size = new Size(125, 281);
+            digimonListInTraining2Tab.Size = new Size(293, 281);
             digimonListInTraining2Tab.TabIndex = 1;
             digimonListInTraining2Tab.Text = "IT2";
             digimonListInTraining2Tab.UseVisualStyleBackColor = true;
@@ -309,7 +309,7 @@
             digimonListRookieTab.Location = new Point(4, 24);
             digimonListRookieTab.Name = "digimonListRookieTab";
             digimonListRookieTab.Padding = new Padding(3);
-            digimonListRookieTab.Size = new Size(125, 281);
+            digimonListRookieTab.Size = new Size(293, 281);
             digimonListRookieTab.TabIndex = 2;
             digimonListRookieTab.Text = "R";
             digimonListRookieTab.UseVisualStyleBackColor = true;
@@ -319,7 +319,7 @@
             digimonListChampionTab.Location = new Point(4, 24);
             digimonListChampionTab.Name = "digimonListChampionTab";
             digimonListChampionTab.Padding = new Padding(3);
-            digimonListChampionTab.Size = new Size(125, 281);
+            digimonListChampionTab.Size = new Size(293, 281);
             digimonListChampionTab.TabIndex = 3;
             digimonListChampionTab.Text = "C";
             digimonListChampionTab.UseVisualStyleBackColor = true;
@@ -329,7 +329,7 @@
             digimonListArmorTab.Location = new Point(4, 24);
             digimonListArmorTab.Name = "digimonListArmorTab";
             digimonListArmorTab.Padding = new Padding(3);
-            digimonListArmorTab.Size = new Size(125, 281);
+            digimonListArmorTab.Size = new Size(293, 281);
             digimonListArmorTab.TabIndex = 4;
             digimonListArmorTab.Text = "A";
             digimonListArmorTab.UseVisualStyleBackColor = true;
@@ -339,7 +339,7 @@
             digimonListUltimateTab.Location = new Point(4, 24);
             digimonListUltimateTab.Name = "digimonListUltimateTab";
             digimonListUltimateTab.Padding = new Padding(3);
-            digimonListUltimateTab.Size = new Size(125, 281);
+            digimonListUltimateTab.Size = new Size(293, 281);
             digimonListUltimateTab.TabIndex = 5;
             digimonListUltimateTab.Text = "U";
             digimonListUltimateTab.UseVisualStyleBackColor = true;
@@ -349,7 +349,7 @@
             digimonListMegaTab.Location = new Point(4, 24);
             digimonListMegaTab.Name = "digimonListMegaTab";
             digimonListMegaTab.Padding = new Padding(3);
-            digimonListMegaTab.Size = new Size(125, 281);
+            digimonListMegaTab.Size = new Size(293, 281);
             digimonListMegaTab.TabIndex = 6;
             digimonListMegaTab.Text = "M";
             digimonListMegaTab.UseVisualStyleBackColor = true;
@@ -359,7 +359,7 @@
             digimonListUltraTab.Location = new Point(4, 24);
             digimonListUltraTab.Name = "digimonListUltraTab";
             digimonListUltraTab.Padding = new Padding(3);
-            digimonListUltraTab.Size = new Size(125, 281);
+            digimonListUltraTab.Size = new Size(293, 281);
             digimonListUltraTab.TabIndex = 7;
             digimonListUltraTab.Text = "U+";
             digimonListUltraTab.UseVisualStyleBackColor = true;
@@ -378,7 +378,7 @@
             // digimonDataContainer.Panel2
             // 
             digimonDataContainer.Panel2.Controls.Add(digimonDataPanel);
-            digimonDataContainer.Size = new Size(553, 309);
+            digimonDataContainer.Size = new Size(420, 309);
             digimonDataContainer.SplitterDistance = 29;
             digimonDataContainer.TabIndex = 0;
             // 
@@ -387,7 +387,7 @@
             digimonName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             digimonName.AutoSize = true;
             digimonName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            digimonName.Location = new Point(224, 5);
+            digimonName.Location = new Point(158, 5);
             digimonName.Name = "digimonName";
             digimonName.Size = new Size(77, 21);
             digimonName.TabIndex = 0;
@@ -406,7 +406,7 @@
             digimonDataPanel.Name = "digimonDataPanel";
             digimonDataPanel.RowCount = 1;
             digimonDataPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            digimonDataPanel.Size = new Size(553, 276);
+            digimonDataPanel.Size = new Size(420, 276);
             digimonDataPanel.TabIndex = 0;
             // 
             // logBox
