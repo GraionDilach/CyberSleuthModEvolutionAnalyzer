@@ -28,7 +28,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             var dscsMod = new DSCSMod(potentialMod);
                             dscsMods.Add(dscsMod);
 
-                            LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name +".");
+                            LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name + ".");
                         }
                     }
                     catch (Exception)
