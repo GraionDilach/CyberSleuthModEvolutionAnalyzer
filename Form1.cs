@@ -5,7 +5,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
     {
-        readonly HashSet<DSCSMod> dscsMods = [];
+        readonly List<DSCSMod> dscsMods = [];
 
         public Form1()
         {
@@ -17,6 +17,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             DialogResult result = modFolderLocator.ShowDialog();
             if (result == DialogResult.OK)
             {
+                dscsMods.Clear();
                 var potentialMods = Directory.GetDirectories(modFolderLocator.SelectedPath);
                 foreach (var potentialMod in potentialMods)
                 {
@@ -36,6 +37,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
                 modsLocation.Text = modFolderLocator.SelectedPath;
+                modListBox.DataSource = dscsMods;
             }
         }
 

@@ -34,8 +34,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 Version = dict["Version"];
                 Category = dict["Category"];
             }
+        }
 
- 
+        public override string ToString()
+        {
+            return Name + " (" + Version + ")";
         }
     }
 }

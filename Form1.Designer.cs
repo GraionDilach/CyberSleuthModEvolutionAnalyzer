@@ -243,7 +243,7 @@
             modLoaderButton.Name = "modLoaderButton";
             modLoaderButton.Size = new Size(136, 25);
             modLoaderButton.TabIndex = 0;
-            modLoaderButton.Text = "Reload Mods";
+            modLoaderButton.Text = "Load Mod Data";
             modLoaderButton.UseVisualStyleBackColor = true;
             // 
             // digimonListWrapper
