@@ -52,6 +52,9 @@
             digimonListUltraTab = new TabPage();
             logBox = new TextBox();
             modFolderLocator = new FolderBrowserDialog();
+            digimonDataContainer = new SplitContainer();
+            digimonDataPanel = new TableLayoutPanel();
+            digimonName = new Label();
             ((System.ComponentModel.ISupportInitialize)folderRoot).BeginInit();
             folderRoot.Panel1.SuspendLayout();
             folderRoot.Panel2.SuspendLayout();
@@ -74,8 +77,13 @@
             modReloadWrapper.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)digimonListWrapper).BeginInit();
             digimonListWrapper.Panel1.SuspendLayout();
+            digimonListWrapper.Panel2.SuspendLayout();
             digimonListWrapper.SuspendLayout();
             digimonList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)digimonDataContainer).BeginInit();
+            digimonDataContainer.Panel1.SuspendLayout();
+            digimonDataContainer.Panel2.SuspendLayout();
+            digimonDataContainer.SuspendLayout();
             SuspendLayout();
             // 
             // folderRoot
@@ -96,7 +104,7 @@
             // folderRoot.Panel2
             // 
             folderRoot.Panel2.Controls.Add(rootLogging);
-            folderRoot.Size = new Size(800, 450);
+            folderRoot.Size = new Size(865, 489);
             folderRoot.SplitterDistance = 46;
             folderRoot.TabIndex = 0;
             // 
@@ -150,8 +158,8 @@
             // rootLogging.Panel2
             // 
             rootLogging.Panel2.Controls.Add(logBox);
-            rootLogging.Size = new Size(800, 400);
-            rootLogging.SplitterDistance = 270;
+            rootLogging.Size = new Size(865, 439);
+            rootLogging.SplitterDistance = 309;
             rootLogging.TabIndex = 0;
             // 
             // modData
@@ -167,8 +175,8 @@
             // modData.Panel2
             // 
             modData.Panel2.Controls.Add(digimonListWrapper);
-            modData.Size = new Size(800, 270);
-            modData.SplitterDistance = 159;
+            modData.Size = new Size(865, 309);
+            modData.SplitterDistance = 171;
             modData.TabIndex = 0;
             // 
             // modList
@@ -186,7 +194,7 @@
             // modList.Panel2
             // 
             modList.Panel2.Controls.Add(modReloadWrapper);
-            modList.Size = new Size(159, 270);
+            modList.Size = new Size(171, 309);
             modList.SplitterDistance = 25;
             modList.TabIndex = 0;
             // 
@@ -215,8 +223,8 @@
             // modReloadWrapper.Panel2
             // 
             modReloadWrapper.Panel2.Controls.Add(modLoaderButton);
-            modReloadWrapper.Size = new Size(159, 241);
-            modReloadWrapper.SplitterDistance = 212;
+            modReloadWrapper.Size = new Size(171, 280);
+            modReloadWrapper.SplitterDistance = 251;
             modReloadWrapper.TabIndex = 0;
             // 
             // modListBox
@@ -225,7 +233,7 @@
             modListBox.FormattingEnabled = true;
             modListBox.Location = new Point(0, 0);
             modListBox.Name = "modListBox";
-            modListBox.Size = new Size(159, 212);
+            modListBox.Size = new Size(171, 251);
             modListBox.TabIndex = 0;
             // 
             // modLoaderButton
@@ -233,7 +241,7 @@
             modLoaderButton.Dock = DockStyle.Fill;
             modLoaderButton.Location = new Point(0, 0);
             modLoaderButton.Name = "modLoaderButton";
-            modLoaderButton.Size = new Size(159, 25);
+            modLoaderButton.Size = new Size(171, 25);
             modLoaderButton.TabIndex = 0;
             modLoaderButton.Text = "Reload Mods";
             modLoaderButton.UseVisualStyleBackColor = true;
@@ -248,7 +256,11 @@
             // digimonListWrapper.Panel1
             // 
             digimonListWrapper.Panel1.Controls.Add(digimonList);
-            digimonListWrapper.Size = new Size(637, 270);
+            // 
+            // digimonListWrapper.Panel2
+            // 
+            digimonListWrapper.Panel2.Controls.Add(digimonDataContainer);
+            digimonListWrapper.Size = new Size(690, 309);
             digimonListWrapper.SplitterDistance = 133;
             digimonListWrapper.TabIndex = 0;
             // 
@@ -267,7 +279,7 @@
             digimonList.Name = "digimonList";
             digimonList.Padding = new Point(0, 3);
             digimonList.SelectedIndex = 0;
-            digimonList.Size = new Size(133, 270);
+            digimonList.Size = new Size(133, 309);
             digimonList.TabIndex = 0;
             // 
             // digimonListInTraining1Tab
@@ -276,7 +288,7 @@
             digimonListInTraining1Tab.Location = new Point(4, 24);
             digimonListInTraining1Tab.Name = "digimonListInTraining1Tab";
             digimonListInTraining1Tab.Padding = new Padding(3);
-            digimonListInTraining1Tab.Size = new Size(125, 242);
+            digimonListInTraining1Tab.Size = new Size(125, 281);
             digimonListInTraining1Tab.TabIndex = 0;
             digimonListInTraining1Tab.Text = "IT1";
             digimonListInTraining1Tab.UseVisualStyleBackColor = true;
@@ -360,7 +372,7 @@
             logBox.Multiline = true;
             logBox.Name = "logBox";
             logBox.ReadOnly = true;
-            logBox.Size = new Size(800, 126);
+            logBox.Size = new Size(865, 126);
             logBox.TabIndex = 1;
             // 
             // modFolderLocator
@@ -370,11 +382,56 @@
             modFolderLocator.ShowNewFolderButton = false;
             modFolderLocator.ShowPinnedPlaces = false;
             // 
+            // digimonDataContainer
+            // 
+            digimonDataContainer.Dock = DockStyle.Fill;
+            digimonDataContainer.Location = new Point(0, 0);
+            digimonDataContainer.Name = "digimonDataContainer";
+            digimonDataContainer.Orientation = Orientation.Horizontal;
+            // 
+            // digimonDataContainer.Panel1
+            // 
+            digimonDataContainer.Panel1.Controls.Add(digimonName);
+            // 
+            // digimonDataContainer.Panel2
+            // 
+            digimonDataContainer.Panel2.Controls.Add(digimonDataPanel);
+            digimonDataContainer.Size = new Size(553, 309);
+            digimonDataContainer.SplitterDistance = 30;
+            digimonDataContainer.TabIndex = 0;
+            // 
+            // digimonDataPanel
+            // 
+            digimonDataPanel.AutoSize = true;
+            digimonDataPanel.ColumnCount = 3;
+            digimonDataPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            digimonDataPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            digimonDataPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            digimonDataPanel.Dock = DockStyle.Fill;
+            digimonDataPanel.Location = new Point(0, 0);
+            digimonDataPanel.Name = "digimonDataPanel";
+            digimonDataPanel.RowCount = 1;
+            digimonDataPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            digimonDataPanel.Size = new Size(553, 275);
+            digimonDataPanel.TabIndex = 0;
+            // 
+            // digimonName
+            // 
+            digimonName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            digimonName.AutoSize = true;
+            digimonName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            digimonName.Location = new Point(224, 5);
+            digimonName.Name = "digimonName";
+            digimonName.Size = new Size(77, 21);
+            digimonName.TabIndex = 0;
+            digimonName.Text = "Digimon";
+            digimonName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(865, 489);
             Controls.Add(folderRoot);
             Name = "Form1";
             Text = "Cyber Sleuth Mod Evolution Analyzer";
@@ -402,9 +459,16 @@
             ((System.ComponentModel.ISupportInitialize)modReloadWrapper).EndInit();
             modReloadWrapper.ResumeLayout(false);
             digimonListWrapper.Panel1.ResumeLayout(false);
+            digimonListWrapper.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)digimonListWrapper).EndInit();
             digimonListWrapper.ResumeLayout(false);
             digimonList.ResumeLayout(false);
+            digimonDataContainer.Panel1.ResumeLayout(false);
+            digimonDataContainer.Panel1.PerformLayout();
+            digimonDataContainer.Panel2.ResumeLayout(false);
+            digimonDataContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)digimonDataContainer).EndInit();
+            digimonDataContainer.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -434,5 +498,8 @@
         private TabPage digimonListMegaTab;
         private TabPage digimonListUltraTab;
         private FolderBrowserDialog modFolderLocator;
+        private SplitContainer digimonDataContainer;
+        private TableLayoutPanel digimonDataPanel;
+        private Label digimonName;
     }
 }
