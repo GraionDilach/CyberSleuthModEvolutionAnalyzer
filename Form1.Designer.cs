@@ -51,6 +51,7 @@
             digimonListMegaTab = new TabPage();
             digimonListUltraTab = new TabPage();
             logBox = new TextBox();
+            modFolderLocator = new FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)folderRoot).BeginInit();
             folderRoot.Panel1.SuspendLayout();
             folderRoot.Panel2.SuspendLayout();
@@ -116,6 +117,7 @@
             modsLocationBrowser.TabIndex = 2;
             modsLocationBrowser.Text = "Browse...";
             modsLocationBrowser.UseVisualStyleBackColor = true;
+            modsLocationBrowser.Click += modsLocationBrowser_Click;
             // 
             // modsLocationLabel
             // 
@@ -274,7 +276,7 @@
             digimonListInTraining1Tab.Location = new Point(4, 24);
             digimonListInTraining1Tab.Name = "digimonListInTraining1Tab";
             digimonListInTraining1Tab.Padding = new Padding(3);
-            digimonListInTraining1Tab.Size = new Size(204, 242);
+            digimonListInTraining1Tab.Size = new Size(125, 242);
             digimonListInTraining1Tab.TabIndex = 0;
             digimonListInTraining1Tab.Text = "IT1";
             digimonListInTraining1Tab.UseVisualStyleBackColor = true;
@@ -285,7 +287,7 @@
             digimonListInTraining2Tab.Location = new Point(4, 24);
             digimonListInTraining2Tab.Name = "digimonListInTraining2Tab";
             digimonListInTraining2Tab.Padding = new Padding(3);
-            digimonListInTraining2Tab.Size = new Size(204, 242);
+            digimonListInTraining2Tab.Size = new Size(125, 242);
             digimonListInTraining2Tab.TabIndex = 1;
             digimonListInTraining2Tab.Text = "IT2";
             digimonListInTraining2Tab.UseVisualStyleBackColor = true;
@@ -295,7 +297,7 @@
             digimonListRookieTab.Location = new Point(4, 24);
             digimonListRookieTab.Name = "digimonListRookieTab";
             digimonListRookieTab.Padding = new Padding(3);
-            digimonListRookieTab.Size = new Size(204, 242);
+            digimonListRookieTab.Size = new Size(125, 242);
             digimonListRookieTab.TabIndex = 2;
             digimonListRookieTab.Text = "R";
             digimonListRookieTab.UseVisualStyleBackColor = true;
@@ -305,7 +307,7 @@
             digimonListChampionTab.Location = new Point(4, 24);
             digimonListChampionTab.Name = "digimonListChampionTab";
             digimonListChampionTab.Padding = new Padding(3);
-            digimonListChampionTab.Size = new Size(204, 242);
+            digimonListChampionTab.Size = new Size(125, 242);
             digimonListChampionTab.TabIndex = 3;
             digimonListChampionTab.Text = "C";
             digimonListChampionTab.UseVisualStyleBackColor = true;
@@ -315,7 +317,7 @@
             digimonListArmorTab.Location = new Point(4, 24);
             digimonListArmorTab.Name = "digimonListArmorTab";
             digimonListArmorTab.Padding = new Padding(3);
-            digimonListArmorTab.Size = new Size(204, 242);
+            digimonListArmorTab.Size = new Size(125, 242);
             digimonListArmorTab.TabIndex = 4;
             digimonListArmorTab.Text = "A";
             digimonListArmorTab.UseVisualStyleBackColor = true;
@@ -325,7 +327,7 @@
             digimonListUltimateTab.Location = new Point(4, 24);
             digimonListUltimateTab.Name = "digimonListUltimateTab";
             digimonListUltimateTab.Padding = new Padding(3);
-            digimonListUltimateTab.Size = new Size(204, 242);
+            digimonListUltimateTab.Size = new Size(125, 242);
             digimonListUltimateTab.TabIndex = 5;
             digimonListUltimateTab.Text = "U";
             digimonListUltimateTab.UseVisualStyleBackColor = true;
@@ -345,7 +347,7 @@
             digimonListUltraTab.Location = new Point(4, 24);
             digimonListUltraTab.Name = "digimonListUltraTab";
             digimonListUltraTab.Padding = new Padding(3);
-            digimonListUltraTab.Size = new Size(204, 242);
+            digimonListUltraTab.Size = new Size(125, 242);
             digimonListUltraTab.TabIndex = 7;
             digimonListUltraTab.Text = "U+";
             digimonListUltraTab.UseVisualStyleBackColor = true;
@@ -360,6 +362,13 @@
             logBox.ReadOnly = true;
             logBox.Size = new Size(800, 126);
             logBox.TabIndex = 1;
+            // 
+            // modFolderLocator
+            // 
+            modFolderLocator.AddToRecent = false;
+            modFolderLocator.RootFolder = Environment.SpecialFolder.MyComputer;
+            modFolderLocator.ShowNewFolderButton = false;
+            modFolderLocator.ShowPinnedPlaces = false;
             // 
             // Form1
             // 
@@ -424,5 +433,6 @@
         private TabPage digimonListUltimateTab;
         private TabPage digimonListMegaTab;
         private TabPage digimonListUltraTab;
+        private FolderBrowserDialog modFolderLocator;
     }
 }
