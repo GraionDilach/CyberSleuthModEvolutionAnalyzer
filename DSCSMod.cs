@@ -10,13 +10,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     internal class DSCSMod
     {
-        public string Name;
-        public string Description;
+        public readonly string Name;
 
-        string folder;
+        readonly string Version;
+        readonly string folder;
+
+        /*
+        string Description;
         string Author;
-        string Version;
         string Category;
+        */
 
         public DSCSMod(string modFolder)
         {
@@ -29,10 +32,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
                 folder = modFolder;
                 Name = dict["Name"];
+                Version = dict["Version"];
+                /*
                 Description = dict["Description"];
                 Author = dict["Author"];
-                Version = dict["Version"];
                 Category = dict["Category"];
+                */
             }
         }
 

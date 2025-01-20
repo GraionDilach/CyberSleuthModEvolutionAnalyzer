@@ -423,6 +423,7 @@
             logBox.Multiline = true;
             logBox.Name = "logBox";
             logBox.ReadOnly = true;
+            logBox.ScrollBars = ScrollBars.Vertical;
             logBox.Size = new Size(865, 126);
             logBox.TabIndex = 1;
             // 
