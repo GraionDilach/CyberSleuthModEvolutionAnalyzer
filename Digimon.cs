@@ -12,5 +12,10 @@
             Name = name;
             Level = level;
         }
+        public Digimon()
+        {
+            Name = "TEMP";
+            Level = -1;
+        }
     }
 }

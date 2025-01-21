@@ -13,10 +13,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void modsLocationBrowser_Click(object sender, EventArgs e)
         {
             modList.Visible = false;
+            dscsMods.Clear();
+            digimons.Clear();
             DialogResult result = modFolderLocator.ShowDialog();
             if (result == DialogResult.OK)
             {
-                dscsMods.Clear();
                 var potentialMods = Directory.GetDirectories(modFolderLocator.SelectedPath);
                 foreach (var potentialMod in potentialMods)
                 {
@@ -102,6 +103,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void modLoaderButton_Click(object sender, EventArgs e)
         {
+            digimonListWrapper.Visible = false;
+            digimons.Clear();
             HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
             var checkedItems = new HashSet<DSCSMod>();
             for (var i = 0; i < modListBox.Items.Count; i++)
@@ -118,6 +121,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Collected " + digimonIDs.Count + " digimons from all mods.");
 
+            foreach (var i in checkedItems)
+            {
+                var modDigimonData = i.CollectDigimonData(this, digimonIDs);
+            }
         }
     }
 }
