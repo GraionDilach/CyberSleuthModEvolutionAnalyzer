@@ -226,127 +226,126 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public void LoadDigimonEvolutions(Form1 form, HashSet<string> globalIDs, Dictionary<string, List<string>> digimonEvolutions)
         {
-            if (digimonIDs.Count == 0)
-            {
-                return;
-            }
-
             try
             {
                 #region evolution_next_para.mbe
-                using (var parser = new TextFieldParser(folder + @"\modfiles\data\evolution_next_para.mbe\digimon.csv"))
+                if (File.Exists(folder + @"\modfiles\data\evolution_next_para.mbe\digimon.csv"))
                 {
-                    parser.Delimiters = [","];
-                    parser.HasFieldsEnclosedInQuotes = true;
-                    bool readHeader = false;
-                    while (readHeader == false)
+                    using (var parser = new TextFieldParser(folder + @"\modfiles\data\evolution_next_para.mbe\digimon.csv"))
                     {
-                        var tableRow = parser.ReadFields()!;
-                        if (tableRow.Length == 0)
+                        parser.Delimiters = [","];
+                        parser.HasFieldsEnclosedInQuotes = true;
+                        bool readHeader = false;
+                        while (readHeader == false)
                         {
-                            throw new Exception();
-                        }
-                        readHeader = true;
-                    }
-                    while (!parser.EndOfData)
-                    {
-                        var tableRow = parser.ReadFields()!;
-                        if (!string.IsNullOrEmpty(tableRow[0]))
-                        {
-                            if (globalIDs.Contains(tableRow[0]))
+                            var tableRow = parser.ReadFields()!;
+                            if (tableRow.Length == 0)
                             {
-                                var evolutions = new List<string>();
-                                for (var i = 1; i < tableRow.Length; i++)
+                                throw new Exception();
+                            }
+                            readHeader = true;
+                        }
+                        while (!parser.EndOfData)
+                        {
+                            var tableRow = parser.ReadFields()!;
+                            if (!string.IsNullOrEmpty(tableRow[0]))
+                            {
+                                if (globalIDs.Contains(tableRow[0]))
                                 {
-                                    if (!int.TryParse(tableRow[i], out var numericDigimonID)
-                                        || numericDigimonID != 0)
+                                    var evolutions = new List<string>();
+                                    for (var i = 1; i < tableRow.Length; i++)
                                     {
-                                        if (!globalIDs.Contains(tableRow[i]))
+                                        if (!int.TryParse(tableRow[i], out var numericDigimonID)
+                                            || numericDigimonID != 0)
                                         {
-                                            form.LogMessage("Mod " + Name + " - " + tableRow[0] + ": Ignored unknown Digimon ID of evolution " + tableRow[i] + ", skipped...");
-                                        }
-                                        else
-                                        {
-                                            evolutions.Add(tableRow[i]);
+                                            if (!globalIDs.Contains(tableRow[i]))
+                                            {
+                                                form.LogMessage("Mod " + Name + " - " + tableRow[0] + ": Ignored unknown Digimon ID of evolution " + tableRow[i] + ", skipped...");
+                                            }
+                                            else
+                                            {
+                                                evolutions.Add(tableRow[i]);
+                                            }
                                         }
                                     }
-                                }
 
-                                // extend data of evolution if already loaded from prior
-                                if (!digimonEvolutions.ContainsKey(tableRow[0]))
-                                {
-                                    digimonEvolutions.Add(tableRow[0], evolutions);
+                                    // extend data of evolution if already loaded from prior
+                                    if (!digimonEvolutions.ContainsKey(tableRow[0]))
+                                    {
+                                        digimonEvolutions.Add(tableRow[0], evolutions);
+                                    }
+                                    else
+                                    {
+                                        digimonEvolutions[tableRow[0]] = digimonEvolutions[tableRow[0]].Concat(evolutions).Distinct().ToList();
+                                    }
                                 }
                                 else
                                 {
-                                    digimonEvolutions[tableRow[0]] = digimonEvolutions[tableRow[0]].Concat(evolutions).Distinct().ToList();
+                                    form.LogMessage("Mod " + Name + ": Ignored evolution data for unknown Digimon ID " + tableRow[0] + ", skipped...");
                                 }
-                            }
-                            else
-                            {
-                                form.LogMessage("Mod " + Name + ": Ignored evolution data for unknown Digimon ID " + tableRow[0] + ", skipped...");
                             }
                         }
                     }
-
                 }
                 #endregion
 
                 #region degeneration_para.mbe
-                using (var parser = new TextFieldParser(folder + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
+                if (File.Exists(folder + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
                 {
-                    parser.Delimiters = [","];
-                    parser.HasFieldsEnclosedInQuotes = true;
-                    bool readHeader = false;
-                    while (readHeader == false)
+                    using (var parser = new TextFieldParser(folder + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
                     {
-                        var tableRow = parser.ReadFields()!;
-                        if (tableRow.Length == 0)
+                        parser.Delimiters = [","];
+                        parser.HasFieldsEnclosedInQuotes = true;
+                        bool readHeader = false;
+                        while (readHeader == false)
                         {
-                            throw new Exception();
-                        }
-                        readHeader = true;
-                    }
-                    while (!parser.EndOfData)
-                    {
-                        var tableRow = parser.ReadFields()!;
-                        if (!string.IsNullOrEmpty(tableRow[0]))
-                        {
-                            if (globalIDs.Contains(tableRow[0]))
+                            var tableRow = parser.ReadFields()!;
+                            if (tableRow.Length == 0)
                             {
-                                for (var i = 1; i < tableRow.Length; i++)
+                                throw new Exception();
+                            }
+                            readHeader = true;
+                        }
+                        while (!parser.EndOfData)
+                        {
+                            var tableRow = parser.ReadFields()!;
+                            if (!string.IsNullOrEmpty(tableRow[0]))
+                            {
+                                if (globalIDs.Contains(tableRow[0]))
                                 {
-                                    if (!int.TryParse(tableRow[i], out var numericDigimonID)
-                                        || numericDigimonID != 0)
+                                    for (var i = 1; i < tableRow.Length; i++)
                                     {
-                                        if (!globalIDs.Contains(tableRow[i]))
+                                        if (!int.TryParse(tableRow[i], out var numericDigimonID)
+                                            || numericDigimonID != 0)
                                         {
-                                            form.LogMessage("Mod " + Name + " - " + tableRow[0] + ": Ignored unknown Digimon ID of devolution " + tableRow[i] + ", skipped...");
-                                        }
-                                        else
-                                        {
-                                            if (digimonEvolutions.ContainsKey(tableRow[i]))
+                                            if (!globalIDs.Contains(tableRow[i]))
                                             {
-                                                if (!digimonEvolutions[tableRow[i]].Contains(tableRow[0]))
-                                                {
-                                                    digimonEvolutions[tableRow[i]].Add(tableRow[0]);
-                                                }
+                                                form.LogMessage("Mod " + Name + " - " + tableRow[0] + ": Ignored unknown Digimon ID of devolution " + tableRow[i] + ", skipped...");
                                             }
                                             else
                                             {
-                                                digimonEvolutions.Add(tableRow[i], [tableRow[0]]);
+                                                if (digimonEvolutions.ContainsKey(tableRow[i]))
+                                                {
+                                                    if (!digimonEvolutions[tableRow[i]].Contains(tableRow[0]))
+                                                    {
+                                                        digimonEvolutions[tableRow[i]].Add(tableRow[0]);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    digimonEvolutions.Add(tableRow[i], [tableRow[0]]);
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                form.LogMessage("Mod " + Name + ": Ignored devolution data for unknown Digimon ID " + tableRow[0] + ", skipped...");
+                                else
+                                {
+                                    form.LogMessage("Mod " + Name + ": Ignored devolution data for unknown Digimon ID " + tableRow[0] + ", skipped...");
+                                }
                             }
                         }
                     }
-
                 }
                 #endregion
             }
