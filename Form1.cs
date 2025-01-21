@@ -34,7 +34,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                     catch (Exception)
                     {
-                        LogMessage("Failed to parse " + potentialMod + " folder as mod.");
+                        LogMessage("Failed to parse " + potentialMod + " folder as a DSCS mod.");
                     }
                 }
 
