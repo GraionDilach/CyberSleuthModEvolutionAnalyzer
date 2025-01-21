@@ -4,6 +4,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     {
         readonly List<DSCSMod> dscsMods = [];
         readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
 
         public Form1()
         {
@@ -123,7 +124,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, digimonIDs);
+                var modDigimonData = i.CollectDigimonData(this, digimonIDs, digimonEvolutions);
             }
         }
     }

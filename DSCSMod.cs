@@ -10,7 +10,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         readonly string Version;
         readonly string folder;
 
-        HashSet<string> digimonIDs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        readonly HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
 
         /*
         string Description;
@@ -85,7 +85,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             return digimonIDs;
         }
 
-        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, HashSet<string> globalIDs)
+        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, HashSet<string> globalIDs, Dictionary<string, List<string>> digimonEvolutions)
         {
             var digimonData = new Dictionary<string, Digimon>(StringComparer.OrdinalIgnoreCase);
 
@@ -99,7 +99,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             var digimonNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             var digimonLevels = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
             var digimonEvoConditions = new Dictionary<string, List<Tuple<int, string>>>(StringComparer.OrdinalIgnoreCase);
-            var digimonEvolutions = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
 
             try
             {
@@ -253,7 +252,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                 }
                             }
 
-                            // handle accidental duplicate evolution lines
+                            // extend data of evolution if already loaded from prior
                             if (!digimonEvolutions.ContainsKey(tableRow[0]))
                             {
                                 digimonEvolutions.Add(tableRow[0], evolutions);
