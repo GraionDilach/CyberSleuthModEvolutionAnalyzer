@@ -220,7 +220,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
             }
 
-            form.LogMessage("Loaded " + digimonData.Count + " digimons in " + Name + ".");
+            form.LogMessage("Loaded " + digimonData.Count + " digimons from " + Name + ".");
             return digimonData;
         }
 
@@ -352,7 +352,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             catch (Exception)
             {
-                form.LogMessage("Failed to parse Digimon evolutions from " + Name + ", skipped...");
+                form.LogMessage("Failed to parse Digimon evolution data from " + Name + ", skipped...");
             }
         }
     }
