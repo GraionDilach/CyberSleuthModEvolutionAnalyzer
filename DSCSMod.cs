@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Microsoft.VisualBasic.FileIO;
 using System.Text.Json;
 
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
@@ -44,6 +39,52 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         public override string ToString()
         {
             return Name + " (" + Version + ")";
+        }
+
+        public HashSet<string> CollectDigimonIDs(Form1 form)
+        {
+            var hashset = new HashSet<string>();
+            if (File.Exists(folder + @"\modfiles\data\digimon_list.mbe\digimon.csv"))
+            {
+                try
+                {
+                    using (var parser = new TextFieldParser(folder + @"\modfiles\data\digimon_list.mbe\digimon.csv"))
+                    {
+                        parser.Delimiters = [","];
+                        parser.HasFieldsEnclosedInQuotes = true;
+                        bool readHeader = false;
+                        while (readHeader == false)
+                        {
+                            var tableRow = parser.ReadFields()!;
+                            if (tableRow.Length == 0)
+                            {
+                                throw new Exception();
+                            }
+                            readHeader = true;
+                        }
+                        while (!parser.EndOfData)
+                        {
+                            var tableRow = parser.ReadFields()!;
+                            if (!string.IsNullOrEmpty(tableRow[0]))
+                            {
+                                hashset.Add(tableRow[0]);
+                            }
+                        }
+
+                        form.LogMessage("Detected " + hashset.Count + " digimons in " + Name + ".");
+                    }
+                }
+                catch (Exception)
+                {
+                    form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
+                }
+            }
+            else
+            {
+                form.LogMessage("Mod " + Name + " lacks Digimon data, skipped...");
+            }
+
+            return hashset;
         }
     }
 }

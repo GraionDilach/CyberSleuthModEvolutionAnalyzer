@@ -252,6 +252,7 @@
             modLoaderButton.TabIndex = 0;
             modLoaderButton.Text = "Load Mod Data";
             modLoaderButton.UseVisualStyleBackColor = true;
+            modLoaderButton.Click += modLoaderButton_Click;
             // 
             // digimonListWrapper
             // 

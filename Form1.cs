@@ -1,11 +1,9 @@
-using System.IO;
-using System.Windows.Forms;
-
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
     {
         readonly List<DSCSMod> dscsMods = [];
+        readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
 
         public Form1()
         {
@@ -68,7 +66,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             if (index != selectedIndex)
             {
                 var checkedItems = new HashSet<DSCSMod>();
-                for (int i = 0; i < modListBox.Items.Count; i++)
+                for (var i = 0; i < modListBox.Items.Count; i++)
                 {
                     if (modListBox.GetItemChecked(i))
                     {
@@ -81,7 +79,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 modListBox.DataSource = null;
                 modListBox.DataSource = dscsMods;
                 modListBox.SelectedIndex = index;
-                for (int i = 0; i < modListBox.Items.Count; i++)
+                for (var i = 0; i < modListBox.Items.Count; i++)
                 {
                     if (checkedItems.Contains(dscsMods[i]))
                     {
@@ -100,6 +98,26 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             if (modListBox.SelectedItem == null) return;
             modListBox.DoDragDrop(modListBox.SelectedItem, DragDropEffects.Move);
+        }
+
+        private void modLoaderButton_Click(object sender, EventArgs e)
+        {
+            HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
+            var checkedItems = new HashSet<DSCSMod>();
+            for (var i = 0; i < modListBox.Items.Count; i++)
+            {
+                if (modListBox.GetItemChecked(i))
+                {
+                    checkedItems.Add(dscsMods[i]);
+                }
+            }
+            foreach (var i in checkedItems)
+            {
+                var modDigimonIDs = i.CollectDigimonIDs(this);
+                digimonIDs.UnionWith(modDigimonIDs);
+            }
+            LogMessage("Collected " + digimonIDs.Count + " digimons from all mods.");
+
         }
     }
 }
