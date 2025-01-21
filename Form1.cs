@@ -141,7 +141,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                i.LoadDigimonEvolutions(this, digimonIDs, digimonEvolutions);
+                i.LoadDigimonEvolutions(this, digimons.Keys.ToHashSet(StringComparer.OrdinalIgnoreCase), digimonEvolutions);
             }
         }
     }

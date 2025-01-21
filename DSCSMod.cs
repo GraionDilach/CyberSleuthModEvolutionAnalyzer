@@ -220,6 +220,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
             }
 
+            foreach (var id in digimonIDs)
+            {
+                if (digimonNames.ContainsKey(id)
+                    && digimonLevels.ContainsKey(id))
+                {
+                    digimonEvoConditions.TryGetValue(id, out var evoCondition);
+                    var digimon = new Digimon(digimonNames[id], digimonLevels[id], evoCondition!);
+                    digimonData.Add(id, digimon);
+                }
+            }
+
             form.LogMessage("Loaded " + digimonData.Count + " digimons from " + Name + ".");
             return digimonData;
         }
