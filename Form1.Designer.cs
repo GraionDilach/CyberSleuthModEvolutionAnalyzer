@@ -197,6 +197,7 @@
             modList.Size = new Size(136, 309);
             modList.SplitterDistance = 25;
             modList.TabIndex = 0;
+            modList.Visible = false;
             // 
             // modListLabel
             // 
@@ -269,6 +270,7 @@
             digimonListWrapper.Size = new Size(725, 309);
             digimonListWrapper.SplitterDistance = 301;
             digimonListWrapper.TabIndex = 0;
+            digimonListWrapper.Visible = false;
             // 
             // digimonList
             // 

@@ -14,6 +14,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void modsLocationBrowser_Click(object sender, EventArgs e)
         {
+            modList.Visible = false;
             DialogResult result = modFolderLocator.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -36,8 +37,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         LogMessage("Failed to parse " + potentialMod + " folder as mod.");
                     }
                 }
-                modsLocation.Text = modFolderLocator.SelectedPath;
-                modListBox.DataSource = dscsMods;
+                if (dscsMods.Count > 0)
+                {
+                    modList.Visible = true;
+                    modsLocation.Text = modFolderLocator.SelectedPath;
+                    modListBox.DataSource = dscsMods;
+                    LogMessage("Detected " + dscsMods.Count + " mods.");
+                }
             }
         }
 
