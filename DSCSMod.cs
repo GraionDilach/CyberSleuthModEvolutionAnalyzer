@@ -69,7 +69,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             }
                         }
 
-                        form.LogMessage("Detected " + digimonIDs.Count + " digimons in " + Name + ".");
+                        form.LogMessage("Found information about " + digimonIDs.Count + " digimons in " + Name + ".");
                     }
                 }
                 catch (Exception)
@@ -85,7 +85,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             return digimonIDs;
         }
 
-        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, HashSet<string> globalIDs, Dictionary<string, List<string>> digimonEvolutions)
+        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, HashSet<string> globalIDs)
         {
             var digimonData = new Dictionary<string, Digimon>(StringComparer.OrdinalIgnoreCase);
 
@@ -214,7 +214,25 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 }
                 #endregion
+            }
+            catch (Exception)
+            {
+                form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
+            }
 
+            form.LogMessage("Loaded " + digimonData.Count + " digimons in " + Name + ".");
+            return digimonData;
+        }
+
+        public void LoadDigimonEvolutions(Form1 form, HashSet<string> globalIDs, Dictionary<string, List<string>> digimonEvolutions)
+        {
+            if (digimonIDs.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
                 #region evolution_next_para.mbe
                 using (var parser = new TextFieldParser(folder + @"\modfiles\data\evolution_next_para.mbe\digimon.csv"))
                 {
@@ -269,11 +287,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             catch (Exception)
             {
-                form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
+                form.LogMessage("Failed to parse Digimon evolutions from " + Name + ", skipped...");
             }
-
-
-            return digimonData;
         }
     }
 }

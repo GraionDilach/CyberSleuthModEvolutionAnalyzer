@@ -120,11 +120,28 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var modDigimonIDs = i.CollectDigimonIDs(this);
                 digimonIDs.UnionWith(modDigimonIDs);
             }
-            LogMessage("Collected " + digimonIDs.Count + " digimons from all mods.");
+            LogMessage("Found information about " + digimonIDs.Count + " digimons from all mods.");
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, digimonIDs, digimonEvolutions);
+                var modDigimonData = i.CollectDigimonData(this, digimonIDs);
+                foreach (var item in modDigimonData.Keys)
+                {
+                    if (!digimons.ContainsKey(item))
+                    {
+                        digimons.Add(item, modDigimonData[item]);
+                    }
+                    else
+                    {
+                        digimons[item] = modDigimonData[item];
+                    }
+                }
+            }
+            LogMessage("Loaded " + digimons.Count + " digimons from all mods.");
+
+            foreach (var i in checkedItems)
+            {
+                i.LoadDigimonEvolutions(this, digimonIDs, digimonEvolutions);
             }
         }
     }
