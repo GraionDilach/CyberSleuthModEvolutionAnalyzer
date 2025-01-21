@@ -4,8 +4,6 @@
     {
         public readonly string Name;
         public readonly int Level;
-        public readonly HashSet<string> Preevolutions = new();
-        public readonly HashSet<string> Evolutions = new();
 
         public Digimon(string name, int level)
         {
