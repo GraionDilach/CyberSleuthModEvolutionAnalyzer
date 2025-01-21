@@ -37,13 +37,15 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         LogMessage("Failed to parse " + potentialMod + " folder as mod.");
                     }
                 }
+
                 if (dscsMods.Count > 0)
                 {
                     modList.Visible = true;
                     modsLocation.Text = modFolderLocator.SelectedPath;
                     modListBox.DataSource = dscsMods;
-                    LogMessage("Detected " + dscsMods.Count + " mods.");
                 }
+
+                LogMessage("Detected " + dscsMods.Count + " mods.");
             }
         }
 
