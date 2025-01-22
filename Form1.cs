@@ -107,7 +107,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonListWrapper.Visible = false;
             digimons.Clear();
             HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
-            var checkedItems = new HashSet<DSCSMod>();
+            var checkedItems = new List<DSCSMod>();
             for (var i = 0; i < modListBox.Items.Count; i++)
             {
                 if (modListBox.GetItemChecked(i))
@@ -124,7 +124,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, digimonIDs);
+                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i), digimonIDs);
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
@@ -143,6 +143,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 i.LoadDigimonEvolutions(this, digimons.Keys.ToHashSet(StringComparer.OrdinalIgnoreCase), digimonEvolutions);
             }
+
+            LogMessage("Loaded evolution records for " + digimonEvolutions.Count + " digimons from all mods.");
+            digimonListWrapper.Visible = true;
         }
     }
 }

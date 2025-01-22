@@ -85,7 +85,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             return digimonIDs;
         }
 
-        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, HashSet<string> globalIDs)
+        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, int modIndex, HashSet<string> globalIDs)
         {
             var digimonData = new Dictionary<string, Digimon>(StringComparer.OrdinalIgnoreCase);
 
@@ -226,7 +226,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     && digimonLevels.ContainsKey(id))
                 {
                     digimonEvoConditions.TryGetValue(id, out var evoCondition);
-                    var digimon = new Digimon(digimonNames[id], digimonLevels[id], evoCondition!);
+                    var digimon = new Digimon(id, digimonNames[id], digimonLevels[id], modIndex, evoCondition!);
                     digimonData.Add(id, digimon);
                 }
             }
