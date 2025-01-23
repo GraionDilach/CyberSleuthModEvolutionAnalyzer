@@ -306,6 +306,7 @@
             digimonList.SelectedIndex = 0;
             digimonList.Size = new Size(301, 309);
             digimonList.TabIndex = 0;
+            digimonList.SelectedIndexChanged += digimonList_SelectedTabIndexChanged;
             // 
             // digimonListInTraining1Tab
             // 
@@ -328,6 +329,7 @@
             digimonInTraining1List.Name = "digimonInTraining1List";
             digimonInTraining1List.Size = new Size(287, 275);
             digimonInTraining1List.TabIndex = 0;
+            digimonInTraining1List.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListInTraining2Tab
             // 
@@ -350,6 +352,7 @@
             digimonInTraining2List.Name = "digimonInTraining2List";
             digimonInTraining2List.Size = new Size(287, 275);
             digimonInTraining2List.TabIndex = 0;
+            digimonInTraining2List.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListRookieTab
             // 
@@ -371,6 +374,7 @@
             digimonRookieList.Name = "digimonRookieList";
             digimonRookieList.Size = new Size(287, 275);
             digimonRookieList.TabIndex = 0;
+            digimonRookieList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListChampionTab
             // 
@@ -392,6 +396,7 @@
             digimonChampionList.Name = "digimonChampionList";
             digimonChampionList.Size = new Size(287, 275);
             digimonChampionList.TabIndex = 0;
+            digimonChampionList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListArmorTab
             // 
@@ -413,6 +418,7 @@
             digimonArmorList.Name = "digimonArmorList";
             digimonArmorList.Size = new Size(287, 275);
             digimonArmorList.TabIndex = 0;
+            digimonArmorList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListUltimateTab
             // 
@@ -434,6 +440,7 @@
             digimonUltimateList.Name = "digimonUltimateList";
             digimonUltimateList.Size = new Size(287, 275);
             digimonUltimateList.TabIndex = 0;
+            digimonUltimateList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListMegaTab
             // 
@@ -455,6 +462,7 @@
             digimonMegaList.Name = "digimonMegaList";
             digimonMegaList.Size = new Size(287, 275);
             digimonMegaList.TabIndex = 0;
+            digimonMegaList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListUltraTab
             // 
@@ -476,6 +484,7 @@
             digimonUltraList.Name = "digimonUltraList";
             digimonUltraList.Size = new Size(287, 275);
             digimonUltraList.TabIndex = 0;
+            digimonUltraList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonDataContainer
             // 
@@ -497,12 +506,11 @@
             // 
             // digimonName
             // 
-            digimonName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            digimonName.AutoSize = true;
+            digimonName.Dock = DockStyle.Fill;
             digimonName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            digimonName.Location = new Point(158, 5);
+            digimonName.Location = new Point(0, 0);
             digimonName.Name = "digimonName";
-            digimonName.Size = new Size(77, 21);
+            digimonName.Size = new Size(420, 29);
             digimonName.TabIndex = 0;
             digimonName.Text = "Digimon";
             digimonName.TextAlign = ContentAlignment.MiddleCenter;
@@ -586,7 +594,6 @@
             digimonListMegaTab.ResumeLayout(false);
             digimonListUltraTab.ResumeLayout(false);
             digimonDataContainer.Panel1.ResumeLayout(false);
-            digimonDataContainer.Panel1.PerformLayout();
             digimonDataContainer.Panel2.ResumeLayout(false);
             digimonDataContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)digimonDataContainer).EndInit();
