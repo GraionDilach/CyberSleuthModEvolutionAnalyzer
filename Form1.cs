@@ -13,6 +13,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         readonly List<Digimon> monUltraList = new();
         readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
 
         public Form1()
         {
@@ -130,6 +131,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             monUltimateList.Clear();
             monMegaList.Clear();
             monUltraList.Clear();
+            digimonEvolutions.Clear();
+            digimonDevolutions.Clear();
             HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
             var checkedItems = new List<DSCSMod>();
             for (var i = 0; i < modListBox.Items.Count; i++)
@@ -169,6 +172,22 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
 
             LogMessage("Loaded evolution records for " + digimonEvolutions.Count + " digimons from all mods.");
+
+            foreach(var mon in digimonEvolutions.Keys)
+            {
+                foreach (var evomon in digimonEvolutions[mon])
+                {
+                    if (digimonDevolutions.ContainsKey(evomon))
+                    {
+                        digimonDevolutions[evomon].Add(mon);
+                    }
+                    else
+                    {
+                        digimonDevolutions.Add(evomon, [mon]);
+                    }
+                }
+            }
+            LogMessage("Generated devolution records for " + digimonDevolutions.Count + " digimons from all mods.");
 
             monInTraining1List.AddRange(digimons.Values.Where(x => x.Level == 1).ToList());
             monInTraining1List.Sort();
