@@ -63,6 +63,7 @@
             digimonDataPanel = new TableLayoutPanel();
             logBox = new TextBox();
             modFolderLocator = new FolderBrowserDialog();
+            aboutLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)folderRoot).BeginInit();
             folderRoot.Panel1.SuspendLayout();
             folderRoot.Panel2.SuspendLayout();
@@ -112,6 +113,7 @@
             // 
             // folderRoot.Panel1
             // 
+            folderRoot.Panel1.Controls.Add(aboutLabel);
             folderRoot.Panel1.Controls.Add(modGenerator);
             folderRoot.Panel1.Controls.Add(modsLocationBrowser);
             folderRoot.Panel1.Controls.Add(modsLocationLabel);
@@ -549,6 +551,17 @@
             modFolderLocator.ShowNewFolderButton = false;
             modFolderLocator.ShowPinnedPlaces = false;
             // 
+            // aboutLabel
+            // 
+            aboutLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            aboutLabel.AutoSize = true;
+            aboutLabel.ForeColor = SystemColors.HotTrack;
+            aboutLabel.Location = new Point(813, 3);
+            aboutLabel.Name = "aboutLabel";
+            aboutLabel.Size = new Size(49, 15);
+            aboutLabel.TabIndex = 4;
+            aboutLabel.Text = "About...";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -637,5 +650,6 @@
         private ListBox digimonUltimateList;
         private ListBox digimonMegaList;
         private ListBox digimonUltraList;
+        private Label aboutLabel;
     }
 }
