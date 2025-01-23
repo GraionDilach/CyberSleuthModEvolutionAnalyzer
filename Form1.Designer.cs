@@ -146,7 +146,7 @@
             // modsLocationLabel
             // 
             modsLocationLabel.AutoSize = true;
-            modsLocationLabel.Location = new Point(3, 3);
+            modsLocationLabel.Location = new Point(0, 3);
             modsLocationLabel.Name = "modsLocationLabel";
             modsLocationLabel.Size = new Size(295, 15);
             modsLocationLabel.TabIndex = 1;
@@ -572,7 +572,6 @@
             ((System.ComponentModel.ISupportInitialize)modData).EndInit();
             modData.ResumeLayout(false);
             modList.Panel1.ResumeLayout(false);
-            modList.Panel1.PerformLayout();
             modList.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)modList).EndInit();
             modList.ResumeLayout(false);
