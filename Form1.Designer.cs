@@ -545,7 +545,7 @@
             // 
             // digimonName
             // 
-            digimonName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            digimonName.Dock = DockStyle.Fill;
             digimonName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             digimonName.Location = new Point(0, 0);
             digimonName.Name = "digimonName";
