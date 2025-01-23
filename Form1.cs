@@ -433,12 +433,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void digimonDeEvo_SelectedDigimonChanged(object sender, EventArgs e)
         {
-            if (!digimonDataContainer.Visible)
-            {
-                return;
-            }
-
-            if (selectedDigimon != null)
+            if (digimonDataContainer.Visible && selectedDigimon != null)
             {
                 var updatedList = new List<string>();
                 for (int i = 0; i < deevos.Length; i++)
@@ -457,9 +452,29 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 {
                     digimonDevolutions.Add(selectedDigimon.ID, updatedList);
                 }
-            }
 
-            UpdateSelectedDigimon();
+                /*
+                var tempEvos = digimonEvolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
+                foreach (var evo in tempEvos)
+                {
+                    if (updatedList.Contains(evo.Key))
+                    {
+                        updatedList.Remove(evo.Key);
+                    }
+                    else
+                    {
+                        digimonEvolutions[evo.Key].Remove(selectedDigimon.ID);
+                    }
+                }
+
+                if (updatedList.Count == 1)
+                {
+                    digimonEvolutions[updatedList[0]].Add(selectedDigimon.ID);
+                }
+                */
+
+                UpdateSelectedDigimon();
+            }
         }
     }
 }
