@@ -350,12 +350,23 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
                 else
                 {
-                    digimonName.Text = String.Empty;
-                    for (var i = 0; i < deevos.Length; i++)
+                    deevos[0].SelectedDigimon = new Digimon();
+                    deevos[0].Visible = true;
+
+                    for (var i = 1; i < deevos.Length; i++)
                     {
                         deevos[i].SelectedDigimon = new Digimon();
                         deevos[i].Visible = false;
                     }
+                }
+            }
+            else
+            {
+                digimonName.Text = String.Empty;
+                for (var i = 0; i < deevos.Length; i++)
+                {
+                    deevos[i].SelectedDigimon = new Digimon();
+                    deevos[i].Visible = false;
                 }
             }
         }
