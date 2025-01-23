@@ -3,6 +3,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     public partial class Form1 : Form
     {
         readonly List<DSCSMod> dscsMods = [];
+        readonly List<Digimon> monInTraining1List = new();
+        readonly List<Digimon> monInTraining2List = new();
+        readonly List<Digimon> monRookieList = new();
+        readonly List<Digimon> monChampionList = new();
+        readonly List<Digimon> monArmorList = new();
+        readonly List<Digimon> monUltimateList = new();
+        readonly List<Digimon> monMegaList = new();
+        readonly List<Digimon> monUltraList = new();
         readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
 
@@ -16,6 +24,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             modList.Visible = false;
             dscsMods.Clear();
             digimons.Clear();
+            monInTraining1List.Clear();
+            monInTraining2List.Clear();
+            monRookieList.Clear();
+            monChampionList.Clear();
+            monArmorList.Clear();
+            monUltimateList.Clear();
+            monMegaList.Clear();
+            monUltraList.Clear();
             DialogResult result = modFolderLocator.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -106,6 +122,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             digimonListWrapper.Visible = false;
             digimons.Clear();
+            monInTraining1List.Clear();
+            monInTraining2List.Clear();
+            monRookieList.Clear();
+            monChampionList.Clear();
+            monArmorList.Clear();
+            monUltimateList.Clear();
+            monMegaList.Clear();
+            monUltraList.Clear();
             HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
             var checkedItems = new List<DSCSMod>();
             for (var i = 0; i < modListBox.Items.Count; i++)
@@ -145,6 +169,32 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
 
             LogMessage("Loaded evolution records for " + digimonEvolutions.Count + " digimons from all mods.");
+
+            monInTraining1List.AddRange(digimons.Values.Where(x => x.Level == 1).ToList());
+            monInTraining1List.Sort();
+            digimonInTraining1List.DataSource = monInTraining1List;
+            monInTraining2List.AddRange(digimons.Values.Where(x => x.Level == 2).ToList());
+            monInTraining2List.Sort();
+            digimonInTraining2List.DataSource = monInTraining2List;
+            monRookieList.AddRange(digimons.Values.Where(x => x.Level == 3).ToList());
+            monRookieList.Sort();
+            digimonRookieList.DataSource = monRookieList;
+            monChampionList.AddRange(digimons.Values.Where(x => x.Level == 4).ToList());
+            monChampionList.Sort();
+            digimonChampionList.DataSource = monChampionList;
+            monUltimateList.AddRange(digimons.Values.Where(x => x.Level == 5).ToList());
+            monUltimateList.Sort();
+            digimonUltimateList.DataSource = monUltimateList;
+            monMegaList.AddRange(digimons.Values.Where(x => x.Level == 6).ToList());
+            monMegaList.Sort();
+            digimonMegaList.DataSource = monMegaList;
+            monUltraList.AddRange(digimons.Values.Where(x => x.Level == 7).ToList());
+            monUltraList.Sort();
+            digimonUltraList.DataSource = monUltraList;
+            monArmorList.AddRange(digimons.Values.Where(x => x.Level == 8).ToList());
+            monArmorList.Sort();
+            digimonArmorList.DataSource = monArmorList;
+
             digimonListWrapper.Visible = true;
         }
     }

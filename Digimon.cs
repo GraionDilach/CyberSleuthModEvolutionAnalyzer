@@ -52,12 +52,12 @@
 
             if (digimon.ModIndex < ModIndex)
             {
-                return -1;
+                return 1;
             }
 
             if (digimon.ModIndex > ModIndex)
             {
-                return 1;
+                return -1;
             }
 
             return (string.Compare(Name, digimon.Name));

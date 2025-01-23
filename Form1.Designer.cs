@@ -43,13 +43,21 @@
             digimonListWrapper = new SplitContainer();
             digimonList = new TabControl();
             digimonListInTraining1Tab = new TabPage();
+            digimonInTraining1List = new ListBox();
             digimonListInTraining2Tab = new TabPage();
+            digimonInTraining2List = new ListBox();
             digimonListRookieTab = new TabPage();
+            digimonRookieList = new ListBox();
             digimonListChampionTab = new TabPage();
+            digimonChampionList = new ListBox();
             digimonListArmorTab = new TabPage();
+            digimonArmorList = new ListBox();
             digimonListUltimateTab = new TabPage();
+            digimonUltimateList = new ListBox();
             digimonListMegaTab = new TabPage();
+            digimonMegaList = new ListBox();
             digimonListUltraTab = new TabPage();
+            digimonUltraList = new ListBox();
             digimonDataContainer = new SplitContainer();
             digimonName = new Label();
             digimonDataPanel = new TableLayoutPanel();
@@ -80,6 +88,14 @@
             digimonListWrapper.Panel2.SuspendLayout();
             digimonListWrapper.SuspendLayout();
             digimonList.SuspendLayout();
+            digimonListInTraining1Tab.SuspendLayout();
+            digimonListInTraining2Tab.SuspendLayout();
+            digimonListRookieTab.SuspendLayout();
+            digimonListChampionTab.SuspendLayout();
+            digimonListArmorTab.SuspendLayout();
+            digimonListUltimateTab.SuspendLayout();
+            digimonListMegaTab.SuspendLayout();
+            digimonListUltraTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)digimonDataContainer).BeginInit();
             digimonDataContainer.Panel1.SuspendLayout();
             digimonDataContainer.Panel2.SuspendLayout();
@@ -294,6 +310,7 @@
             // digimonListInTraining1Tab
             // 
             digimonListInTraining1Tab.AutoScroll = true;
+            digimonListInTraining1Tab.Controls.Add(digimonInTraining1List);
             digimonListInTraining1Tab.Location = new Point(4, 24);
             digimonListInTraining1Tab.Name = "digimonListInTraining1Tab";
             digimonListInTraining1Tab.Padding = new Padding(3);
@@ -302,9 +319,20 @@
             digimonListInTraining1Tab.Text = "IT1";
             digimonListInTraining1Tab.UseVisualStyleBackColor = true;
             // 
+            // digimonInTraining1List
+            // 
+            digimonInTraining1List.Dock = DockStyle.Fill;
+            digimonInTraining1List.FormattingEnabled = true;
+            digimonInTraining1List.ItemHeight = 15;
+            digimonInTraining1List.Location = new Point(3, 3);
+            digimonInTraining1List.Name = "digimonInTraining1List";
+            digimonInTraining1List.Size = new Size(287, 275);
+            digimonInTraining1List.TabIndex = 0;
+            // 
             // digimonListInTraining2Tab
             // 
             digimonListInTraining2Tab.AutoScroll = true;
+            digimonListInTraining2Tab.Controls.Add(digimonInTraining2List);
             digimonListInTraining2Tab.Location = new Point(4, 24);
             digimonListInTraining2Tab.Name = "digimonListInTraining2Tab";
             digimonListInTraining2Tab.Padding = new Padding(3);
@@ -313,8 +341,19 @@
             digimonListInTraining2Tab.Text = "IT2";
             digimonListInTraining2Tab.UseVisualStyleBackColor = true;
             // 
+            // digimonInTraining2List
+            // 
+            digimonInTraining2List.Dock = DockStyle.Fill;
+            digimonInTraining2List.FormattingEnabled = true;
+            digimonInTraining2List.ItemHeight = 15;
+            digimonInTraining2List.Location = new Point(3, 3);
+            digimonInTraining2List.Name = "digimonInTraining2List";
+            digimonInTraining2List.Size = new Size(287, 275);
+            digimonInTraining2List.TabIndex = 0;
+            // 
             // digimonListRookieTab
             // 
+            digimonListRookieTab.Controls.Add(digimonRookieList);
             digimonListRookieTab.Location = new Point(4, 24);
             digimonListRookieTab.Name = "digimonListRookieTab";
             digimonListRookieTab.Padding = new Padding(3);
@@ -323,8 +362,19 @@
             digimonListRookieTab.Text = "R";
             digimonListRookieTab.UseVisualStyleBackColor = true;
             // 
+            // digimonRookieList
+            // 
+            digimonRookieList.Dock = DockStyle.Fill;
+            digimonRookieList.FormattingEnabled = true;
+            digimonRookieList.ItemHeight = 15;
+            digimonRookieList.Location = new Point(3, 3);
+            digimonRookieList.Name = "digimonRookieList";
+            digimonRookieList.Size = new Size(287, 275);
+            digimonRookieList.TabIndex = 0;
+            // 
             // digimonListChampionTab
             // 
+            digimonListChampionTab.Controls.Add(digimonChampionList);
             digimonListChampionTab.Location = new Point(4, 24);
             digimonListChampionTab.Name = "digimonListChampionTab";
             digimonListChampionTab.Padding = new Padding(3);
@@ -333,8 +383,19 @@
             digimonListChampionTab.Text = "C";
             digimonListChampionTab.UseVisualStyleBackColor = true;
             // 
+            // digimonChampionList
+            // 
+            digimonChampionList.Dock = DockStyle.Fill;
+            digimonChampionList.FormattingEnabled = true;
+            digimonChampionList.ItemHeight = 15;
+            digimonChampionList.Location = new Point(3, 3);
+            digimonChampionList.Name = "digimonChampionList";
+            digimonChampionList.Size = new Size(287, 275);
+            digimonChampionList.TabIndex = 0;
+            // 
             // digimonListArmorTab
             // 
+            digimonListArmorTab.Controls.Add(digimonArmorList);
             digimonListArmorTab.Location = new Point(4, 24);
             digimonListArmorTab.Name = "digimonListArmorTab";
             digimonListArmorTab.Padding = new Padding(3);
@@ -343,8 +404,19 @@
             digimonListArmorTab.Text = "A";
             digimonListArmorTab.UseVisualStyleBackColor = true;
             // 
+            // digimonArmorList
+            // 
+            digimonArmorList.Dock = DockStyle.Fill;
+            digimonArmorList.FormattingEnabled = true;
+            digimonArmorList.ItemHeight = 15;
+            digimonArmorList.Location = new Point(3, 3);
+            digimonArmorList.Name = "digimonArmorList";
+            digimonArmorList.Size = new Size(287, 275);
+            digimonArmorList.TabIndex = 0;
+            // 
             // digimonListUltimateTab
             // 
+            digimonListUltimateTab.Controls.Add(digimonUltimateList);
             digimonListUltimateTab.Location = new Point(4, 24);
             digimonListUltimateTab.Name = "digimonListUltimateTab";
             digimonListUltimateTab.Padding = new Padding(3);
@@ -353,8 +425,19 @@
             digimonListUltimateTab.Text = "U";
             digimonListUltimateTab.UseVisualStyleBackColor = true;
             // 
+            // digimonUltimateList
+            // 
+            digimonUltimateList.Dock = DockStyle.Fill;
+            digimonUltimateList.FormattingEnabled = true;
+            digimonUltimateList.ItemHeight = 15;
+            digimonUltimateList.Location = new Point(3, 3);
+            digimonUltimateList.Name = "digimonUltimateList";
+            digimonUltimateList.Size = new Size(287, 275);
+            digimonUltimateList.TabIndex = 0;
+            // 
             // digimonListMegaTab
             // 
+            digimonListMegaTab.Controls.Add(digimonMegaList);
             digimonListMegaTab.Location = new Point(4, 24);
             digimonListMegaTab.Name = "digimonListMegaTab";
             digimonListMegaTab.Padding = new Padding(3);
@@ -363,8 +446,19 @@
             digimonListMegaTab.Text = "M";
             digimonListMegaTab.UseVisualStyleBackColor = true;
             // 
+            // digimonMegaList
+            // 
+            digimonMegaList.Dock = DockStyle.Fill;
+            digimonMegaList.FormattingEnabled = true;
+            digimonMegaList.ItemHeight = 15;
+            digimonMegaList.Location = new Point(3, 3);
+            digimonMegaList.Name = "digimonMegaList";
+            digimonMegaList.Size = new Size(287, 275);
+            digimonMegaList.TabIndex = 0;
+            // 
             // digimonListUltraTab
             // 
+            digimonListUltraTab.Controls.Add(digimonUltraList);
             digimonListUltraTab.Location = new Point(4, 24);
             digimonListUltraTab.Name = "digimonListUltraTab";
             digimonListUltraTab.Padding = new Padding(3);
@@ -372,6 +466,16 @@
             digimonListUltraTab.TabIndex = 7;
             digimonListUltraTab.Text = "U+";
             digimonListUltraTab.UseVisualStyleBackColor = true;
+            // 
+            // digimonUltraList
+            // 
+            digimonUltraList.Dock = DockStyle.Fill;
+            digimonUltraList.FormattingEnabled = true;
+            digimonUltraList.ItemHeight = 15;
+            digimonUltraList.Location = new Point(3, 3);
+            digimonUltraList.Name = "digimonUltraList";
+            digimonUltraList.Size = new Size(287, 275);
+            digimonUltraList.TabIndex = 0;
             // 
             // digimonDataContainer
             // 
@@ -473,6 +577,14 @@
             ((System.ComponentModel.ISupportInitialize)digimonListWrapper).EndInit();
             digimonListWrapper.ResumeLayout(false);
             digimonList.ResumeLayout(false);
+            digimonListInTraining1Tab.ResumeLayout(false);
+            digimonListInTraining2Tab.ResumeLayout(false);
+            digimonListRookieTab.ResumeLayout(false);
+            digimonListChampionTab.ResumeLayout(false);
+            digimonListArmorTab.ResumeLayout(false);
+            digimonListUltimateTab.ResumeLayout(false);
+            digimonListMegaTab.ResumeLayout(false);
+            digimonListUltraTab.ResumeLayout(false);
             digimonDataContainer.Panel1.ResumeLayout(false);
             digimonDataContainer.Panel1.PerformLayout();
             digimonDataContainer.Panel2.ResumeLayout(false);
@@ -511,5 +623,13 @@
         private SplitContainer digimonDataContainer;
         private TableLayoutPanel digimonDataPanel;
         private Label digimonName;
+        private ListBox digimonInTraining1List;
+        private ListBox digimonInTraining2List;
+        private ListBox digimonRookieList;
+        private ListBox digimonChampionList;
+        private ListBox digimonArmorList;
+        private ListBox digimonUltimateList;
+        private ListBox digimonMegaList;
+        private ListBox digimonUltraList;
     }
 }
