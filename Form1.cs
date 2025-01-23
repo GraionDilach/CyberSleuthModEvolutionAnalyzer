@@ -491,7 +491,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var updatedList = new List<string>();
                 for (int i = 0; i < deevos.Length; i++)
                 {
-                    if (deevos[i].SelectedIndex > -1)
+                    if (deevos[i].SelectedDigimon != null)
                     {
                         updatedList.Add(deevos[i].SelectedDigimon.ID);
                     }
@@ -499,11 +499,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
                 {
-                    digimonDevolutions[selectedDigimon.ID] = new List<string>(updatedList);
+                    digimonDevolutions[selectedDigimon.ID] = new List<string>(updatedList.Distinct());
                 }
                 else
                 {
-                    digimonDevolutions.Add(selectedDigimon.ID, new List<string>(updatedList));
+                    digimonDevolutions.Add(selectedDigimon.ID, new List<string>(updatedList.Distinct()));
                 }
 
                 var tempEvos = digimonEvolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
@@ -544,7 +544,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var updatedList = new List<string>();
                 for (int i = 0; i < evos.Length; i++)
                 {
-                    if (evos[i].SelectedIndex > -1)
+                    if (evos[i].SelectedDigimon != null)
                     {
                         updatedList.Add(evos[i].SelectedDigimon.ID);
                     }
@@ -552,11 +552,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
                 {
-                    digimonEvolutions[selectedDigimon.ID] = new List<string>(updatedList);
+                    digimonEvolutions[selectedDigimon.ID] = new List<string>(updatedList.Distinct());
                 }
                 else
                 {
-                    digimonEvolutions.Add(selectedDigimon.ID, new List<string>(updatedList));
+                    digimonEvolutions.Add(selectedDigimon.ID, new List<string>(updatedList.Distinct()));
                 }
 
                 var tempEvos = digimonDevolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
@@ -587,6 +587,64 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 UpdateSelectedDigimon();
                 digimonDataContainer.Visible = true;
             }
+        }
+
+        private void digimonDeEvo_SelectedDigimonDisabled(object sender, MouseEventArgs e)
+        {
+            if (selectedDigimon == null)
+            {
+                return;
+            }
+
+            digimonDataContainer.Visible = false;
+            var deEvoField = sender as DigimonEvolutionOption;
+            foreach (var item in deevos)
+            {
+                if (deEvoField == item)
+                {
+                    if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
+                    {
+                        digimonDevolutions[selectedDigimon.ID].Remove(deEvoField.SelectedDigimon.ID);
+                    }
+
+                    if (digimonEvolutions.ContainsKey(deEvoField.SelectedDigimon.ID))
+                    {
+                        digimonEvolutions[deEvoField.SelectedDigimon.ID].Remove(selectedDigimon.ID);
+                    }
+                }
+            }
+
+            UpdateSelectedDigimon();
+            digimonDataContainer.Visible = true;
+        }
+
+        private void digimonEvo_SelectedDigimonDisabled(object sender, MouseEventArgs e)
+        {
+            if (selectedDigimon == null)
+            {
+                return;
+            }
+
+            digimonDataContainer.Visible = false;
+            var evoField = sender as DigimonEvolutionOption;
+            foreach (var item in evos)
+            {
+                if (evoField == item)
+                {
+                    if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                    {
+                        digimonEvolutions[selectedDigimon.ID].Remove(evoField.SelectedDigimon.ID);
+                    }
+
+                    if (digimonDevolutions.ContainsKey(evoField.SelectedDigimon.ID))
+                    {
+                        digimonDevolutions[evoField.SelectedDigimon.ID].Remove(selectedDigimon.ID);
+                    }
+                }
+            }
+
+            UpdateSelectedDigimon();
+            digimonDataContainer.Visible = true;
         }
     }
 }

@@ -17,12 +17,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         public DigimonEvolutionOption()
         {
             InitializeComponent();
-            valueBox.DataSource = options;
+            valueBox.DataSource = new List<Digimon>(options);
             valueBox.SelectedIndex = -1;
         }
 
         private void clearButton_Click(object sender, EventArgs e)
         {
+            valueBox.DataSource = null;
             valueBox.SelectedIndex = -1;
             valueBox.Visible = false;
             clearButton.Visible = false;
@@ -31,6 +32,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void enableButton_Click(object sender, EventArgs e)
         {
+            valueBox.DataSource = options;
             valueBox.SelectedIndex = 0;
             valueBox.Visible = true;
             clearButton.Visible = true;
@@ -44,24 +46,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             set
             {
                 options = value;
-                valueBox.DataSource = options;
+                valueBox.DataSource = new List<Digimon>(options);
             }
-        }
-
-        [Browsable(true)]
-        public int SelectedIndex
-        {
-            get => valueBox.SelectedIndex;
-        }
-
-        private Digimon selectedDigimon()
-        {
-            var digimon = new Digimon();
-            if (valueBox.SelectedIndex > -1)
-            {
-                digimon = options[valueBox.SelectedIndex];
-            }
-            return digimon;
         }
 
         [Browsable(true)]
@@ -72,13 +58,29 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         }
 
         [Browsable(true)]
-        public Digimon SelectedDigimon
+        public event MouseEventHandler? SelectedDigimonDisabled
         {
-            get => selectedDigimon();
+            add => clearButton.MouseClick += value;
+            remove => clearButton.MouseClick -= value;
+        }
+
+        [Browsable(true)]
+        public Digimon? SelectedDigimon
+        {
+            get
+            {
+                if (valueBox.SelectedIndex > -1)
+                {
+                    return options[valueBox.SelectedIndex];
+                }
+
+                return null;
+            }
             set
             {
-                if (options.Contains(value))
+                if (value != null && options.Contains(value))
                 {
+                    valueBox.DataSource = options;
                     valueBox.SelectedIndex = options.IndexOf(value);
                     valueBox.Visible = true;
                     clearButton.Visible = true;
