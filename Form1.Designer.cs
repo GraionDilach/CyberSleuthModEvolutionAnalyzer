@@ -217,13 +217,13 @@
             // 
             // modListLabel
             // 
-            modListLabel.AutoSize = true;
-            modListLabel.Dock = DockStyle.Bottom;
-            modListLabel.Location = new Point(0, 10);
+            modListLabel.Dock = DockStyle.Fill;
+            modListLabel.Location = new Point(0, 0);
             modListLabel.Name = "modListLabel";
-            modListLabel.Size = new Size(90, 15);
+            modListLabel.Size = new Size(136, 25);
             modListLabel.TabIndex = 0;
             modListLabel.Text = "Detected mods:";
+            modListLabel.TextAlign = ContentAlignment.BottomLeft;
             // 
             // modReloadWrapper
             // 
