@@ -356,7 +356,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         deevos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
                         deevos[i].Visible = true;
                     }
-                    if (digimonDevolutions[selectedDigimon.ID].Count < 7)
+                    if (digimonDevolutions[selectedDigimon.ID].Count < 6)
                     {
                         deevos[digimonDevolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
                         deevos[digimonDevolutions[selectedDigimon.ID].Count].Visible = true;
@@ -386,7 +386,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         evos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
                         evos[i].Visible = true;
                     }
-                    if (digimonEvolutions[selectedDigimon.ID].Count < 7)
+                    if (digimonEvolutions[selectedDigimon.ID].Count < 6)
                     {
                         evos[digimonEvolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
                         evos[digimonEvolutions[selectedDigimon.ID].Count].Visible = true;
@@ -487,6 +487,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             if (digimonDataContainer.Visible && selectedDigimon != null)
             {
+                digimonDataContainer.Visible = false;
                 var updatedList = new List<string>();
                 for (int i = 0; i < deevos.Length; i++)
                 {
@@ -531,6 +532,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
 
                 UpdateSelectedDigimon();
+                digimonDataContainer.Visible = true;
             }
         }
 
@@ -538,6 +540,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             if (digimonDataContainer.Visible && selectedDigimon != null)
             {
+                digimonDataContainer.Visible = false;
                 var updatedList = new List<string>();
                 for (int i = 0; i < evos.Length; i++)
                 {
@@ -582,6 +585,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
 
                 UpdateSelectedDigimon();
+                digimonDataContainer.Visible = true;
             }
         }
     }
