@@ -356,7 +356,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         deevos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
                         deevos[i].Visible = true;
                     }
-                    if (digimonDevolutions[selectedDigimon.ID].Count < 6)
+                    if (digimonDevolutions[selectedDigimon.ID].Count < 7)
                     {
                         deevos[digimonDevolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
                         deevos[digimonDevolutions[selectedDigimon.ID].Count].Visible = true;
@@ -386,7 +386,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         evos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
                         evos[i].Visible = true;
                     }
-                    if (digimonEvolutions[selectedDigimon.ID].Count < 6)
+                    if (digimonEvolutions[selectedDigimon.ID].Count < 7)
                     {
                         evos[digimonEvolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
                         evos[digimonEvolutions[selectedDigimon.ID].Count].Visible = true;
@@ -526,10 +526,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                     else
                     {
-                        digimonEvolutions.Add(updatedList[0], new List<string>
-                        {
-                            selectedDigimon.ID
-                        });
+                        digimonEvolutions.Add(updatedList[0], new List<string> { selectedDigimon.ID });
                     }
                 }
 
@@ -580,10 +577,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                     else
                     {
-                        digimonDevolutions.Add(updatedList[0], new List<string>
-                        {
-                            selectedDigimon.ID
-                        });
+                        digimonDevolutions.Add(updatedList[0], new List<string> { selectedDigimon.ID });
                     }
                 }
 
