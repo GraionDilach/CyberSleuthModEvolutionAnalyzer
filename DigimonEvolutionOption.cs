@@ -48,6 +48,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
         }
 
+        [Browsable(true)]
+        public int SelectedIndex
+        {
+            get => valueBox.SelectedIndex;
+        }
+
         private Digimon selectedDigimon()
         {
             var digimon = new Digimon();

@@ -634,6 +634,7 @@
             digimonDeEvo2.SelectedDigimon = digimon2;
             digimonDeEvo2.Size = new Size(146, 28);
             digimonDeEvo2.TabIndex = 2;
+            digimonDeEvo2.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo3
             // 
@@ -644,6 +645,7 @@
             digimonDeEvo3.SelectedDigimon = digimon3;
             digimonDeEvo3.Size = new Size(146, 28);
             digimonDeEvo3.TabIndex = 2;
+            digimonDeEvo3.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo4
             // 
@@ -654,6 +656,7 @@
             digimonDeEvo4.SelectedDigimon = digimon4;
             digimonDeEvo4.Size = new Size(146, 28);
             digimonDeEvo4.TabIndex = 2;
+            digimonDeEvo4.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo5
             // 
@@ -664,6 +667,7 @@
             digimonDeEvo5.SelectedDigimon = digimon5;
             digimonDeEvo5.Size = new Size(146, 28);
             digimonDeEvo5.TabIndex = 2;
+            digimonDeEvo5.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo6
             // 
@@ -674,6 +678,7 @@
             digimonDeEvo6.SelectedDigimon = digimon6;
             digimonDeEvo6.Size = new Size(146, 28);
             digimonDeEvo6.TabIndex = 2;
+            digimonDeEvo6.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo7
             // 
@@ -684,6 +689,7 @@
             digimonDeEvo7.SelectedDigimon = digimon7;
             digimonDeEvo7.Size = new Size(146, 28);
             digimonDeEvo7.TabIndex = 2;
+            digimonDeEvo7.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo8
             // 
@@ -694,6 +700,7 @@
             digimonDeEvo8.SelectedDigimon = digimon8;
             digimonDeEvo8.Size = new Size(146, 28);
             digimonDeEvo8.TabIndex = 2;
+            digimonDeEvo8.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo9
             // 
@@ -704,6 +711,7 @@
             digimonDeEvo9.SelectedDigimon = digimon9;
             digimonDeEvo9.Size = new Size(146, 28);
             digimonDeEvo9.TabIndex = 2;
+            digimonDeEvo9.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo10
             // 
@@ -714,6 +722,7 @@
             digimonDeEvo10.SelectedDigimon = digimon10;
             digimonDeEvo10.Size = new Size(146, 28);
             digimonDeEvo10.TabIndex = 2;
+            digimonDeEvo10.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // digimonDeEvo11
             // 
@@ -724,6 +733,7 @@
             digimonDeEvo11.SelectedDigimon = digimon11;
             digimonDeEvo11.Size = new Size(146, 28);
             digimonDeEvo11.TabIndex = 2;
+            digimonDeEvo11.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             // 
             // logBox
             // 

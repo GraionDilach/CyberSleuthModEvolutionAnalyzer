@@ -46,6 +46,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonLists[i] = new List<Digimon>();
             }
             DialogResult result = modFolderLocator.ShowDialog();
+            digimonDataContainer.Visible = false;
             if (result == DialogResult.OK)
             {
                 var potentialMods = Directory.GetDirectories(modFolderLocator.SelectedPath);
@@ -142,6 +143,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void modLoaderButton_Click(object sender, EventArgs e)
         {
             digimonListWrapper.Visible = false;
+            digimonDataContainer.Visible = false;
             listDigimons.Clear();
             digimonEvolutions.Clear();
             digimonDevolutions.Clear();
@@ -373,6 +375,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void digimonList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            digimonDataContainer.Visible = false;
             var sourceBox = sender as ListBox;
             if (sourceBox != null)
             {
@@ -392,10 +395,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
             }
+            digimonDataContainer.Visible = true;
         }
 
         private void digimonList_SelectedTabIndexChanged(object sender, EventArgs e)
         {
+            digimonDataContainer.Visible = false;
             var tabControl = sender as TabControl;
             if (tabControl != null)
             {
@@ -423,11 +428,38 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     UpdateSelectedDigimon();
                 }
             }
+            digimonDataContainer.Visible = true;
         }
 
         private void digimonDeEvo_SelectedDigimonChanged(object sender, EventArgs e)
         {
+            if (!digimonDataContainer.Visible)
+            {
+                return;
+            }
 
+            if (selectedDigimon != null)
+            {
+                var updatedList = new List<string>();
+                for (int i = 0; i < deevos.Length; i++)
+                {
+                    if (deevos[i].SelectedIndex > -1)
+                    {
+                        updatedList.Add(deevos[i].SelectedDigimon.ID);
+                    }
+                }
+
+                if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
+                {
+                    digimonDevolutions[selectedDigimon.ID] = updatedList;
+                }
+                else
+                {
+                    digimonDevolutions.Add(selectedDigimon.ID, updatedList);
+                }
+            }
+
+            UpdateSelectedDigimon();
         }
     }
 }
