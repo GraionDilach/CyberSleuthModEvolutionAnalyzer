@@ -9,7 +9,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
         readonly DigimonEvolutionOption[] deevos;
-        readonly DigimonEvolutionOption[]? evos;
+        readonly DigimonEvolutionOption[] evos;
 
         List<Digimon> listDigimons = [];
         List<Digimon>[] digimonLists = new List<Digimon>[8];
@@ -29,6 +29,18 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonDeEvo9,
                 digimonDeEvo10,
                 digimonDeEvo11,
+            ];
+            evos = [digimonEvo1,
+                digimonEvo2,
+                digimonEvo3,
+                digimonEvo4,
+                digimonEvo5,
+                digimonEvo6,
+                digimonEvo7,
+                digimonEvo8,
+                digimonEvo9,
+                digimonEvo10,
+                digimonEvo11,
             ];
         }
 
@@ -221,6 +233,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 item.Options = listDigimons;
             }
 
+            foreach (var item in evos)
+            {
+                item.Options = listDigimons;
+            }
+
             ValidateEvolutions();
 
             digimonLists[7] = digimons.Values.Where(x => x.Level == 7).ToList();
@@ -361,6 +378,36 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         deevos[i].Visible = false;
                     }
                 }
+                if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                {
+                    for (var i = 0; i < digimonEvolutions[selectedDigimon.ID].Count && i < evos.Length; i++)
+                    {
+                        var tempID = digimonEvolutions[selectedDigimon.ID][i];
+                        evos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
+                        evos[i].Visible = true;
+                    }
+                    if (digimonEvolutions[selectedDigimon.ID].Count < 6)
+                    {
+                        evos[digimonEvolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
+                        evos[digimonEvolutions[selectedDigimon.ID].Count].Visible = true;
+                    }
+                    for (var i = digimonEvolutions[selectedDigimon.ID].Count + 1; i < evos.Length; i++)
+                    {
+                        evos[i].SelectedDigimon = new Digimon();
+                        evos[i].Visible = false;
+                    }
+                }
+                else
+                {
+                    evos[0].SelectedDigimon = new Digimon();
+                    evos[0].Visible = true;
+
+                    for (var i = 1; i < evos.Length; i++)
+                    {
+                        evos[i].SelectedDigimon = new Digimon();
+                        evos[i].Visible = false;
+                    }
+                }
             }
             else
             {
@@ -369,6 +416,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 {
                     deevos[i].SelectedDigimon = new Digimon();
                     deevos[i].Visible = false;
+                }
+                for (var i = 0; i < evos.Length; i++)
+                {
+                    evos[i].SelectedDigimon = new Digimon();
+                    evos[i].Visible = false;
                 }
             }
         }
@@ -451,6 +503,52 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 else
                 {
                     digimonDevolutions.Add(selectedDigimon.ID, updatedList);
+                }
+
+                /*
+                var tempEvos = digimonEvolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
+                foreach (var evo in tempEvos)
+                {
+                    if (updatedList.Contains(evo.Key))
+                    {
+                        updatedList.Remove(evo.Key);
+                    }
+                    else
+                    {
+                        digimonEvolutions[evo.Key].Remove(selectedDigimon.ID);
+                    }
+                }
+
+                if (updatedList.Count == 1)
+                {
+                    digimonEvolutions[updatedList[0]].Add(selectedDigimon.ID);
+                }
+                */
+
+                UpdateSelectedDigimon();
+            }
+        }
+
+        private void digimonEvo_SelectedDigimonChanged(object sender, EventArgs e)
+        {
+            if (digimonDataContainer.Visible && selectedDigimon != null)
+            {
+                var updatedList = new List<string>();
+                for (int i = 0; i < evos.Length; i++)
+                {
+                    if (evos[i].SelectedIndex > -1)
+                    {
+                        updatedList.Add(evos[i].SelectedDigimon.ID);
+                    }
+                }
+
+                if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                {
+                    digimonEvolutions[selectedDigimon.ID] = updatedList;
+                }
+                else
+                {
+                    digimonEvolutions.Add(selectedDigimon.ID, updatedList);
                 }
 
                 /*
