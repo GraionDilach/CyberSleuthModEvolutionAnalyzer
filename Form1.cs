@@ -498,14 +498,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
                 {
-                    digimonDevolutions[selectedDigimon.ID] = updatedList;
+                    digimonDevolutions[selectedDigimon.ID] = new List<string>(updatedList);
                 }
                 else
                 {
-                    digimonDevolutions.Add(selectedDigimon.ID, updatedList);
+                    digimonDevolutions.Add(selectedDigimon.ID, new List<string>(updatedList));
                 }
 
-                /*
                 var tempEvos = digimonEvolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
                 foreach (var evo in tempEvos)
                 {
@@ -521,9 +520,18 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 if (updatedList.Count == 1)
                 {
-                    digimonEvolutions[updatedList[0]].Add(selectedDigimon.ID);
+                    if (digimonEvolutions.ContainsKey(updatedList[0]))
+                    {
+                        digimonEvolutions[updatedList[0]].Add(selectedDigimon.ID);
+                    }
+                    else
+                    {
+                        digimonEvolutions.Add(updatedList[0], new List<string>
+                        {
+                            selectedDigimon.ID
+                        });
+                    }
                 }
-                */
 
                 UpdateSelectedDigimon();
             }
@@ -544,15 +552,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
                 {
-                    digimonEvolutions[selectedDigimon.ID] = updatedList;
+                    digimonEvolutions[selectedDigimon.ID] = new List<string>(updatedList);
                 }
                 else
                 {
-                    digimonEvolutions.Add(selectedDigimon.ID, updatedList);
+                    digimonEvolutions.Add(selectedDigimon.ID, new List<string>(updatedList));
                 }
 
-                /*
-                var tempEvos = digimonEvolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
+                var tempEvos = digimonDevolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
                 foreach (var evo in tempEvos)
                 {
                     if (updatedList.Contains(evo.Key))
@@ -561,15 +568,24 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                     else
                     {
-                        digimonEvolutions[evo.Key].Remove(selectedDigimon.ID);
+                        digimonDevolutions[evo.Key].Remove(selectedDigimon.ID);
                     }
                 }
 
                 if (updatedList.Count == 1)
                 {
-                    digimonEvolutions[updatedList[0]].Add(selectedDigimon.ID);
+                    if (digimonDevolutions.ContainsKey(updatedList[0]))
+                    {
+                        digimonDevolutions[updatedList[0]].Add(selectedDigimon.ID);
+                    }
+                    else
+                    {
+                        digimonDevolutions.Add(updatedList[0], new List<string>
+                        {
+                            selectedDigimon.ID
+                        });
+                    }
                 }
-                */
 
                 UpdateSelectedDigimon();
             }
