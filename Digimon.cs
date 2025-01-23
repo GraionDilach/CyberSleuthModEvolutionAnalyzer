@@ -1,6 +1,6 @@
 ﻿namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
-    class Digimon : IComparable
+    public class Digimon : IComparable
     {
         public readonly string ID;
         public readonly string Name;
@@ -42,12 +42,12 @@
             Digimon digimon = (obj as Digimon)!;
             if (digimon.Level < Level)
             {
-                return -1;
+                return 1;
             }
 
             if (digimon.Level > Level)
             {
-                return 1;
+                return -1;
             }
 
             if (digimon.ModIndex < ModIndex)

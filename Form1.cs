@@ -1,25 +1,42 @@
+using System.Linq;
+
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
     {
         readonly List<DSCSMod> dscsMods = [];
-        readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
+        //readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
+        readonly DigimonEvolutionOption[] deevos;
+        readonly DigimonEvolutionOption[]? evos;
 
+        List<Digimon> listDigimons = [];
         List<Digimon>[] digimonLists = new List<Digimon>[8];
         Digimon? selectedDigimon;
 
         public Form1()
         {
             InitializeComponent();
+            deevos = [digimonDeEvo1,
+                digimonDeEvo2,
+                digimonDeEvo3,
+                digimonDeEvo4,
+                digimonDeEvo5,
+                digimonDeEvo6,
+                digimonDeEvo7,
+                digimonDeEvo8,
+                digimonDeEvo9,
+                digimonDeEvo10,
+                digimonDeEvo11,
+            ];
         }
 
         private void modsLocationBrowser_Click(object sender, EventArgs e)
         {
             modList.Visible = false;
             dscsMods.Clear();
-            digimons.Clear();
+            listDigimons.Clear();
             digimonEvolutions.Clear();
             digimonDevolutions.Clear();
             selectedDigimon = null;
@@ -125,9 +142,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void modLoaderButton_Click(object sender, EventArgs e)
         {
             digimonListWrapper.Visible = false;
-            digimons.Clear();
+            listDigimons.Clear();
             digimonEvolutions.Clear();
             digimonDevolutions.Clear();
+            foreach (var item in deevos)
+            {
+                item.Options = new List<Digimon>();
+                item.Visible = false;
+            }
             selectedDigimon = null;
             UpdateSelectedDigimon();
             HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
@@ -145,6 +167,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonIDs.UnionWith(modDigimonIDs);
             }
             LogMessage("Found information about " + digimonIDs.Count + " digimons from all mods.");
+
+            Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
 
             foreach (var i in checkedItems)
             {
@@ -185,6 +209,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
             }
             LogMessage("Generated devolution records for " + digimonDevolutions.Count + " digimons from all mods.");
+
+            var sortedList = digimons.Values.ToList();
+            sortedList.Sort();
+            listDigimons = sortedList;
+
+            foreach (var item in deevos)
+            {
+                item.Options = listDigimons;
+            }
+
+            ValidateEvolutions();
 
             digimonLists[7] = digimons.Values.Where(x => x.Level == 7).ToList();
             digimonLists[7].Sort();
@@ -250,8 +285,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonList.SelectedIndex = 0;
             }
 
-            ValidateEvolutions();
-
             digimonListWrapper.Visible = true;
         }
 
@@ -296,10 +329,34 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             if (selectedDigimon != null)
             {
                 digimonName.Text = selectedDigimon.ToString();
-            }
-            else
-            {
-                digimonName.Text = String.Empty;
+                if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
+                {
+                    for (var i = 0; i < digimonDevolutions[selectedDigimon.ID].Count && i < deevos.Length; i++)
+                    {
+                        var tempID = digimonDevolutions[selectedDigimon.ID][i];
+                        deevos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
+                        deevos[i].Visible = true;
+                    }
+                    if (digimonDevolutions[selectedDigimon.ID].Count < 6)
+                    {
+                        deevos[digimonDevolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
+                        deevos[digimonDevolutions[selectedDigimon.ID].Count].Visible = true;
+                    }
+                    for (var i = digimonDevolutions[selectedDigimon.ID].Count + 1; i < deevos.Length; i++)
+                    {
+                        deevos[i].SelectedDigimon = new Digimon();
+                        deevos[i].Visible = false;
+                    }
+                }
+                else
+                {
+                    digimonName.Text = String.Empty;
+                    for (var i = 0; i < deevos.Length; i++)
+                    {
+                        deevos[i].SelectedDigimon = new Digimon();
+                        deevos[i].Visible = false;
+                    }
+                }
             }
         }
 
@@ -355,6 +412,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     UpdateSelectedDigimon();
                 }
             }
+        }
+
+        private void digimonDeEvo_SelectedDigimonChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
