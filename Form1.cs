@@ -353,7 +353,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     for (var i = 0; i < digimonDevolutions[selectedDigimon.ID].Count && i < deevos.Length; i++)
                     {
                         var tempID = digimonDevolutions[selectedDigimon.ID][i];
-                        deevos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
+                        deevos[i].SelectedDigimon = listDigimons.First(x => String.Equals(tempID, x.ID, StringComparison.OrdinalIgnoreCase));
                         deevos[i].Visible = true;
                     }
                     if (digimonDevolutions[selectedDigimon.ID].Count < 6)
@@ -383,7 +383,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     for (var i = 0; i < digimonEvolutions[selectedDigimon.ID].Count && i < evos.Length; i++)
                     {
                         var tempID = digimonEvolutions[selectedDigimon.ID][i];
-                        evos[i].SelectedDigimon = listDigimons.First(x => x.ID == tempID);
+                        evos[i].SelectedDigimon = listDigimons.First(x => String.Equals(tempID, x.ID, StringComparison.OrdinalIgnoreCase));
                         evos[i].Visible = true;
                     }
                     if (digimonEvolutions[selectedDigimon.ID].Count < 6)
@@ -645,6 +645,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             UpdateSelectedDigimon();
             digimonDataContainer.Visible = true;
+        }
+
+        private void modGenerator_Click(object sender, EventArgs e)
+        {
+            var evoResults = ValidateEvolutions();
         }
     }
 }

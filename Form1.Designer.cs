@@ -171,6 +171,7 @@
             modGenerator.TabIndex = 3;
             modGenerator.Text = "Generate Mod...";
             modGenerator.UseVisualStyleBackColor = true;
+            modGenerator.Click += modGenerator_Click;
             // 
             // modsLocationBrowser
             // 
@@ -779,6 +780,7 @@
             digimonEvo2.Size = new Size(148, 28);
             digimonEvo2.TabIndex = 2;
             digimonEvo2.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo2.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo3
             // 
@@ -790,6 +792,7 @@
             digimonEvo3.Size = new Size(148, 28);
             digimonEvo3.TabIndex = 2;
             digimonEvo3.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo3.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo4
             // 
@@ -801,6 +804,7 @@
             digimonEvo4.Size = new Size(148, 28);
             digimonEvo4.TabIndex = 2;
             digimonEvo4.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo4.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo5
             // 
@@ -812,6 +816,7 @@
             digimonEvo5.Size = new Size(148, 28);
             digimonEvo5.TabIndex = 2;
             digimonEvo5.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo5.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo6
             // 
@@ -823,6 +828,7 @@
             digimonEvo6.Size = new Size(148, 28);
             digimonEvo6.TabIndex = 2;
             digimonEvo6.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo6.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo7
             // 
@@ -834,6 +840,7 @@
             digimonEvo7.Size = new Size(148, 28);
             digimonEvo7.TabIndex = 2;
             digimonEvo7.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo7.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo8
             // 
@@ -845,6 +852,7 @@
             digimonEvo8.Size = new Size(148, 28);
             digimonEvo8.TabIndex = 2;
             digimonEvo8.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo8.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo9
             // 
@@ -856,6 +864,7 @@
             digimonEvo9.Size = new Size(148, 28);
             digimonEvo9.TabIndex = 2;
             digimonEvo9.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo9.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo10
             // 
@@ -867,6 +876,7 @@
             digimonEvo10.Size = new Size(148, 28);
             digimonEvo10.TabIndex = 2;
             digimonEvo10.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo10.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // digimonEvo11
             // 
@@ -878,6 +888,7 @@
             digimonEvo11.Size = new Size(148, 28);
             digimonEvo11.TabIndex = 2;
             digimonEvo11.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
+            digimonEvo11.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
             // 
             // logBox
             // 
