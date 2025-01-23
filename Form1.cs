@@ -14,6 +14,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         List<Digimon> listDigimons = [];
         List<Digimon>[] digimonLists = new List<Digimon>[8];
         Digimon? selectedDigimon;
+        bool edited;
 
         public Form1()
         {
@@ -305,6 +306,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
 
             digimonListWrapper.Visible = true;
+            edited = false;
         }
 
         private bool ValidateEvolutions()
@@ -531,6 +533,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
 
+                edited = true;
                 UpdateSelectedDigimon();
                 digimonDataContainer.Visible = true;
             }
@@ -584,6 +587,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
 
+                edited = true;
                 UpdateSelectedDigimon();
                 digimonDataContainer.Visible = true;
             }
@@ -614,6 +618,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
             }
 
+            edited = true;
             UpdateSelectedDigimon();
             digimonDataContainer.Visible = true;
         }
@@ -643,6 +648,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
             }
 
+            edited = true;
             UpdateSelectedDigimon();
             digimonDataContainer.Visible = true;
         }
