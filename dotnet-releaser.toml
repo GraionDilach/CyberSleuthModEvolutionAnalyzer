@@ -4,3 +4,5 @@ project = "Cyber Sleuth Mod Evolution Analyzer.sln"
 [github]
 user = "GraionDilach"
 repo = "CyberSleuthModEvolutionAnalyzer"
+[nuget]
+publish = false
