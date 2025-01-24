@@ -7,6 +7,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     {
         public readonly string Name;
         public readonly bool Generated;
+        public readonly string[] SourceMods = Array.Empty<string>();
 
         readonly string Version;
         readonly string path;
@@ -34,6 +35,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     Name = dict["Name"];
                     Version = dict["Version"];
                     Generated = dict.ContainsKey("GeneratedByCSMEA");
+                    if (dict.ContainsKey("SourceMods"))
+                    {
+                        SourceMods = dict["SourceMods"].Split(",").ToArray();
+                    }
+
                     /*
                     Description = dict["Description"];
                     Author = dict["Author"];
@@ -398,13 +404,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             metadata["Version"] = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             metadata["GeneratedByCSMEA"] = "true";
             metadata["Description"] = "Auto-generated evolution results based on the following mods:\n";
-            metadata["SourceMods"] = "[ ";
+            metadata["SourceMods"] = "";
             foreach (DSCSMod mod in sourceMods)
             {
                 metadata["Description"] += "\t" + mod.Name + "\n";
-                metadata["SourceMods"] += "\"" + mod.Folder + "\", ";
+                metadata["SourceMods"] += mod.Folder + ",";
             }
-            metadata["SourceMods"] += "]";
 
             string metadataJSON = JsonSerializer.Serialize(metadata);
             File.WriteAllText(path + @"\METADATA.json", metadataJSON);

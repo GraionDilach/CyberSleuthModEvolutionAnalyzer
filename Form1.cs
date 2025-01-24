@@ -64,6 +64,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 rootFolder = modFolderLocator.SelectedPath;
                 var potentialMods = Directory.GetDirectories(rootFolder)
                     .Select(x => x.Substring(rootFolder.Length + 1));
+                var unorderedMods = new List<DSCSMod>();
                 foreach (var potentialMod in potentialMods)
                 {
                     try
@@ -71,7 +72,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         if (File.Exists(rootFolder + "\\" + potentialMod + @"\METADATA.json"))
                         {
                             var dscsMod = new DSCSMod(rootFolder, potentialMod);
-                            dscsMods.Add(dscsMod);
+                            unorderedMods.Add(dscsMod);
 
                             LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name + ".");
                         }
@@ -79,6 +80,27 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     catch (Exception)
                     {
                         LogMessage("Failed to parse " + potentialMod + " folder as a DSCS mod.");
+                    }
+                }
+                var generatedMods = unorderedMods.Where(x => x.Generated);
+
+                foreach (var generatedMod in generatedMods)
+                {
+                    for (int i = 0; i < generatedMod.SourceMods.Length; i++)
+                    {
+                        var mod = unorderedMods.SingleOrDefault(x => x.Folder == generatedMod.SourceMods[i]);
+                        if (mod != null && !dscsMods.Contains(mod))
+                        {
+                            dscsMods.Add(mod);
+                        }
+                    }
+                }
+
+                foreach (var mod in unorderedMods)
+                {
+                    if (!dscsMods.Contains(mod))
+                    {
+                        dscsMods.Add(mod);
                     }
                 }
 
