@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
-    internal class DSCSMod
+    public class DSCSMod
     {
         public readonly string Name;
 

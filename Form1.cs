@@ -1,6 +1,3 @@
-using System.Linq;
-using System.Windows.Forms;
-
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
@@ -240,8 +237,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 item.Options = listDigimons;
             }
 
-            ValidateEvolutions();
-
             digimonLists[7] = digimons.Values.Where(x => x.Level == 7).ToList();
             digimonLists[7].Sort();
             digimonUltraList.DataSource = digimonLists[7];
@@ -307,6 +302,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
 
             digimonListWrapper.Visible = true;
+            ValidateEvolutions();
             edited = false;
         }
 
@@ -659,6 +655,19 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void modGenerator_Click(object sender, EventArgs e)
         {
             var evoResults = ValidateEvolutions();
+
+            if (evoResults)
+            {
+                using (Form2 dialog = new Form2(dscsMods))
+                {
+                    DialogResult result = dialog.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+
+                    }
+                }
+            }
         }
 
         private void jumpToSelectedDigimon(object sender, EventArgs e)
