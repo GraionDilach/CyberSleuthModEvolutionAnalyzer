@@ -216,11 +216,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Found information about " + digimonIDs.Count + " digimons from all mods.");
 
-            Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, Digimon> digimons = BaseDigimonStats.CollectDigimonData(this);
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i));
+                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i)+1);
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
@@ -234,6 +234,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
             }
             LogMessage("Loaded " + digimons.Count + " digimons from all mods.");
+
+            BaseDigimonStats.LoadDigimonEvolutions(this, digimonEvolutions);
 
             foreach (var i in checkedItems)
             {
