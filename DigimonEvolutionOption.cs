@@ -35,7 +35,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void jumpButton_Click(object sender, EventArgs e)
         {
-            JumpToSelectedDigimon.Invoke(this, e);
+            JumpToSelectedDigimon?.Invoke(this, e);
         }
 
         [Browsable(true)]
@@ -64,7 +64,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         }
 
         [Browsable(true)]
-        public event EventHandler JumpToSelectedDigimon;
+        public event EventHandler? JumpToSelectedDigimon;
 
         [Browsable(true)]
         public Digimon? SelectedDigimon
