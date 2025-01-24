@@ -108,7 +108,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             return digimonIDs;
         }
 
-        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, int modIndex, HashSet<string> globalIDs)
+        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, int modIndex)
         {
             var digimonData = new Dictionary<string, Digimon>(StringComparer.OrdinalIgnoreCase);
 
@@ -399,12 +399,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public void WriteMetadata(List<DSCSMod> sourceMods)
         {
-            var metadata = new Dictionary<string, string>();
-            metadata["Name"] = Name;
-            metadata["Version"] = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-            metadata["GeneratedByCSMEA"] = "true";
-            metadata["Description"] = "Auto-generated evolution results based on the following mods:\n";
-            metadata["SourceMods"] = "";
+            var metadata = new Dictionary<string, string>
+            {
+                ["Name"] = Name,
+                ["Version"] = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+                ["GeneratedByCSMEA"] = "true",
+                ["Description"] = "Auto-generated evolution results based on the following mods:\n",
+                ["SourceMods"] = ""
+            };
             foreach (DSCSMod mod in sourceMods)
             {
                 metadata["Description"] += "\t" + mod.Name + "\n";

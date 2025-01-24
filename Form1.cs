@@ -3,14 +3,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     public partial class Form1 : Form
     {
         readonly List<DSCSMod> dscsMods = [];
-        //readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
+        readonly List<Digimon>[] digimonLists = new List<Digimon>[8];
         readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
         readonly DigimonEvolutionOption[] deevos;
         readonly DigimonEvolutionOption[] evos;
 
         List<Digimon> listDigimons = [];
-        List<Digimon>[] digimonLists = new List<Digimon>[8];
         Digimon? selectedDigimon;
         bool edited;
         string? rootFolder;
@@ -66,7 +65,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             UpdateSelectedDigimon();
             for (int i = 0; i < digimonLists.Length; i++)
             {
-                digimonLists[i] = new List<Digimon>();
+                digimonLists[i] = [];
             }
             DialogResult result = modFolderLocator.ShowDialog();
             digimonDataContainer.Visible = false;
@@ -221,7 +220,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i), digimonIDs);
+                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i));
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
@@ -276,7 +275,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[7] = digimons.Values.Where(x => x.Level == 7).ToList();
             digimonLists[7].Sort();
             digimonUltraList.DataSource = digimonLists[7];
-            if (digimonLists[7].Any())
+            if (digimonLists[7].Count != 0)
             {
                 digimonList.SelectedIndex = 7;
             }
@@ -284,7 +283,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[6] = digimons.Values.Where(x => x.Level == 6).ToList();
             digimonLists[6].Sort();
             digimonMegaList.DataSource = digimonLists[6];
-            if (digimonLists[6].Any())
+            if (digimonLists[6].Count != 0)
             {
                 digimonList.SelectedIndex = 6;
             }
@@ -292,7 +291,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[5] = digimons.Values.Where(x => x.Level == 5).ToList();
             digimonLists[5].Sort();
             digimonUltimateList.DataSource = digimonLists[5];
-            if (digimonLists[5].Any())
+            if (digimonLists[5].Count != 0)
             {
                 digimonList.SelectedIndex = 5;
             }
@@ -300,7 +299,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[4] = digimons.Values.Where(x => x.Level == 8).ToList();
             digimonLists[4].Sort();
             digimonArmorList.DataSource = digimonLists[4];
-            if (digimonLists[4].Any())
+            if (digimonLists[4].Count != 0)
             {
                 digimonList.SelectedIndex = 4;
             }
@@ -308,7 +307,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[3] = digimons.Values.Where(x => x.Level == 4).ToList();
             digimonLists[3].Sort();
             digimonChampionList.DataSource = digimonLists[3];
-            if (digimonLists[3].Any())
+            if (digimonLists[3].Count != 0)
             {
                 digimonList.SelectedIndex = 3;
             }
@@ -316,7 +315,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[2] = digimons.Values.Where(x => x.Level == 3).ToList();
             digimonLists[2].Sort();
             digimonRookieList.DataSource = digimonLists[2];
-            if (digimonLists[2].Any())
+            if (digimonLists[2].Count != 0)
             {
                 digimonList.SelectedIndex = 2;
             }
@@ -324,7 +323,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[1] = digimons.Values.Where(x => x.Level == 2).ToList();
             digimonLists[1].Sort();
             digimonInTraining2List.DataSource = digimonLists[1];
-            if (digimonLists[1].Any())
+            if (digimonLists[1].Count != 0)
             {
                 digimonList.SelectedIndex = 1;
             }
@@ -332,7 +331,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[0] = digimons.Values.Where(x => x.Level == 1).ToList();
             digimonLists[0].Sort();
             digimonInTraining1List.DataSource = digimonLists[0];
-            if (digimonLists[0].Any())
+            if (digimonLists[0].Count != 0)
             {
                 digimonList.SelectedIndex = 0;
             }
@@ -355,7 +354,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonPreEvos[i] = digimonLists[i].Where(x => digimonDevolutions.ContainsKey(x.ID) && digimonDevolutions[x.ID].Count > 6).ToList();
                 digimonEvos[i] = digimonLists[i].Where(x => digimonEvolutions.ContainsKey(x.ID) && digimonEvolutions[x.ID].Count > 6).ToList();
 
-                if (digimonPreEvos[i].Any())
+                if (digimonPreEvos[i].Count != 0)
                 {
                     valid = false;
                     LogMessage("The following " + levels[i] + " Digimon can be evolved from more than 6 mons:");
@@ -365,7 +364,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
 
-                if (digimonEvos[i].Any())
+                if (digimonEvos[i].Count != 0)
                 {
                     valid = false;
                     LogMessage("The following " + levels[i] + " Digimon can be evolved to more than 6 mons:");
@@ -460,14 +459,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void digimonList_SelectedIndexChanged(object sender, EventArgs e)
         {
             digimonDataContainer.Visible = false;
-            var sourceBox = sender as ListBox;
-            if (sourceBox != null)
+            if (sender is ListBox sourceBox)
             {
                 var dataSource = sourceBox.DataSource;
                 if (dataSource != null)
                 {
-                    var digimonList = dataSource as List<Digimon>;
-                    if (digimonList != null && sourceBox.SelectedIndex > -1)
+                    if (dataSource is List<Digimon> digimonList && sourceBox.SelectedIndex > -1)
                     {
                         selectedDigimon = digimonList[sourceBox.SelectedIndex];
                         UpdateSelectedDigimon();
@@ -485,8 +482,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void digimonList_SelectedTabIndexChanged(object sender, EventArgs e)
         {
             digimonDataContainer.Visible = false;
-            var tabControl = sender as TabControl;
-            if (tabControl != null)
+            if (sender is TabControl tabControl)
             {
                 var list = new ListBox[]
                 {
@@ -500,10 +496,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     digimonUltraList
                 };
 
-                var selectedMonIndex = list[tabControl.SelectedIndex].SelectedIndex;
-                var digimonList = list[tabControl.SelectedIndex].DataSource as List<Digimon>;
-
-                if (digimonList != null && list[tabControl.SelectedIndex].SelectedIndex > -1)
+                if (list[tabControl.SelectedIndex].DataSource is List<Digimon> digimonList && list[tabControl.SelectedIndex].SelectedIndex > -1)
                 {
                     selectedDigimon = digimonList[list[tabControl.SelectedIndex].SelectedIndex];
                     UpdateSelectedDigimon();
@@ -711,8 +704,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                         for (var item = 0; item < list.Length && !jumped; item++)
                         {
-                            var digimonTabList = list[item].DataSource as List<Digimon>;
-                            if (digimonTabList != null && digimonTabList.Contains(jumpDigimonTarget))
+                            if (list[item].DataSource is List<Digimon> digimonTabList && digimonTabList.Contains(jumpDigimonTarget))
                             {
                                 list[item].SelectedIndex = digimonTabList.IndexOf(jumpDigimonTarget);
                                 digimonList.SelectedIndex = item;
@@ -737,7 +729,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             if (ValidateEvolutions())
             {
-                using (Form2 dialog = new Form2(dscsMods))
+                using (Form2 dialog = new(dscsMods))
                 {
                     DialogResult result = dialog.ShowDialog();
 
@@ -747,6 +739,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         if (File.Exists(rootFolder + "\\" + dialog.ModFolder + @"\METADATA.json"))
                         {
                             export = dscsMods.Single(x => String.Equals(x.Folder, dialog.ModFolder));
+                            if (!export.Generated)
+                            {
+                                LogMessage("Save ABORTED! Prevented overwriting source " + export.Name + " mod.");
+                                return;
+                            }
                         }
                         else
                         {
@@ -764,6 +761,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                         export.WriteMetadata(checkedmods);
                         export.WriteEvolutions(digimonDevolutions, digimonEvolutions);
+
+                        LogMessage("Successfully saved generated " + export.Name + " mod.");
 
                         edited = false;
                     }
