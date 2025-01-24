@@ -8,3 +8,10 @@ repo = "CyberSleuthModEvolutionAnalyzer"
 publish = false
 [scoop]
 publish = false
+[msbuild.properties]
+PublishTrimmed = false
+PublishSingleFile = true
+SelfContained = true
+PublishReadyToRun = true 
+CopyOutputSymbolsToPublishDirectory = false
+SkipCopyingSymbolsToOutputDirectory = true
