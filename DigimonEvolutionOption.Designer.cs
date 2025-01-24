@@ -31,6 +31,7 @@
             valueBox = new ComboBox();
             clearButton = new Button();
             enableButton = new Button();
+            jumpButton = new Button();
             SuspendLayout();
             // 
             // valueBox
@@ -39,7 +40,7 @@
             valueBox.FormattingEnabled = true;
             valueBox.Location = new Point(0, 0);
             valueBox.Name = "valueBox";
-            valueBox.Size = new Size(129, 23);
+            valueBox.Size = new Size(104, 23);
             valueBox.TabIndex = 0;
             // 
             // clearButton
@@ -55,7 +56,6 @@
             // 
             // enableButton
             // 
-            enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             enableButton.AutoSize = true;
             enableButton.Dock = DockStyle.Fill;
             enableButton.Location = new Point(0, 0);
@@ -66,13 +66,25 @@
             enableButton.UseVisualStyleBackColor = true;
             enableButton.Click += enableButton_Click;
             // 
+            // jumpButton
+            // 
+            jumpButton.Anchor = AnchorStyles.Right;
+            jumpButton.Location = new Point(110, 0);
+            jumpButton.Name = "jumpButton";
+            jumpButton.Size = new Size(19, 23);
+            jumpButton.TabIndex = 1;
+            jumpButton.Text = ">";
+            jumpButton.UseVisualStyleBackColor = true;
+            jumpButton.Click += jumpButton_Click;
+            // 
             // DigimonEvolutionOption
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            Controls.Add(clearButton);
             Controls.Add(valueBox);
+            Controls.Add(clearButton);
+            Controls.Add(jumpButton);
             Controls.Add(enableButton);
             Name = "DigimonEvolutionOption";
             Size = new Size(162, 26);
@@ -85,5 +97,6 @@
         private ComboBox valueBox;
         private Button clearButton;
         private Button enableButton;
+        private Button jumpButton;
     }
 }

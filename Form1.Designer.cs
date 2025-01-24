@@ -637,6 +637,7 @@
             digimonDeEvo1.TabIndex = 2;
             digimonDeEvo1.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo1.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo1.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo2
             // 
@@ -649,6 +650,7 @@
             digimonDeEvo2.TabIndex = 2;
             digimonDeEvo2.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo2.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo2.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo3
             // 
@@ -661,6 +663,7 @@
             digimonDeEvo3.TabIndex = 2;
             digimonDeEvo3.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo3.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo3.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo4
             // 
@@ -673,6 +676,7 @@
             digimonDeEvo4.TabIndex = 2;
             digimonDeEvo4.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo4.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo4.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo5
             // 
@@ -685,6 +689,7 @@
             digimonDeEvo5.TabIndex = 2;
             digimonDeEvo5.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo5.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo5.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo6
             // 
@@ -697,6 +702,7 @@
             digimonDeEvo6.TabIndex = 2;
             digimonDeEvo6.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo6.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo6.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo7
             // 
@@ -709,6 +715,7 @@
             digimonDeEvo7.TabIndex = 2;
             digimonDeEvo7.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo7.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo7.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo8
             // 
@@ -721,6 +728,7 @@
             digimonDeEvo8.TabIndex = 2;
             digimonDeEvo8.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo8.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo8.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo9
             // 
@@ -733,6 +741,7 @@
             digimonDeEvo9.TabIndex = 2;
             digimonDeEvo9.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo9.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo9.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo10
             // 
@@ -745,6 +754,7 @@
             digimonDeEvo10.TabIndex = 2;
             digimonDeEvo10.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo10.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo10.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonDeEvo11
             // 
@@ -757,6 +767,7 @@
             digimonDeEvo11.TabIndex = 2;
             digimonDeEvo11.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo11.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
+            digimonDeEvo11.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo1
             // 
@@ -769,6 +780,7 @@
             digimonEvo1.TabIndex = 2;
             digimonEvo1.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo1.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo1.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo2
             // 
@@ -781,6 +793,7 @@
             digimonEvo2.TabIndex = 2;
             digimonEvo2.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo2.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo2.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo3
             // 
@@ -793,6 +806,7 @@
             digimonEvo3.TabIndex = 2;
             digimonEvo3.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo3.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo3.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo4
             // 
@@ -805,6 +819,7 @@
             digimonEvo4.TabIndex = 2;
             digimonEvo4.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo4.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo4.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo5
             // 
@@ -817,6 +832,7 @@
             digimonEvo5.TabIndex = 2;
             digimonEvo5.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo5.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo5.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo6
             // 
@@ -829,6 +845,7 @@
             digimonEvo6.TabIndex = 2;
             digimonEvo6.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo6.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo6.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo7
             // 
@@ -841,6 +858,7 @@
             digimonEvo7.TabIndex = 2;
             digimonEvo7.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo7.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo7.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo8
             // 
@@ -853,6 +871,7 @@
             digimonEvo8.TabIndex = 2;
             digimonEvo8.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo8.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo8.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo9
             // 
@@ -865,6 +884,7 @@
             digimonEvo9.TabIndex = 2;
             digimonEvo9.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo9.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo9.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo10
             // 
@@ -877,6 +897,7 @@
             digimonEvo10.TabIndex = 2;
             digimonEvo10.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo10.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo10.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // digimonEvo11
             // 
@@ -889,6 +910,7 @@
             digimonEvo11.TabIndex = 2;
             digimonEvo11.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo11.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
+            digimonEvo11.JumpToSelectedDigimon += jumpToSelectedDigimon;
             // 
             // logBox
             // 

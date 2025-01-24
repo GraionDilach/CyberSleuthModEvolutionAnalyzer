@@ -19,6 +19,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             valueBox.SelectedIndex = -1;
             valueBox.Visible = false;
             clearButton.Visible = false;
+            jumpButton.Visible = false;
             enableButton.Visible = true;
         }
 
@@ -28,7 +29,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             valueBox.SelectedIndex = 0;
             valueBox.Visible = true;
             clearButton.Visible = true;
+            jumpButton.Visible = true;
             enableButton.Visible = false;
+        }
+
+        private void jumpButton_Click(object sender, EventArgs e)
+        {
+            JumpToSelectedDigimon.Invoke(this, e);
         }
 
         [Browsable(true)]
@@ -57,6 +64,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         }
 
         [Browsable(true)]
+        public event EventHandler JumpToSelectedDigimon;
+
+        [Browsable(true)]
         public Digimon? SelectedDigimon
         {
             get
@@ -76,6 +86,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     valueBox.SelectedIndex = options.IndexOf(value);
                     valueBox.Visible = true;
                     clearButton.Visible = true;
+                    jumpButton.Visible = true;
                     enableButton.Visible = false;
                 }
                 else
@@ -83,6 +94,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     valueBox.SelectedIndex = -1;
                     valueBox.Visible = false;
                     clearButton.Visible = false;
+                    jumpButton.Visible = false;
                     enableButton.Visible = true;
                 }
             }

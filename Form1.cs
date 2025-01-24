@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
@@ -458,7 +459,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             var tabControl = sender as TabControl;
             if (tabControl != null)
             {
-                var list = new ListBox[]{digimonInTraining1List,
+                var list = new ListBox[]
+                {
+                    digimonInTraining1List,
                     digimonInTraining2List,
                     digimonRookieList,
                     digimonChampionList,
@@ -656,6 +659,49 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         private void modGenerator_Click(object sender, EventArgs e)
         {
             var evoResults = ValidateEvolutions();
+        }
+
+        private void jumpToSelectedDigimon(object sender, EventArgs e)
+        {
+            if (digimonDataContainer.Visible && selectedDigimon != null)
+            {
+                digimonDataContainer.Visible = false;
+
+                if (sender is DigimonEvolutionOption senderEvoControlOption)
+                {
+                    var jumpDigimonTarget = senderEvoControlOption.SelectedDigimon;
+                    if (jumpDigimonTarget != null && !String.IsNullOrEmpty(jumpDigimonTarget.ID))
+                    {
+                        var list = new ListBox[]
+                        {
+                            digimonInTraining1List,
+                            digimonInTraining2List,
+                            digimonRookieList,
+                            digimonChampionList,
+                            digimonArmorList,
+                            digimonUltimateList,
+                            digimonMegaList,
+                            digimonUltraList
+                        };
+                        bool jumped = false;
+
+                        for (var item = 0; item < list.Length && !jumped; item++)
+                        {
+                            var digimonTabList = list[item].DataSource as List<Digimon>;
+                            if (digimonTabList != null && digimonTabList.Contains(jumpDigimonTarget))
+                            {
+                                list[item].SelectedIndex = digimonTabList.IndexOf(jumpDigimonTarget);
+                                digimonList.SelectedIndex = item;
+                                selectedDigimon = jumpDigimonTarget;
+                                jumped = true;
+                            }
+                        }
+                    }
+                }
+
+                UpdateSelectedDigimon();
+                digimonDataContainer.Visible = true;
+            }
         }
     }
 }
