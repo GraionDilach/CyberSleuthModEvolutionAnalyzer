@@ -297,14 +297,21 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                         }
                                     }
 
-                                    // extend data of evolution if already loaded from prior
-                                    if (!digimonEvolutions.ContainsKey(tableRow[0]))
+                                    // extend data of evolution if already loaded from prior and this isn't a generated mod
+                                    if (!Generated)
                                     {
-                                        digimonEvolutions.Add(tableRow[0], evolutions);
+                                        if (!digimonEvolutions.ContainsKey(tableRow[0]))
+                                        {
+                                            digimonEvolutions.Add(tableRow[0], evolutions);
+                                        }
+                                        else
+                                        {
+                                            digimonEvolutions[tableRow[0]] = digimonEvolutions[tableRow[0]].Concat(evolutions).Distinct().ToList();
+                                        }
                                     }
                                     else
                                     {
-                                        digimonEvolutions[tableRow[0]] = digimonEvolutions[tableRow[0]].Concat(evolutions).Distinct().ToList();
+                                        digimonEvolutions[tableRow[0]] = evolutions;
                                     }
                                 }
                                 else
@@ -318,7 +325,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 #endregion
 
                 #region degeneration_para.mbe
-                if (File.Exists(path + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
+                // generated mods shouldn't need to read degen_para, because all generated mods have 2-way evos
+                if (!Generated && File.Exists(path + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
                 {
                     using (var parser = new TextFieldParser(path + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
                     {
