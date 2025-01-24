@@ -1,4 +1,5 @@
 # configuration file for dotnet-releaser
+profile = "custom"
 [msbuild]
 project = "Cyber Sleuth Mod Evolution Analyzer.sln"
 [github]
