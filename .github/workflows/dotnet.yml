@@ -8,11 +8,13 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  release:
+    types: [published]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -22,7 +24,8 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Build, Tests, Cover, Pack and Publish (on push tag)
+      shell: bash
+      run: |
+        dotnet tool install --global dotnet-releaser
+        dotnet-releaser run --github-token "${{secrets.GITHUB_TOKEN}}" src/dotnet-releaser.toml
