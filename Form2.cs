@@ -21,7 +21,7 @@
             }
             else
             {
-                modName.Text = folderName.Text.ToLower().Trim();
+                modName.Text = folderName.Text.Trim();
             }
         }
 

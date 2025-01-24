@@ -112,7 +112,6 @@
 
         private Button okButton;
         private Button cancelButton;
-        private ComboBox modFolder;
         private Label folderNameLabel;
         private TextBox modName;
         private Label modNameLabel;
