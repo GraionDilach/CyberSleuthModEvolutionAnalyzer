@@ -737,5 +737,23 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
             }
         }
+
+        private void aboutLabel_Click(object sender, EventArgs e)
+        {
+            string message = "Digimon Cyber Sleuth Mod Evolution Analyzer\n"
+                + "Version: " + Application.ProductVersion + "\n"
+                + "2025, Graion Dilach\n\n"
+                + "For primary support, please visit\n"
+                + "INSERT GITHUB HERE";
+            string caption = "Cyber Sleuth Mod Evolution Analyzer";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            // Displays the MessageBox.
+            result = MessageBox.Show(message, caption, buttons);
+            if (result == DialogResult.OK)
+            {
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>Cyber_Sleuth_Mod_Evolution_Analyzer.Program</StartupObject>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+	<Version>0.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

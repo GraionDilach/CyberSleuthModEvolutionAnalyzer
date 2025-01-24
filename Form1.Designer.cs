@@ -162,6 +162,7 @@
             aboutLabel.Size = new Size(49, 15);
             aboutLabel.TabIndex = 4;
             aboutLabel.Text = "About...";
+            aboutLabel.Click += aboutLabel_Click;
             // 
             // modGenerator
             // 
