@@ -13,6 +13,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         List<Digimon>[] digimonLists = new List<Digimon>[8];
         Digimon? selectedDigimon;
         bool edited;
+        string? rootFolder;
 
         public Form1()
         {
@@ -60,14 +61,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonDataContainer.Visible = false;
             if (result == DialogResult.OK)
             {
-                var potentialMods = Directory.GetDirectories(modFolderLocator.SelectedPath);
+                rootFolder = modFolderLocator.SelectedPath;
+                var potentialMods = Directory.GetDirectories(rootFolder)
+                    .Select(x => x.Substring(rootFolder.Length + 1));
                 foreach (var potentialMod in potentialMods)
                 {
                     try
                     {
-                        if (File.Exists(potentialMod + @"\METADATA.json"))
+                        if (File.Exists(rootFolder + "\\" + potentialMod + @"\METADATA.json"))
                         {
-                            var dscsMod = new DSCSMod(potentialMod);
+                            var dscsMod = new DSCSMod(rootFolder, potentialMod);
                             dscsMods.Add(dscsMod);
 
                             LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name + ".");
@@ -303,6 +306,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             digimonListWrapper.Visible = true;
             ValidateEvolutions();
+            modGenerator.Visible = true;
             edited = false;
         }
 
@@ -652,24 +656,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonDataContainer.Visible = true;
         }
 
-        private void modGenerator_Click(object sender, EventArgs e)
-        {
-            var evoResults = ValidateEvolutions();
-
-            if (evoResults)
-            {
-                using (Form2 dialog = new Form2(dscsMods))
-                {
-                    DialogResult result = dialog.ShowDialog();
-
-                    if (result == DialogResult.OK)
-                    {
-
-                    }
-                }
-            }
-        }
-
         private void jumpToSelectedDigimon(object sender, EventArgs e)
         {
             if (digimonDataContainer.Visible && selectedDigimon != null)
@@ -710,6 +696,49 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 UpdateSelectedDigimon();
                 digimonDataContainer.Visible = true;
+            }
+        }
+
+        private void modGenerator_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(rootFolder))
+            {
+                return;
+            }
+
+            if (ValidateEvolutions())
+            {
+                using (Form2 dialog = new Form2(dscsMods))
+                {
+                    DialogResult result = dialog.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        DSCSMod export;
+                        if (File.Exists(rootFolder + "\\" + dialog.ModFolder + @"\METADATA.json"))
+                        {
+                            export = dscsMods.Single(x => String.Equals(x.Folder, dialog.ModFolder));
+                        }
+                        else
+                        {
+                            export = new DSCSMod(rootFolder, dialog.ModFolder, dialog.ModName);
+                        }
+
+                        var checkedmods = new List<DSCSMod>();
+                        for (var i = 0; i < modListBox.Items.Count; i++)
+                        {
+                            if (modListBox.GetItemChecked(i))
+                            {
+                                checkedmods.Add(dscsMods[i]);
+                            }
+                        }
+
+                        export.WriteMetadata(checkedmods);
+                        export.WriteEvolutions(digimonDevolutions, digimonEvolutions);
+
+                        edited = false;
+                    }
+                }
             }
         }
     }

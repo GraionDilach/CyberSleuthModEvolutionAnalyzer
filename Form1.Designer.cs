@@ -165,12 +165,14 @@
             // 
             // modGenerator
             // 
-            modGenerator.Location = new Point(745, 21);
+            modGenerator.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            modGenerator.Location = new Point(780, 21);
             modGenerator.Name = "modGenerator";
             modGenerator.Size = new Size(117, 23);
             modGenerator.TabIndex = 3;
             modGenerator.Text = "Generate Mod...";
             modGenerator.UseVisualStyleBackColor = true;
+            modGenerator.Visible = false;
             modGenerator.Click += modGenerator_Click;
             // 
             // modsLocationBrowser

@@ -1,27 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Cyber_Sleuth_Mod_Evolution_Analyzer
+﻿namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form2 : Form
     {
         readonly List<DSCSMod> dscsMods;
+        string[] modFolders;
         public Form2(List<DSCSMod> mods)
         {
             InitializeComponent();
-            dscsMods = mods;
+            dscsMods = mods.Where(x => x.Generated).ToList();
+            var empty = new string[] { "" };
+            modFolders = empty.Concat(dscsMods.Select(x => x.Folder)).ToArray();
+            folderName.Items.AddRange(modFolders);
         }
 
-        private void folderName_SelectedIndexChanged(object sender, EventArgs e)
+        private void folderName_TextChanged(object sender, EventArgs e)
         {
-
+            if (folderName.SelectedIndex > 0)
+            {
+                modName.Text = dscsMods[folderName.SelectedIndex - 1].Name;
+            }
+            else
+            {
+                modName.Text = folderName.Text.ToLower().Trim();
+            }
         }
+
+        public string ModName { get { return modName.Text; } }
+        
+        public string ModFolder {  get { return folderName.Text; } }
+
     }
 }

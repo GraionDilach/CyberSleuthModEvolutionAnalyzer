@@ -88,7 +88,7 @@
             folderName.Name = "folderName";
             folderName.Size = new Size(310, 23);
             folderName.TabIndex = 6;
-            folderName.SelectedIndexChanged += folderName_SelectedIndexChanged;
+            folderName.TextChanged += folderName_TextChanged;
             // 
             // Form2
             // 
