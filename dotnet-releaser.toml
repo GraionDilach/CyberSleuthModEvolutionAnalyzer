@@ -15,3 +15,6 @@ SelfContained = true
 PublishReadyToRun = true 
 CopyOutputSymbolsToPublishDirectory = false
 SkipCopyingSymbolsToOutputDirectory = true
+[[pack]]
+rid = ["win-x64"]
+kinds = ["zip"]
