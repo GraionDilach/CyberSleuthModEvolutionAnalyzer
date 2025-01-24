@@ -359,15 +359,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         deevos[i].SelectedDigimon = listDigimons.First(x => String.Equals(tempID, x.ID, StringComparison.OrdinalIgnoreCase));
                         deevos[i].Visible = true;
                     }
-                    if (digimonDevolutions[selectedDigimon.ID].Count < 6)
-                    {
-                        deevos[digimonDevolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
-                        deevos[digimonDevolutions[selectedDigimon.ID].Count].Visible = true;
-                    }
-                    for (var i = digimonDevolutions[selectedDigimon.ID].Count + 1; i < deevos.Length; i++)
+                    for (var i = digimonDevolutions[selectedDigimon.ID].Count; i < deevos.Length; i++)
                     {
                         deevos[i].SelectedDigimon = new Digimon();
                         deevos[i].Visible = false;
+                    }
+                    if (digimonDevolutions[selectedDigimon.ID].Count < 6)
+                    {
+                        deevos[digimonDevolutions[selectedDigimon.ID].Count].Visible = true;
                     }
                 }
                 else
@@ -389,15 +388,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         evos[i].SelectedDigimon = listDigimons.First(x => String.Equals(tempID, x.ID, StringComparison.OrdinalIgnoreCase));
                         evos[i].Visible = true;
                     }
-                    if (digimonEvolutions[selectedDigimon.ID].Count < 6)
-                    {
-                        evos[digimonEvolutions[selectedDigimon.ID].Count].SelectedDigimon = new Digimon();
-                        evos[digimonEvolutions[selectedDigimon.ID].Count].Visible = true;
-                    }
-                    for (var i = digimonEvolutions[selectedDigimon.ID].Count + 1; i < evos.Length; i++)
+                    for (var i = digimonEvolutions[selectedDigimon.ID].Count; i < evos.Length; i++)
                     {
                         evos[i].SelectedDigimon = new Digimon();
                         evos[i].Visible = false;
+                    }
+                    if (digimonEvolutions[selectedDigimon.ID].Count < 6)
+                    {
+                        evos[digimonEvolutions[selectedDigimon.ID].Count].Visible = true;
                     }
                 }
                 else
