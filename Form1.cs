@@ -775,8 +775,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             string message = "Digimon Cyber Sleuth Mod Evolution Analyzer\n"
                 + "Version: " + Application.ProductVersion + "\n"
                 + "2025, Graion Dilach\n\n"
-                + "For primary support, please visit\n"
-                + "INSERT GITHUB HERE";
+                + "For support, please visit\n"
+                + "https://github.com/GraionDilach/CyberSleuthModEvolutionAnalyzer";
             string caption = "Cyber Sleuth Mod Evolution Analyzer";
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;

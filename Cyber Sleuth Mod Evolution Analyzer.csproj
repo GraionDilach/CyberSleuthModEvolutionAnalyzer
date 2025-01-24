@@ -12,6 +12,7 @@
 	<Description>A tool to detect and resolve evolution conflicts within Digimon Story Cyber Sleuth modded runs, via providing an UI to edit evolution paths.</Description>
 	<Authors>Zimmermann Gyula</Authors>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	<Version>0.1.0</Version>
   </PropertyGroup>
 
