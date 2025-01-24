@@ -6,3 +6,5 @@ user = "GraionDilach"
 repo = "CyberSleuthModEvolutionAnalyzer"
 [nuget]
 publish = false
+[scoop]
+publish = false
