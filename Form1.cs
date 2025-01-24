@@ -371,14 +371,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
                 else
                 {
-                    deevos[0].SelectedDigimon = new Digimon();
-                    deevos[0].Visible = true;
-
-                    for (var i = 1; i < deevos.Length; i++)
+                    for (var i = 0; i < deevos.Length; i++)
                     {
                         deevos[i].SelectedDigimon = new Digimon();
                         deevos[i].Visible = false;
                     }
+
+                    deevos[0].Visible = true;
                 }
                 if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
                 {
@@ -400,14 +399,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
                 else
                 {
-                    evos[0].SelectedDigimon = new Digimon();
-                    evos[0].Visible = true;
-
-                    for (var i = 1; i < evos.Length; i++)
+                    for (var i = 0; i < evos.Length; i++)
                     {
                         evos[i].SelectedDigimon = new Digimon();
                         evos[i].Visible = false;
                     }
+
+                    evos[0].Visible = true;
                 }
             }
             else
