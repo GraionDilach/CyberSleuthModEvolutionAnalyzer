@@ -231,7 +231,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i)+1);
+                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i) + 1);
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
@@ -809,6 +809,38 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             if (result == DialogResult.OK)
             {
             }
+        }
+
+        private void digimonList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Brush _textBrush;
+
+            // Get the item from the collection.
+            TabPage _tabPage = digimonList.TabPages[e.Index];
+
+            // Get the real bounds for the tab rectangle.
+            Rectangle _tabBounds = digimonList.GetTabRect(e.Index);
+
+            Font _tabFont = digimonList.Font;
+
+            if (e.State == DrawItemState.Selected)
+            {
+                _textBrush = new SolidBrush(e.BackColor);
+                _tabFont = new Font(_tabFont, FontStyle.Bold);
+                e.DrawFocusRectangle();
+            }
+            else
+            {
+                _textBrush = new SolidBrush(e.ForeColor);
+                e.DrawBackground();
+            }
+
+            // Draw string. Center the text.
+            StringFormat _stringFlags = new StringFormat();
+            _stringFlags.Alignment = StringAlignment.Center;
+            _stringFlags.LineAlignment = StringAlignment.Center;
+            g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
         }
     }
 }

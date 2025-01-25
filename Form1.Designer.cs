@@ -328,12 +328,13 @@
             // 
             digimonListWrapper.Panel2.Controls.Add(digimonDataContainer);
             digimonListWrapper.Size = new Size(763, 478);
-            digimonListWrapper.SplitterDistance = 301;
+            digimonListWrapper.SplitterDistance = 255;
             digimonListWrapper.TabIndex = 0;
             digimonListWrapper.Visible = false;
             // 
             // digimonList
             // 
+            digimonList.Alignment = TabAlignment.Left;
             digimonList.Controls.Add(digimonListInTraining1Tab);
             digimonList.Controls.Add(digimonListInTraining2Tab);
             digimonList.Controls.Add(digimonListRookieTab);
@@ -343,22 +344,26 @@
             digimonList.Controls.Add(digimonListMegaTab);
             digimonList.Controls.Add(digimonListUltraTab);
             digimonList.Dock = DockStyle.Fill;
+            digimonList.DrawMode = TabDrawMode.OwnerDrawFixed;
+            digimonList.ItemSize = new Size(10, 25);
             digimonList.Location = new Point(0, 0);
+            digimonList.Multiline = true;
             digimonList.Name = "digimonList";
-            digimonList.Padding = new Point(0, 3);
+            digimonList.Padding = new Point(0, 0);
             digimonList.SelectedIndex = 0;
-            digimonList.Size = new Size(301, 478);
+            digimonList.Size = new Size(255, 478);
             digimonList.TabIndex = 0;
+            digimonList.DrawItem += digimonList_DrawItem;
             digimonList.SelectedIndexChanged += digimonList_SelectedTabIndexChanged;
             // 
             // digimonListInTraining1Tab
             // 
             digimonListInTraining1Tab.AutoScroll = true;
             digimonListInTraining1Tab.Controls.Add(digimonInTraining1List);
-            digimonListInTraining1Tab.Location = new Point(4, 24);
+            digimonListInTraining1Tab.Location = new Point(29, 4);
             digimonListInTraining1Tab.Name = "digimonListInTraining1Tab";
             digimonListInTraining1Tab.Padding = new Padding(3);
-            digimonListInTraining1Tab.Size = new Size(293, 450);
+            digimonListInTraining1Tab.Size = new Size(222, 470);
             digimonListInTraining1Tab.TabIndex = 0;
             digimonListInTraining1Tab.Text = "IT1";
             digimonListInTraining1Tab.UseVisualStyleBackColor = true;
@@ -370,7 +375,7 @@
             digimonInTraining1List.ItemHeight = 15;
             digimonInTraining1List.Location = new Point(3, 3);
             digimonInTraining1List.Name = "digimonInTraining1List";
-            digimonInTraining1List.Size = new Size(287, 444);
+            digimonInTraining1List.Size = new Size(216, 464);
             digimonInTraining1List.TabIndex = 0;
             digimonInTraining1List.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
@@ -378,10 +383,10 @@
             // 
             digimonListInTraining2Tab.AutoScroll = true;
             digimonListInTraining2Tab.Controls.Add(digimonInTraining2List);
-            digimonListInTraining2Tab.Location = new Point(4, 24);
+            digimonListInTraining2Tab.Location = new Point(29, 4);
             digimonListInTraining2Tab.Name = "digimonListInTraining2Tab";
             digimonListInTraining2Tab.Padding = new Padding(3);
-            digimonListInTraining2Tab.Size = new Size(293, 450);
+            digimonListInTraining2Tab.Size = new Size(268, 470);
             digimonListInTraining2Tab.TabIndex = 1;
             digimonListInTraining2Tab.Text = "IT2";
             digimonListInTraining2Tab.UseVisualStyleBackColor = true;
@@ -393,17 +398,17 @@
             digimonInTraining2List.ItemHeight = 15;
             digimonInTraining2List.Location = new Point(3, 3);
             digimonInTraining2List.Name = "digimonInTraining2List";
-            digimonInTraining2List.Size = new Size(287, 444);
+            digimonInTraining2List.Size = new Size(262, 464);
             digimonInTraining2List.TabIndex = 0;
             digimonInTraining2List.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListRookieTab
             // 
             digimonListRookieTab.Controls.Add(digimonRookieList);
-            digimonListRookieTab.Location = new Point(4, 24);
+            digimonListRookieTab.Location = new Point(29, 4);
             digimonListRookieTab.Name = "digimonListRookieTab";
             digimonListRookieTab.Padding = new Padding(3);
-            digimonListRookieTab.Size = new Size(293, 450);
+            digimonListRookieTab.Size = new Size(268, 470);
             digimonListRookieTab.TabIndex = 2;
             digimonListRookieTab.Text = "R";
             digimonListRookieTab.UseVisualStyleBackColor = true;
@@ -415,17 +420,17 @@
             digimonRookieList.ItemHeight = 15;
             digimonRookieList.Location = new Point(3, 3);
             digimonRookieList.Name = "digimonRookieList";
-            digimonRookieList.Size = new Size(287, 444);
+            digimonRookieList.Size = new Size(262, 464);
             digimonRookieList.TabIndex = 0;
             digimonRookieList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListChampionTab
             // 
             digimonListChampionTab.Controls.Add(digimonChampionList);
-            digimonListChampionTab.Location = new Point(4, 24);
+            digimonListChampionTab.Location = new Point(29, 4);
             digimonListChampionTab.Name = "digimonListChampionTab";
             digimonListChampionTab.Padding = new Padding(3);
-            digimonListChampionTab.Size = new Size(293, 450);
+            digimonListChampionTab.Size = new Size(268, 470);
             digimonListChampionTab.TabIndex = 3;
             digimonListChampionTab.Text = "C";
             digimonListChampionTab.UseVisualStyleBackColor = true;
@@ -437,17 +442,17 @@
             digimonChampionList.ItemHeight = 15;
             digimonChampionList.Location = new Point(3, 3);
             digimonChampionList.Name = "digimonChampionList";
-            digimonChampionList.Size = new Size(287, 444);
+            digimonChampionList.Size = new Size(262, 464);
             digimonChampionList.TabIndex = 0;
             digimonChampionList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListArmorTab
             // 
             digimonListArmorTab.Controls.Add(digimonArmorList);
-            digimonListArmorTab.Location = new Point(4, 24);
+            digimonListArmorTab.Location = new Point(29, 4);
             digimonListArmorTab.Name = "digimonListArmorTab";
             digimonListArmorTab.Padding = new Padding(3);
-            digimonListArmorTab.Size = new Size(293, 450);
+            digimonListArmorTab.Size = new Size(268, 470);
             digimonListArmorTab.TabIndex = 4;
             digimonListArmorTab.Text = "A";
             digimonListArmorTab.UseVisualStyleBackColor = true;
@@ -459,17 +464,17 @@
             digimonArmorList.ItemHeight = 15;
             digimonArmorList.Location = new Point(3, 3);
             digimonArmorList.Name = "digimonArmorList";
-            digimonArmorList.Size = new Size(287, 444);
+            digimonArmorList.Size = new Size(262, 464);
             digimonArmorList.TabIndex = 0;
             digimonArmorList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListUltimateTab
             // 
             digimonListUltimateTab.Controls.Add(digimonUltimateList);
-            digimonListUltimateTab.Location = new Point(4, 24);
+            digimonListUltimateTab.Location = new Point(29, 4);
             digimonListUltimateTab.Name = "digimonListUltimateTab";
             digimonListUltimateTab.Padding = new Padding(3);
-            digimonListUltimateTab.Size = new Size(293, 450);
+            digimonListUltimateTab.Size = new Size(268, 470);
             digimonListUltimateTab.TabIndex = 5;
             digimonListUltimateTab.Text = "U";
             digimonListUltimateTab.UseVisualStyleBackColor = true;
@@ -481,17 +486,17 @@
             digimonUltimateList.ItemHeight = 15;
             digimonUltimateList.Location = new Point(3, 3);
             digimonUltimateList.Name = "digimonUltimateList";
-            digimonUltimateList.Size = new Size(287, 444);
+            digimonUltimateList.Size = new Size(262, 464);
             digimonUltimateList.TabIndex = 0;
             digimonUltimateList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListMegaTab
             // 
             digimonListMegaTab.Controls.Add(digimonMegaList);
-            digimonListMegaTab.Location = new Point(4, 24);
+            digimonListMegaTab.Location = new Point(29, 4);
             digimonListMegaTab.Name = "digimonListMegaTab";
             digimonListMegaTab.Padding = new Padding(3);
-            digimonListMegaTab.Size = new Size(293, 450);
+            digimonListMegaTab.Size = new Size(268, 470);
             digimonListMegaTab.TabIndex = 6;
             digimonListMegaTab.Text = "M";
             digimonListMegaTab.UseVisualStyleBackColor = true;
@@ -503,17 +508,17 @@
             digimonMegaList.ItemHeight = 15;
             digimonMegaList.Location = new Point(3, 3);
             digimonMegaList.Name = "digimonMegaList";
-            digimonMegaList.Size = new Size(287, 444);
+            digimonMegaList.Size = new Size(262, 464);
             digimonMegaList.TabIndex = 0;
             digimonMegaList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
             // digimonListUltraTab
             // 
             digimonListUltraTab.Controls.Add(digimonUltraList);
-            digimonListUltraTab.Location = new Point(4, 24);
+            digimonListUltraTab.Location = new Point(29, 4);
             digimonListUltraTab.Name = "digimonListUltraTab";
             digimonListUltraTab.Padding = new Padding(3);
-            digimonListUltraTab.Size = new Size(293, 450);
+            digimonListUltraTab.Size = new Size(268, 470);
             digimonListUltraTab.TabIndex = 7;
             digimonListUltraTab.Text = "U+";
             digimonListUltraTab.UseVisualStyleBackColor = true;
@@ -525,7 +530,7 @@
             digimonUltraList.ItemHeight = 15;
             digimonUltraList.Location = new Point(3, 3);
             digimonUltraList.Name = "digimonUltraList";
-            digimonUltraList.Size = new Size(287, 444);
+            digimonUltraList.Size = new Size(262, 464);
             digimonUltraList.TabIndex = 0;
             digimonUltraList.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
@@ -543,7 +548,7 @@
             // digimonDataContainer.Panel2
             // 
             digimonDataContainer.Panel2.Controls.Add(digimonDataPanel);
-            digimonDataContainer.Size = new Size(458, 478);
+            digimonDataContainer.Size = new Size(504, 478);
             digimonDataContainer.SplitterDistance = 42;
             digimonDataContainer.TabIndex = 0;
             // 
@@ -553,7 +558,7 @@
             digimonName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             digimonName.Location = new Point(0, 0);
             digimonName.Name = "digimonName";
-            digimonName.Size = new Size(458, 42);
+            digimonName.Size = new Size(504, 42);
             digimonName.TabIndex = 0;
             digimonName.Text = "Digimon";
             digimonName.TextAlign = ContentAlignment.MiddleCenter;
@@ -606,7 +611,7 @@
             digimonDataPanel.RowStyles.Add(new RowStyle());
             digimonDataPanel.RowStyles.Add(new RowStyle());
             digimonDataPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            digimonDataPanel.Size = new Size(458, 432);
+            digimonDataPanel.Size = new Size(504, 432);
             digimonDataPanel.TabIndex = 0;
             // 
             // digimonDataDeEvoLabel
@@ -614,7 +619,7 @@
             digimonDataDeEvoLabel.Dock = DockStyle.Fill;
             digimonDataDeEvoLabel.Location = new Point(3, 0);
             digimonDataDeEvoLabel.Name = "digimonDataDeEvoLabel";
-            digimonDataDeEvoLabel.Size = new Size(146, 30);
+            digimonDataDeEvoLabel.Size = new Size(161, 30);
             digimonDataDeEvoLabel.TabIndex = 0;
             digimonDataDeEvoLabel.Text = "De-Evolutions";
             digimonDataDeEvoLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -622,9 +627,9 @@
             // digimonDataEvoLabel
             // 
             digimonDataEvoLabel.Dock = DockStyle.Fill;
-            digimonDataEvoLabel.Location = new Point(307, 0);
+            digimonDataEvoLabel.Location = new Point(338, 0);
             digimonDataEvoLabel.Name = "digimonDataEvoLabel";
-            digimonDataEvoLabel.Size = new Size(148, 30);
+            digimonDataEvoLabel.Size = new Size(163, 30);
             digimonDataEvoLabel.TabIndex = 1;
             digimonDataEvoLabel.Text = "Evolutions";
             digimonDataEvoLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -636,7 +641,7 @@
             digimonDeEvo1.Location = new Point(3, 33);
             digimonDeEvo1.Name = "digimonDeEvo1";
             digimonDeEvo1.SelectedDigimon = null;
-            digimonDeEvo1.Size = new Size(146, 28);
+            digimonDeEvo1.Size = new Size(161, 28);
             digimonDeEvo1.TabIndex = 2;
             digimonDeEvo1.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo1.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -649,7 +654,7 @@
             digimonDeEvo2.Location = new Point(3, 67);
             digimonDeEvo2.Name = "digimonDeEvo2";
             digimonDeEvo2.SelectedDigimon = null;
-            digimonDeEvo2.Size = new Size(146, 28);
+            digimonDeEvo2.Size = new Size(161, 28);
             digimonDeEvo2.TabIndex = 2;
             digimonDeEvo2.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo2.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -662,7 +667,7 @@
             digimonDeEvo3.Location = new Point(3, 101);
             digimonDeEvo3.Name = "digimonDeEvo3";
             digimonDeEvo3.SelectedDigimon = null;
-            digimonDeEvo3.Size = new Size(146, 28);
+            digimonDeEvo3.Size = new Size(161, 28);
             digimonDeEvo3.TabIndex = 2;
             digimonDeEvo3.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo3.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -675,7 +680,7 @@
             digimonDeEvo4.Location = new Point(3, 135);
             digimonDeEvo4.Name = "digimonDeEvo4";
             digimonDeEvo4.SelectedDigimon = null;
-            digimonDeEvo4.Size = new Size(146, 28);
+            digimonDeEvo4.Size = new Size(161, 28);
             digimonDeEvo4.TabIndex = 2;
             digimonDeEvo4.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo4.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -688,7 +693,7 @@
             digimonDeEvo5.Location = new Point(3, 169);
             digimonDeEvo5.Name = "digimonDeEvo5";
             digimonDeEvo5.SelectedDigimon = null;
-            digimonDeEvo5.Size = new Size(146, 28);
+            digimonDeEvo5.Size = new Size(161, 28);
             digimonDeEvo5.TabIndex = 2;
             digimonDeEvo5.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo5.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -701,7 +706,7 @@
             digimonDeEvo6.Location = new Point(3, 203);
             digimonDeEvo6.Name = "digimonDeEvo6";
             digimonDeEvo6.SelectedDigimon = null;
-            digimonDeEvo6.Size = new Size(146, 28);
+            digimonDeEvo6.Size = new Size(161, 28);
             digimonDeEvo6.TabIndex = 2;
             digimonDeEvo6.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo6.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -714,7 +719,7 @@
             digimonDeEvo7.Location = new Point(3, 237);
             digimonDeEvo7.Name = "digimonDeEvo7";
             digimonDeEvo7.SelectedDigimon = null;
-            digimonDeEvo7.Size = new Size(146, 28);
+            digimonDeEvo7.Size = new Size(161, 28);
             digimonDeEvo7.TabIndex = 2;
             digimonDeEvo7.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo7.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -727,7 +732,7 @@
             digimonDeEvo8.Location = new Point(3, 271);
             digimonDeEvo8.Name = "digimonDeEvo8";
             digimonDeEvo8.SelectedDigimon = null;
-            digimonDeEvo8.Size = new Size(146, 28);
+            digimonDeEvo8.Size = new Size(161, 28);
             digimonDeEvo8.TabIndex = 2;
             digimonDeEvo8.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo8.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -740,7 +745,7 @@
             digimonDeEvo9.Location = new Point(3, 305);
             digimonDeEvo9.Name = "digimonDeEvo9";
             digimonDeEvo9.SelectedDigimon = null;
-            digimonDeEvo9.Size = new Size(146, 28);
+            digimonDeEvo9.Size = new Size(161, 28);
             digimonDeEvo9.TabIndex = 2;
             digimonDeEvo9.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo9.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -753,7 +758,7 @@
             digimonDeEvo10.Location = new Point(3, 339);
             digimonDeEvo10.Name = "digimonDeEvo10";
             digimonDeEvo10.SelectedDigimon = null;
-            digimonDeEvo10.Size = new Size(146, 28);
+            digimonDeEvo10.Size = new Size(161, 28);
             digimonDeEvo10.TabIndex = 2;
             digimonDeEvo10.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo10.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -766,7 +771,7 @@
             digimonDeEvo11.Location = new Point(3, 373);
             digimonDeEvo11.Name = "digimonDeEvo11";
             digimonDeEvo11.SelectedDigimon = null;
-            digimonDeEvo11.Size = new Size(146, 28);
+            digimonDeEvo11.Size = new Size(161, 28);
             digimonDeEvo11.TabIndex = 2;
             digimonDeEvo11.SelectedDigimonChanged += digimonDeEvo_SelectedDigimonChanged;
             digimonDeEvo11.SelectedDigimonDisabled += digimonDeEvo_SelectedDigimonDisabled;
@@ -776,10 +781,10 @@
             // 
             digimonEvo1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo1.AutoSize = true;
-            digimonEvo1.Location = new Point(307, 33);
+            digimonEvo1.Location = new Point(338, 33);
             digimonEvo1.Name = "digimonEvo1";
             digimonEvo1.SelectedDigimon = null;
-            digimonEvo1.Size = new Size(148, 28);
+            digimonEvo1.Size = new Size(163, 28);
             digimonEvo1.TabIndex = 2;
             digimonEvo1.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo1.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -789,10 +794,10 @@
             // 
             digimonEvo2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo2.AutoSize = true;
-            digimonEvo2.Location = new Point(307, 67);
+            digimonEvo2.Location = new Point(338, 67);
             digimonEvo2.Name = "digimonEvo2";
             digimonEvo2.SelectedDigimon = null;
-            digimonEvo2.Size = new Size(148, 28);
+            digimonEvo2.Size = new Size(163, 28);
             digimonEvo2.TabIndex = 2;
             digimonEvo2.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo2.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -802,10 +807,10 @@
             // 
             digimonEvo3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo3.AutoSize = true;
-            digimonEvo3.Location = new Point(307, 101);
+            digimonEvo3.Location = new Point(338, 101);
             digimonEvo3.Name = "digimonEvo3";
             digimonEvo3.SelectedDigimon = null;
-            digimonEvo3.Size = new Size(148, 28);
+            digimonEvo3.Size = new Size(163, 28);
             digimonEvo3.TabIndex = 2;
             digimonEvo3.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo3.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -815,10 +820,10 @@
             // 
             digimonEvo4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo4.AutoSize = true;
-            digimonEvo4.Location = new Point(307, 135);
+            digimonEvo4.Location = new Point(338, 135);
             digimonEvo4.Name = "digimonEvo4";
             digimonEvo4.SelectedDigimon = null;
-            digimonEvo4.Size = new Size(148, 28);
+            digimonEvo4.Size = new Size(163, 28);
             digimonEvo4.TabIndex = 2;
             digimonEvo4.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo4.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -828,10 +833,10 @@
             // 
             digimonEvo5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo5.AutoSize = true;
-            digimonEvo5.Location = new Point(307, 169);
+            digimonEvo5.Location = new Point(338, 169);
             digimonEvo5.Name = "digimonEvo5";
             digimonEvo5.SelectedDigimon = null;
-            digimonEvo5.Size = new Size(148, 28);
+            digimonEvo5.Size = new Size(163, 28);
             digimonEvo5.TabIndex = 2;
             digimonEvo5.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo5.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -841,10 +846,10 @@
             // 
             digimonEvo6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo6.AutoSize = true;
-            digimonEvo6.Location = new Point(307, 203);
+            digimonEvo6.Location = new Point(338, 203);
             digimonEvo6.Name = "digimonEvo6";
             digimonEvo6.SelectedDigimon = null;
-            digimonEvo6.Size = new Size(148, 28);
+            digimonEvo6.Size = new Size(163, 28);
             digimonEvo6.TabIndex = 2;
             digimonEvo6.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo6.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -854,10 +859,10 @@
             // 
             digimonEvo7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo7.AutoSize = true;
-            digimonEvo7.Location = new Point(307, 237);
+            digimonEvo7.Location = new Point(338, 237);
             digimonEvo7.Name = "digimonEvo7";
             digimonEvo7.SelectedDigimon = null;
-            digimonEvo7.Size = new Size(148, 28);
+            digimonEvo7.Size = new Size(163, 28);
             digimonEvo7.TabIndex = 2;
             digimonEvo7.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo7.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -867,10 +872,10 @@
             // 
             digimonEvo8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo8.AutoSize = true;
-            digimonEvo8.Location = new Point(307, 271);
+            digimonEvo8.Location = new Point(338, 271);
             digimonEvo8.Name = "digimonEvo8";
             digimonEvo8.SelectedDigimon = null;
-            digimonEvo8.Size = new Size(148, 28);
+            digimonEvo8.Size = new Size(163, 28);
             digimonEvo8.TabIndex = 2;
             digimonEvo8.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo8.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -880,10 +885,10 @@
             // 
             digimonEvo9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo9.AutoSize = true;
-            digimonEvo9.Location = new Point(307, 305);
+            digimonEvo9.Location = new Point(338, 305);
             digimonEvo9.Name = "digimonEvo9";
             digimonEvo9.SelectedDigimon = null;
-            digimonEvo9.Size = new Size(148, 28);
+            digimonEvo9.Size = new Size(163, 28);
             digimonEvo9.TabIndex = 2;
             digimonEvo9.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo9.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -893,10 +898,10 @@
             // 
             digimonEvo10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo10.AutoSize = true;
-            digimonEvo10.Location = new Point(307, 339);
+            digimonEvo10.Location = new Point(338, 339);
             digimonEvo10.Name = "digimonEvo10";
             digimonEvo10.SelectedDigimon = null;
-            digimonEvo10.Size = new Size(148, 28);
+            digimonEvo10.Size = new Size(163, 28);
             digimonEvo10.TabIndex = 2;
             digimonEvo10.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo10.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
@@ -906,10 +911,10 @@
             // 
             digimonEvo11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             digimonEvo11.AutoSize = true;
-            digimonEvo11.Location = new Point(307, 373);
+            digimonEvo11.Location = new Point(338, 373);
             digimonEvo11.Name = "digimonEvo11";
             digimonEvo11.SelectedDigimon = null;
-            digimonEvo11.Size = new Size(148, 28);
+            digimonEvo11.Size = new Size(163, 28);
             digimonEvo11.TabIndex = 2;
             digimonEvo11.SelectedDigimonChanged += digimonEvo_SelectedDigimonChanged;
             digimonEvo11.SelectedDigimonDisabled += digimonEvo_SelectedDigimonDisabled;
