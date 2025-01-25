@@ -211,7 +211,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     while (!parser.EndOfData)
                     {
                         var tableRow = parser.ReadFields()!;
-                        if (!string.IsNullOrEmpty(tableRow[0]))
+                        var monID = tableRow[0];
+                        if (BaseDigimonStats.ModLoaderLUT.TryGetValue(monID, out string? monIDvalue))
+                        {
+                            monID = monIDvalue;
+                        }
+                        if (!string.IsNullOrEmpty(monID))
                         {
                             var evoConditions = new List<Tuple<int, string>>();
                             for (var i = 1; i < tableRow.Length; i += 3)
@@ -231,7 +236,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                 }
                             }
 
-                            digimonEvoConditions.Add(tableRow[0], evoConditions);
+                            digimonEvoConditions.Add(monID, evoConditions);
                         }
                     }
 
@@ -284,21 +289,31 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             var tableRow = parser.ReadFields()!;
                             if (!string.IsNullOrEmpty(tableRow[0]))
                             {
-                                if (globalIDs.Contains(tableRow[0]))
+                                var monID = tableRow[0];
+                                if (BaseDigimonStats.ModLoaderLUT.TryGetValue(monID, out string? monIDvalue))
+                                {
+                                    monID = monIDvalue;
+                                }
+                                if (globalIDs.Contains(monID))
                                 {
                                     var evolutions = new List<string>();
                                     for (var i = 1; i < tableRow.Length; i++)
                                     {
-                                        if (!int.TryParse(tableRow[i], out var numericDigimonID)
+                                        var evoID = tableRow[i];
+                                        if (BaseDigimonStats.ModLoaderLUT.TryGetValue(evoID, out string? evoIDvalue))
+                                        {
+                                            evoID = evoIDvalue;
+                                        }
+                                        if (!int.TryParse(evoID, out var numericDigimonID)
                                             || numericDigimonID != 0)
                                         {
-                                            if (!globalIDs.Contains(tableRow[i]))
+                                            if (!globalIDs.Contains(evoID))
                                             {
-                                                form.LogMessage("Mod " + Name + " - " + tableRow[0] + ": Ignored unknown Digimon ID of evolution " + tableRow[i] + ", skipped...");
+                                                form.LogMessage("Mod " + Name + " - " + monID + ": Ignored unknown Digimon ID of evolution " + evoID + ", skipped...");
                                             }
                                             else
                                             {
-                                                evolutions.Add(tableRow[i]);
+                                                evolutions.Add(evoID);
                                             }
                                         }
                                     }
@@ -306,23 +321,23 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                     // extend data of evolution if already loaded from prior and this isn't a generated mod
                                     if (!Generated)
                                     {
-                                        if (!digimonEvolutions.ContainsKey(tableRow[0]))
+                                        if (!digimonEvolutions.ContainsKey(monID))
                                         {
-                                            digimonEvolutions.Add(tableRow[0], evolutions);
+                                            digimonEvolutions.Add(monID, evolutions);
                                         }
                                         else
                                         {
-                                            digimonEvolutions[tableRow[0]] = digimonEvolutions[tableRow[0]].Concat(evolutions).Distinct().ToList();
+                                            digimonEvolutions[monID] = digimonEvolutions[monID].Concat(evolutions).Distinct().ToList();
                                         }
                                     }
                                     else
                                     {
-                                        digimonEvolutions[tableRow[0]] = evolutions;
+                                        digimonEvolutions[monID] = evolutions;
                                     }
                                 }
                                 else
                                 {
-                                    form.LogMessage("Mod " + Name + ": Ignored evolution data for unknown Digimon ID " + tableRow[0] + ", skipped...");
+                                    form.LogMessage("Mod " + Name + ": Ignored evolution data for unknown Digimon ID " + monID + ", skipped...");
                                 }
                             }
                         }
@@ -353,29 +368,39 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             var tableRow = parser.ReadFields()!;
                             if (!string.IsNullOrEmpty(tableRow[0]))
                             {
-                                if (globalIDs.Contains(tableRow[0]))
+                                var monID = tableRow[0];
+                                if (BaseDigimonStats.ModLoaderLUT.TryGetValue(monID, out string? monIDvalue))
+                                {
+                                    monID = monIDvalue;
+                                }
+                                if (globalIDs.Contains(monID))
                                 {
                                     for (var i = 1; i < tableRow.Length; i++)
                                     {
-                                        if (!int.TryParse(tableRow[i], out var numericDigimonID)
+                                        var evoID = tableRow[i];
+                                        if (BaseDigimonStats.ModLoaderLUT.TryGetValue(evoID, out string? evoIDvalue))
+                                        {
+                                            evoID = evoIDvalue;
+                                        }
+                                        if (!int.TryParse(evoID, out var numericDigimonID)
                                             || numericDigimonID != 0)
                                         {
-                                            if (!globalIDs.Contains(tableRow[i]))
+                                            if (!globalIDs.Contains(evoID))
                                             {
-                                                form.LogMessage("Mod " + Name + " - " + tableRow[0] + ": Ignored unknown Digimon ID of devolution " + tableRow[i] + ", skipped...");
+                                                form.LogMessage("Mod " + Name + " - " + monID + ": Ignored unknown Digimon ID of devolution " + evoID + ", skipped...");
                                             }
                                             else
                                             {
-                                                if (digimonEvolutions.ContainsKey(tableRow[i]))
+                                                if (digimonEvolutions.ContainsKey(evoID))
                                                 {
-                                                    if (!digimonEvolutions[tableRow[i]].Contains(tableRow[0]))
+                                                    if (!digimonEvolutions[evoID].Contains(monID))
                                                     {
-                                                        digimonEvolutions[tableRow[i]].Add(tableRow[0]);
+                                                        digimonEvolutions[evoID].Add(monID);
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    digimonEvolutions.Add(tableRow[i], [tableRow[0]]);
+                                                    digimonEvolutions.Add(evoID, [monID]);
                                                 }
                                             }
                                         }
@@ -383,7 +408,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                 }
                                 else
                                 {
-                                    form.LogMessage("Mod " + Name + ": Ignored devolution data for unknown Digimon ID " + tableRow[0] + ", skipped...");
+                                    form.LogMessage("Mod " + Name + ": Ignored devolution data for unknown Digimon ID " + monID + ", skipped...");
                                 }
                             }
                         }
