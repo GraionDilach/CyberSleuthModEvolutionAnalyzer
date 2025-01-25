@@ -188,6 +188,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void modLoaderButton_Click(object sender, EventArgs e)
         {
+            if (edited)
+            {
+                var warningResult = MessageBox.Show(
+                    "Reloading the mods will overwrite the ongoing changes.\n"
+                    + "Are you sure you want to continue?",
+                    "Warning!", MessageBoxButtons.YesNo);
+                if (warningResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
             digimonListWrapper.Visible = false;
             digimonDataContainer.Visible = false;
             listDigimons.Clear();
