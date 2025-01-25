@@ -520,9 +520,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var updatedList = new List<string>();
                 for (int i = 0; i < deevos.Length; i++)
                 {
-                    if (deevos[i].SelectedDigimon != null)
+                    var deevo = deevos[i].SelectedDigimon;
+                    if (deevo != null)
                     {
-                        updatedList.Add(deevos[i].SelectedDigimon.ID);
+                        updatedList.Add(deevo.ID);
                     }
                 }
 
@@ -574,9 +575,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var updatedList = new List<string>();
                 for (int i = 0; i < evos.Length; i++)
                 {
-                    if (evos[i].SelectedDigimon != null)
+                    var evoMon = evos[i].SelectedDigimon;
+                    if (evoMon != null)
                     {
-                        updatedList.Add(evos[i].SelectedDigimon.ID);
+                        updatedList.Add(evoMon.ID);
                     }
                 }
 
@@ -633,14 +635,18 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 if (deEvoField == item)
                 {
-                    if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
+                    var deevoMon = deEvoField.SelectedDigimon;
+                    if (deevoMon != null)
                     {
-                        digimonDevolutions[selectedDigimon.ID].Remove(deEvoField.SelectedDigimon.ID);
-                    }
+                        if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
+                        {
+                            digimonDevolutions[selectedDigimon.ID].Remove(deevoMon.ID);
+                        }
 
-                    if (digimonEvolutions.ContainsKey(deEvoField.SelectedDigimon.ID))
-                    {
-                        digimonEvolutions[deEvoField.SelectedDigimon.ID].Remove(selectedDigimon.ID);
+                        if (digimonEvolutions.ContainsKey(deevoMon.ID))
+                        {
+                            digimonEvolutions[deevoMon.ID].Remove(selectedDigimon.ID);
+                        }
                     }
                 }
             }
@@ -663,14 +669,18 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 if (evoField == item)
                 {
-                    if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                    var evoMon = evoField.SelectedDigimon;
+                    if (evoMon != null)
                     {
-                        digimonEvolutions[selectedDigimon.ID].Remove(evoField.SelectedDigimon.ID);
-                    }
+                        if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                        {
+                            digimonEvolutions[selectedDigimon.ID].Remove(evoMon.ID);
+                        }
 
-                    if (digimonDevolutions.ContainsKey(evoField.SelectedDigimon.ID))
-                    {
-                        digimonDevolutions[evoField.SelectedDigimon.ID].Remove(selectedDigimon.ID);
+                        if (digimonDevolutions.ContainsKey(evoMon.ID))
+                        {
+                            digimonDevolutions[evoMon.ID].Remove(selectedDigimon.ID);
+                        }
                     }
                 }
             }
