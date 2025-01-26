@@ -5,6 +5,7 @@ project = "Cyber Sleuth Mod Evolution Analyzer.sln"
 [github]
 user = "GraionDilach"
 repo = "CyberSleuthModEvolutionAnalyzer"
+version_prefix = "v"
 [nuget]
 publish = false
 [scoop]
@@ -13,7 +14,7 @@ publish = false
 PublishTrimmed = false
 PublishSingleFile = true
 SelfContained = true
-PublishReadyToRun = true 
+PublishReadyToRun = true
 CopyOutputSymbolsToPublishDirectory = false
 SkipCopyingSymbolsToOutputDirectory = true
 [[pack]]
