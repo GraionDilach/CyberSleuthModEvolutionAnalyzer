@@ -16968,7 +16968,8 @@
           #endregion
         ];
 
-        public readonly static Dictionary<string, string> ModLoaderLUT = new Dictionary<string, string> {
+        public readonly static Dictionary<string, string> ModLoaderLUT = new()
+        {
             #region simpleDSCSdefaults
             ["[Digimon::Lunamon]"] = "2",
             ["[Digimon::Lekismon]"] = "3",
@@ -17292,11 +17293,11 @@
             ["[Digimon::Icemon]"] = "758",
             ["[Digimon::MudFrigimon]"] = "759",
             ["[Digimon::Guardromon (Gold)]"] = "760",
-            ["[Digimon::Agumon]"] = "761",
-            ["[Digimon::Agumon]"] = "762",
-            ["[Digimon::Agumon]"] = "763",
-            ["[Digimon::Agumon]"] = "764",
-            ["[Digimon::Agumon]"] = "765",
+            ["[Digimon::Agumon_2]"] = "761",
+            ["[Digimon::Agumon_3]"] = "762",
+            ["[Digimon::Agumon_4]"] = "763",
+            ["[Digimon::Agumon_5]"] = "764",
+            ["[Digimon::Agumon_6]"] = "765",
             ["[Digimon::Alphamon Ouryuken]"] = "766",
             ["[Digimon::Darkdramon]"] = "771",
             ["[Digimon::Chaosmon]"] = "772",
