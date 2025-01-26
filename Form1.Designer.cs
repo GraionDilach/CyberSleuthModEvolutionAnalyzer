@@ -621,7 +621,7 @@
             digimonDataDeEvoLabel.Name = "digimonDataDeEvoLabel";
             digimonDataDeEvoLabel.Size = new Size(220, 30);
             digimonDataDeEvoLabel.TabIndex = 0;
-            digimonDataDeEvoLabel.Text = "De-Evolutions";
+            digimonDataDeEvoLabel.Text = "De-Digivolutions";
             digimonDataDeEvoLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // digimonDataEvoLabel
@@ -631,7 +631,7 @@
             digimonDataEvoLabel.Name = "digimonDataEvoLabel";
             digimonDataEvoLabel.Size = new Size(222, 30);
             digimonDataEvoLabel.TabIndex = 1;
-            digimonDataEvoLabel.Text = "Evolutions";
+            digimonDataEvoLabel.Text = "Digivolutions";
             digimonDataEvoLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // digimonDeEvo1
