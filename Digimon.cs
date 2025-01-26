@@ -29,7 +29,14 @@
 
         public override string ToString()
         {
-            return Name + " [" + ID + "]";
+            if (int.TryParse(ID, out _))
+            {
+                return Name + " [" + ID + "]";
+            }
+            else
+            {
+                return Name + " [" + ID.Substring(8);
+            }
         }
 
         public int CompareTo(object? obj)

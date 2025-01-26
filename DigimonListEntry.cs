@@ -24,7 +24,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public override string ToString()
         {
-            return Digimon.Name + " [" + Digimon.ID + "] -{ D:"
+            return Digimon.ToString() + " -{ D:"
                 + Devolutions.Count.ToString() + "; E:"
                 + Evolutions.Count.ToString() + " }-";
         }

@@ -446,7 +446,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             if (!selectedDigimon.IsNullOrEmpty())
             {
-                digimonName.Text = selectedDigimon.Digimon.ToString();
+                if (int.TryParse(selectedDigimon.Digimon.ID, out _))
+                {
+                    digimonName.Text = selectedDigimon.Digimon.Name + " [" + selectedDigimon.Digimon.ID + "]";
+                }
+                else
+                {
+                    digimonName.Text = selectedDigimon.Digimon.Name + " " + selectedDigimon.Digimon.ID;
+                }
 
                 for (var i = 0; i < selectedDigimon.Devolutions.Count && i < deevos.Length; i++)
                 {
