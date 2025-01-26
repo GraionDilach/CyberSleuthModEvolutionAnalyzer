@@ -42,6 +42,7 @@
             valueBox.Name = "valueBox";
             valueBox.Size = new Size(104, 23);
             valueBox.TabIndex = 0;
+            valueBox.SelectionChangeCommitted += valueBox_SelectionChangeCommitted;
             // 
             // clearButton
             // 

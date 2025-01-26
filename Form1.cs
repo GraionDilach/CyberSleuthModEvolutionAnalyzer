@@ -1,18 +1,19 @@
+using System.Linq;
+using System.Windows.Forms;
+
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
     {
         readonly List<DSCSMod> dscsMods = [];
-        readonly List<Digimon>[] digimonLists = new List<Digimon>[8];
-        readonly Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
-        readonly Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
         readonly DigimonEvolutionOption[] deevos;
         readonly DigimonEvolutionOption[] evos;
 
-        List<Digimon> listDigimons = [];
-        Digimon? selectedDigimon;
+        DigimonListEntry? selectedDigimon;
         bool edited;
         string? rootFolder;
+        Tuple<List<DigimonListEntry>, BindingSource>[] digimonLists = new Tuple<List<DigimonListEntry>, BindingSource>[8];
 
         public Form1()
         {
@@ -58,14 +59,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             modList.Visible = false;
             dscsMods.Clear();
-            listDigimons.Clear();
-            digimonEvolutions.Clear();
-            digimonDevolutions.Clear();
+            digimons.Clear();
             selectedDigimon = null;
             UpdateSelectedDigimon();
             for (int i = 0; i < digimonLists.Length; i++)
             {
-                digimonLists[i] = [];
+                digimonLists[i] = new Tuple<List<DigimonListEntry>, BindingSource>([], []);
             }
             DialogResult result = modFolderLocator.ShowDialog();
             digimonDataContainer.Visible = false;
@@ -201,13 +200,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             digimonListWrapper.Visible = false;
             digimonDataContainer.Visible = false;
-            listDigimons.Clear();
-            digimonEvolutions.Clear();
-            digimonDevolutions.Clear();
-            foreach (var item in deevos)
+            digimons.Clear();
+            for (int i = 0; i < digimonLists.Length; i++)
             {
-                item.Options = new List<Digimon>();
-                item.Visible = false;
+                digimonLists[i] = new Tuple<List<DigimonListEntry>, BindingSource>([], []);
             }
             selectedDigimon = null;
             UpdateSelectedDigimon();
@@ -227,7 +223,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Found information about " + digimonIDs.Count + " digimons from all mods.");
 
-            Dictionary<string, Digimon> digimons = BaseDigimonStats.CollectDigimonData(this);
+            var baseMons = BaseDigimonStats.CollectDigimonData(this);
+
+            foreach (var item in baseMons)
+            {
+                digimons.Add(item.Key, item.Value);
+            }
 
             foreach (var i in checkedItems)
             {
@@ -246,7 +247,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Loaded " + digimons.Count + " digimons from all mods.");
 
-            BaseDigimonStats.LoadDigimonEvolutions(this, digimonEvolutions);
+            var digimonEvolutions = BaseDigimonStats.LoadDigimonEvolutions(this);
 
             foreach (var i in checkedItems)
             {
@@ -254,6 +255,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
 
             LogMessage("Loaded evolution records for " + digimonEvolutions.Count + " digimons from all mods.");
+
+            Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
 
             foreach (var mon in digimonEvolutions.Keys)
             {
@@ -271,80 +274,131 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Generated devolution records for " + digimonDevolutions.Count + " digimons from all mods.");
 
+            foreach (var mon in digimons)
+            {
+                if (!digimonDevolutions.ContainsKey(mon.Key))
+                {
+                    digimonDevolutions.Add(mon.Key, new List<string>());
+                }
+                if (!digimonEvolutions.ContainsKey(mon.Key))
+                {
+                    digimonEvolutions.Add(mon.Key, new List<string>());
+                }
+            }
+
             var sortedList = digimons.Values.ToList();
             sortedList.Sort();
-            listDigimons = sortedList;
 
             foreach (var item in deevos)
             {
-                item.Options = listDigimons;
+                item.Options = sortedList;
             }
 
             foreach (var item in evos)
             {
-                item.Options = listDigimons;
+                item.Options = sortedList;
             }
 
-            digimonLists[7] = digimons.Values.Where(x => x.Level == 7).ToList();
-            digimonLists[7].Sort();
-            digimonUltraList.DataSource = digimonLists[7];
-            if (digimonLists[7].Count != 0)
+            var ultraList = digimons.Values.Where(x => x.Level == 7)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            ultraList.Sort();
+            var ultraBind = new BindingSource();
+            digimonLists[7] = new Tuple<List<DigimonListEntry>, BindingSource>(ultraList, ultraBind);
+            digimonLists[7].Item2.DataSource = digimonLists[7].Item1;
+            digimonUltraList.DataSource = digimonLists[7].Item2;
+            if (digimonLists[7].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 7;
             }
 
-            digimonLists[6] = digimons.Values.Where(x => x.Level == 6).ToList();
-            digimonLists[6].Sort();
-            digimonMegaList.DataSource = digimonLists[6];
-            if (digimonLists[6].Count != 0)
+            var megaList = digimons.Values.Where(x => x.Level == 6)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            megaList.Sort();
+            var megaBind = new BindingSource();
+            digimonLists[6] = new Tuple<List<DigimonListEntry>, BindingSource>(megaList, megaBind);
+            digimonLists[6].Item2.DataSource = digimonLists[6].Item1;
+            digimonMegaList.DataSource = digimonLists[6].Item2;
+            if (digimonLists[6].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 6;
             }
 
-            digimonLists[5] = digimons.Values.Where(x => x.Level == 5).ToList();
-            digimonLists[5].Sort();
-            digimonUltimateList.DataSource = digimonLists[5];
-            if (digimonLists[5].Count != 0)
+            var ultimateList = digimons.Values.Where(x => x.Level == 5)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            ultimateList.Sort();
+            var ultimateBind = new BindingSource();
+            digimonLists[5] = new Tuple<List<DigimonListEntry>, BindingSource>(ultimateList, ultimateBind);
+            digimonLists[5].Item2.DataSource = digimonLists[5].Item1;
+            digimonUltimateList.DataSource = digimonLists[5].Item2;
+            if (digimonLists[5].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 5;
             }
 
-            digimonLists[4] = digimons.Values.Where(x => x.Level == 8).ToList();
-            digimonLists[4].Sort();
-            digimonArmorList.DataSource = digimonLists[4];
-            if (digimonLists[4].Count != 0)
+            var armorList = digimons.Values.Where(x => x.Level == 8)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            armorList.Sort();
+            var armorBind = new BindingSource();
+            digimonLists[4] = new Tuple<List<DigimonListEntry>, BindingSource>(armorList, armorBind);
+            digimonLists[4].Item2.DataSource = digimonLists[4].Item1;
+            digimonArmorList.DataSource = digimonLists[4].Item2;
+            if (digimonLists[4].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 4;
             }
 
-            digimonLists[3] = digimons.Values.Where(x => x.Level == 4).ToList();
-            digimonLists[3].Sort();
-            digimonChampionList.DataSource = digimonLists[3];
-            if (digimonLists[3].Count != 0)
+            var championList = digimons.Values.Where(x => x.Level == 4)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            championList.Sort();
+            var championBind = new BindingSource();
+            digimonLists[3] = new Tuple<List<DigimonListEntry>, BindingSource>(championList, championBind);
+            digimonLists[3].Item2.DataSource = digimonLists[3].Item1;
+            digimonChampionList.DataSource = digimonLists[3].Item2;
+            if (digimonLists[3].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 3;
             }
 
-            digimonLists[2] = digimons.Values.Where(x => x.Level == 3).ToList();
-            digimonLists[2].Sort();
-            digimonRookieList.DataSource = digimonLists[2];
-            if (digimonLists[2].Count != 0)
+            var rookieList = digimons.Values.Where(x => x.Level == 3)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            rookieList.Sort();
+            var rookieBind = new BindingSource();
+            digimonLists[2] = new Tuple<List<DigimonListEntry>, BindingSource>(rookieList, rookieBind);
+            digimonLists[2].Item2.DataSource = digimonLists[2].Item1;
+            digimonRookieList.DataSource = digimonLists[2].Item2;
+            if (digimonLists[2].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 2;
             }
 
-            digimonLists[1] = digimons.Values.Where(x => x.Level == 2).ToList();
-            digimonLists[1].Sort();
-            digimonInTraining2List.DataSource = digimonLists[1];
-            if (digimonLists[1].Count != 0)
+            var it2List = digimons.Values.Where(x => x.Level == 2)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            it2List.Sort();
+            var it2Bind = new BindingSource();
+            digimonLists[1] = new Tuple<List<DigimonListEntry>, BindingSource>(it2List, it2Bind);
+            digimonLists[1].Item2.DataSource = digimonLists[1].Item1;
+            digimonInTraining2List.DataSource = digimonLists[1].Item2;
+            if (digimonLists[1].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 1;
             }
 
-            digimonLists[0] = digimons.Values.Where(x => x.Level == 1).ToList();
-            digimonLists[0].Sort();
-            digimonInTraining1List.DataSource = digimonLists[0];
-            if (digimonLists[0].Count != 0)
+            var it1List = digimons.Values.Where(x => x.Level == 1)
+                .Select(x => new DigimonListEntry(x, digimonDevolutions[x.ID], digimonEvolutions[x.ID]))
+                .ToList();
+            it1List.Sort();
+            var it1Bind = new BindingSource();
+            digimonLists[0] = new Tuple<List<DigimonListEntry>, BindingSource>(it1List, it1Bind);
+            digimonLists[0].Item2.DataSource = digimonLists[0].Item1;
+            digimonInTraining1List.DataSource = digimonLists[0].Item2;
+            if (digimonLists[0].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 0;
             }
@@ -364,8 +418,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             for (var i = 0; i < digimonLists.Length; i++)
             {
-                digimonPreEvos[i] = digimonLists[i].Where(x => digimonDevolutions.ContainsKey(x.ID) && digimonDevolutions[x.ID].Count > 6).ToList();
-                digimonEvos[i] = digimonLists[i].Where(x => digimonEvolutions.ContainsKey(x.ID) && digimonEvolutions[x.ID].Count > 6).ToList();
+                digimonPreEvos[i] = digimonLists[i].Item1.Where(x => x.Devolutions.Count > 6).Select(x => x.Digimon).ToList();
+                digimonEvos[i] = digimonLists[i].Item1.Where(x => x.Evolutions.Count > 6).Select(x => x.Digimon).ToList();
 
                 if (digimonPreEvos[i].Count != 0)
                 {
@@ -391,66 +445,44 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             return valid;
         }
 
-        private void UpdateSelectedDigimon()
+        private void UpdateSelectedDigimon(bool resetBind = true)
         {
-            if (selectedDigimon != null)
+            if (!selectedDigimon.IsNullOrEmpty())
             {
-                digimonName.Text = selectedDigimon.ToString();
-                if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
-                {
-                    for (var i = 0; i < digimonDevolutions[selectedDigimon.ID].Count && i < deevos.Length; i++)
-                    {
-                        var tempID = digimonDevolutions[selectedDigimon.ID][i];
-                        deevos[i].SelectedDigimon = listDigimons.First(x => String.Equals(tempID, x.ID, StringComparison.OrdinalIgnoreCase));
-                        deevos[i].Visible = true;
-                    }
-                    for (var i = digimonDevolutions[selectedDigimon.ID].Count; i < deevos.Length; i++)
-                    {
-                        deevos[i].SelectedDigimon = new Digimon();
-                        deevos[i].Visible = false;
-                    }
-                    if (digimonDevolutions[selectedDigimon.ID].Count < 6)
-                    {
-                        deevos[digimonDevolutions[selectedDigimon.ID].Count].Visible = true;
-                    }
-                }
-                else
-                {
-                    for (var i = 0; i < deevos.Length; i++)
-                    {
-                        deevos[i].SelectedDigimon = new Digimon();
-                        deevos[i].Visible = false;
-                    }
+                digimonName.Text = selectedDigimon.Digimon.ToString();
 
-                    deevos[0].Visible = true;
-                }
-                if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                for (var i = 0; i < selectedDigimon.Devolutions.Count && i < deevos.Length; i++)
                 {
-                    for (var i = 0; i < digimonEvolutions[selectedDigimon.ID].Count && i < evos.Length; i++)
-                    {
-                        var tempID = digimonEvolutions[selectedDigimon.ID][i];
-                        evos[i].SelectedDigimon = listDigimons.First(x => String.Equals(tempID, x.ID, StringComparison.OrdinalIgnoreCase));
-                        evos[i].Visible = true;
-                    }
-                    for (var i = digimonEvolutions[selectedDigimon.ID].Count; i < evos.Length; i++)
-                    {
-                        evos[i].SelectedDigimon = new Digimon();
-                        evos[i].Visible = false;
-                    }
-                    if (digimonEvolutions[selectedDigimon.ID].Count < 6)
-                    {
-                        evos[digimonEvolutions[selectedDigimon.ID].Count].Visible = true;
-                    }
+                    deevos[i].SelectedDigimon = digimons[selectedDigimon.Devolutions[i]];
+                    deevos[i].Visible = true;
                 }
-                else
+                for (var i = selectedDigimon.Devolutions.Count; i < deevos.Length; i++)
                 {
-                    for (var i = 0; i < evos.Length; i++)
-                    {
-                        evos[i].SelectedDigimon = new Digimon();
-                        evos[i].Visible = false;
-                    }
+                    deevos[i].SelectedDigimon = new Digimon();
+                    deevos[i].Visible = false;
+                }
+                if (selectedDigimon.Devolutions.Count < 6)
+                {
+                    deevos[selectedDigimon.Devolutions.Count].Visible = true;
+                }
+                for (var i = 0; i < selectedDigimon.Evolutions.Count && i < evos.Length; i++)
+                {
+                    evos[i].SelectedDigimon = digimons[selectedDigimon.Evolutions[i]];
+                    evos[i].Visible = true;
+                }
+                for (var i = selectedDigimon.Evolutions.Count; i < evos.Length; i++)
+                {
+                    evos[i].SelectedDigimon = new Digimon();
+                    evos[i].Visible = false;
+                }
+                if (selectedDigimon.Evolutions.Count < 6)
+                {
+                    evos[selectedDigimon.Evolutions.Count].Visible = true;
+                }
 
-                    evos[0].Visible = true;
+                if (resetBind)
+                {
+                    digimonLists[digimonList.SelectedIndex].Item2.ResetBindings(false);
                 }
             }
             else
@@ -477,10 +509,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var dataSource = sourceBox.DataSource;
                 if (dataSource != null)
                 {
-                    if (dataSource is List<Digimon> digimonList && sourceBox.SelectedIndex > -1)
+                    var bind = dataSource as BindingSource;
+                    if (bind != null && sourceBox.SelectedIndex > -1)
                     {
-                        selectedDigimon = digimonList[sourceBox.SelectedIndex];
-                        UpdateSelectedDigimon();
+                        for (var i = 0; i < digimonLists.Length; i++)
+                        {
+                            if (digimonLists[i].Item2 == bind)
+                            {
+                                selectedDigimon = digimonLists[i].Item1[sourceBox.SelectedIndex];
+                                UpdateSelectedDigimon(false);
+                            }
+                        }
                     }
                     else
                     {
@@ -509,10 +548,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     digimonUltraList
                 };
 
-                if (list[tabControl.SelectedIndex].DataSource is List<Digimon> digimonList && list[tabControl.SelectedIndex].SelectedIndex > -1)
+                var bind = list[tabControl.SelectedIndex].DataSource as BindingSource;
+                if (bind != null && list[tabControl.SelectedIndex].SelectedIndex > -1)
                 {
-                    selectedDigimon = digimonList[list[tabControl.SelectedIndex].SelectedIndex];
-                    UpdateSelectedDigimon();
+                    for (var i = 0; i < digimonLists.Length; i++)
+                    {
+                        if (digimonLists[i].Item2 == bind)
+                        {
+                            selectedDigimon = digimonLists[i].Item1[list[tabControl.SelectedIndex].SelectedIndex];
+                            UpdateSelectedDigimon();
+                        }
+                    }
                 }
                 else
                 {
@@ -525,50 +571,73 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void digimonDeEvo_SelectedDigimonChanged(object sender, EventArgs e)
         {
-            if (digimonDataContainer.Visible && selectedDigimon != null)
+            if (digimonDataContainer.Visible && !selectedDigimon.IsNullOrEmpty())
             {
                 digimonDataContainer.Visible = false;
-                var updatedList = new List<string>();
-                for (int i = 0; i < deevos.Length; i++)
-                {
-                    var deevo = deevos[i].SelectedDigimon;
-                    if (deevo != null)
-                    {
-                        updatedList.Add(deevo.ID);
-                    }
-                }
 
-                if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
+                if (sender is DigimonEvolutionOption deevooption)
                 {
-                    digimonDevolutions[selectedDigimon.ID] = new List<string>(updatedList.Distinct());
-                }
-                else
-                {
-                    digimonDevolutions.Add(selectedDigimon.ID, new List<string>(updatedList.Distinct()));
-                }
+                    var index = Array.IndexOf(deevos, deevooption);
+                    if (index != -1)
+                    {
+                        if (index < selectedDigimon.Devolutions.Count)
+                        {
+                            var oldDeevo = selectedDigimon.Devolutions[index];
+                            if (deevooption.SelectedDigimon != null && !String.IsNullOrEmpty(deevooption.SelectedDigimon.ID))
+                            {
+                                selectedDigimon.Devolutions[index] = deevooption.SelectedDigimon.ID;
 
-                var tempEvos = digimonEvolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
-                foreach (var evo in tempEvos)
-                {
-                    if (updatedList.Contains(evo.Key))
-                    {
-                        updatedList.Remove(evo.Key);
-                    }
-                    else
-                    {
-                        digimonEvolutions[evo.Key].Remove(selectedDigimon.ID);
-                    }
-                }
+                                foreach (var lists in digimonLists)
+                                {
+                                    foreach (var evoMon in lists.Item1)
+                                    {
+                                        if (String.Equals(evoMon.Digimon.ID, oldDeevo))
+                                        {
+                                            evoMon.Evolutions.Remove(selectedDigimon.Digimon.ID);
+                                        }
 
-                if (updatedList.Count == 1)
-                {
-                    if (digimonEvolutions.ContainsKey(updatedList[0]))
-                    {
-                        digimonEvolutions[updatedList[0]].Add(selectedDigimon.ID);
-                    }
-                    else
-                    {
-                        digimonEvolutions.Add(updatedList[0], new List<string> { selectedDigimon.ID });
+                                        if (String.Equals(evoMon.Digimon.ID, selectedDigimon.Devolutions[index]))
+                                        {
+                                            evoMon.Evolutions.Add(selectedDigimon.Digimon.ID);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                selectedDigimon.Devolutions.Remove(oldDeevo);
+
+                                foreach (var lists in digimonLists)
+                                {
+                                    foreach (var evoMon in lists.Item1)
+                                    {
+                                        if (String.Equals(evoMon.Digimon.ID, oldDeevo))
+                                        {
+                                            evoMon.Evolutions.Remove(selectedDigimon.Digimon.ID);
+                                            deevooption.SelectedDigimon = deevos[index+1].SelectedDigimon;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (index == selectedDigimon.Devolutions.Count)
+                            {
+                                selectedDigimon.Devolutions.Add(deevooption.SelectedDigimon.ID);
+
+                                foreach (var lists in digimonLists)
+                                {
+                                    foreach (var evoMon in lists.Item1)
+                                    {
+                                        if (String.Equals(evoMon.Digimon.ID, selectedDigimon.Devolutions[index]))
+                                        {
+                                            evoMon.Evolutions.Add(selectedDigimon.Digimon.ID);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -580,50 +649,73 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void digimonEvo_SelectedDigimonChanged(object sender, EventArgs e)
         {
-            if (digimonDataContainer.Visible && selectedDigimon != null)
+            if (digimonDataContainer.Visible && !selectedDigimon.IsNullOrEmpty())
             {
                 digimonDataContainer.Visible = false;
-                var updatedList = new List<string>();
-                for (int i = 0; i < evos.Length; i++)
-                {
-                    var evoMon = evos[i].SelectedDigimon;
-                    if (evoMon != null)
-                    {
-                        updatedList.Add(evoMon.ID);
-                    }
-                }
 
-                if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
+                if (sender is DigimonEvolutionOption evooption)
                 {
-                    digimonEvolutions[selectedDigimon.ID] = new List<string>(updatedList.Distinct());
-                }
-                else
-                {
-                    digimonEvolutions.Add(selectedDigimon.ID, new List<string>(updatedList.Distinct()));
-                }
+                    var index = Array.IndexOf(evos, evooption);
+                    if (index != -1)
+                    {
+                        if (index < selectedDigimon.Evolutions.Count)
+                        {
+                            var oldEvo = selectedDigimon.Evolutions[index];
+                            if (evooption.SelectedDigimon != null && !String.IsNullOrEmpty(evooption.SelectedDigimon.ID))
+                            {
+                                selectedDigimon.Evolutions[index] = evooption.SelectedDigimon.ID;
 
-                var tempEvos = digimonDevolutions.Where(x => x.Value.Contains(selectedDigimon.ID)).ToList();
-                foreach (var evo in tempEvos)
-                {
-                    if (updatedList.Contains(evo.Key))
-                    {
-                        updatedList.Remove(evo.Key);
-                    }
-                    else
-                    {
-                        digimonDevolutions[evo.Key].Remove(selectedDigimon.ID);
-                    }
-                }
+                                foreach (var lists in digimonLists)
+                                {
+                                    foreach (var deEvoMon in lists.Item1)
+                                    {
+                                        if (String.Equals(deEvoMon.Digimon.ID, oldEvo))
+                                        {
+                                            deEvoMon.Devolutions.Remove(selectedDigimon.Digimon.ID);
+                                        }
 
-                if (updatedList.Count == 1)
-                {
-                    if (digimonDevolutions.ContainsKey(updatedList[0]))
-                    {
-                        digimonDevolutions[updatedList[0]].Add(selectedDigimon.ID);
-                    }
-                    else
-                    {
-                        digimonDevolutions.Add(updatedList[0], new List<string> { selectedDigimon.ID });
+                                        if (String.Equals(deEvoMon.Digimon.ID, selectedDigimon.Evolutions[index]))
+                                        {
+                                            deEvoMon.Devolutions.Add(selectedDigimon.Digimon.ID);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                selectedDigimon.Evolutions.Remove(oldEvo);
+
+                                foreach (var list in digimonLists)
+                                {
+                                    foreach (var deevoMon in list.Item1)
+                                    {
+                                        if (String.Equals(deevoMon.Digimon.ID, oldEvo))
+                                        {
+                                            deevoMon.Devolutions.Remove(selectedDigimon.Digimon.ID);
+                                            evooption.SelectedDigimon = evos[index + 1].SelectedDigimon;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (index == selectedDigimon.Evolutions.Count)
+                            {
+                                selectedDigimon.Evolutions.Add(evooption.SelectedDigimon.ID);
+
+                                foreach (var lists in digimonLists)
+                                {
+                                    foreach (var deEvoMon in lists.Item1)
+                                    {
+                                        if (String.Equals(deEvoMon.Digimon.ID, selectedDigimon.Evolutions[index]))
+                                        {
+                                            deEvoMon.Devolutions.Add(selectedDigimon.Digimon.ID);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -633,77 +725,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
         }
 
-        private void digimonDeEvo_SelectedDigimonDisabled(object sender, MouseEventArgs e)
-        {
-            if (selectedDigimon == null)
-            {
-                return;
-            }
-
-            digimonDataContainer.Visible = false;
-            var deEvoField = sender as DigimonEvolutionOption;
-            foreach (var item in deevos)
-            {
-                if (deEvoField == item)
-                {
-                    var deevoMon = deEvoField.SelectedDigimon;
-                    if (deevoMon != null)
-                    {
-                        if (digimonDevolutions.ContainsKey(selectedDigimon.ID))
-                        {
-                            digimonDevolutions[selectedDigimon.ID].Remove(deevoMon.ID);
-                        }
-
-                        if (digimonEvolutions.ContainsKey(deevoMon.ID))
-                        {
-                            digimonEvolutions[deevoMon.ID].Remove(selectedDigimon.ID);
-                        }
-                    }
-                }
-            }
-
-            edited = true;
-            UpdateSelectedDigimon();
-            digimonDataContainer.Visible = true;
-        }
-
-        private void digimonEvo_SelectedDigimonDisabled(object sender, MouseEventArgs e)
-        {
-            if (selectedDigimon == null)
-            {
-                return;
-            }
-
-            digimonDataContainer.Visible = false;
-            var evoField = sender as DigimonEvolutionOption;
-            foreach (var item in evos)
-            {
-                if (evoField == item)
-                {
-                    var evoMon = evoField.SelectedDigimon;
-                    if (evoMon != null)
-                    {
-                        if (digimonEvolutions.ContainsKey(selectedDigimon.ID))
-                        {
-                            digimonEvolutions[selectedDigimon.ID].Remove(evoMon.ID);
-                        }
-
-                        if (digimonDevolutions.ContainsKey(evoMon.ID))
-                        {
-                            digimonDevolutions[evoMon.ID].Remove(selectedDigimon.ID);
-                        }
-                    }
-                }
-            }
-
-            edited = true;
-            UpdateSelectedDigimon();
-            digimonDataContainer.Visible = true;
-        }
-
         private void jumpToSelectedDigimon(object sender, EventArgs e)
         {
-            if (digimonDataContainer.Visible && selectedDigimon != null)
+            if (digimonDataContainer.Visible && !selectedDigimon.IsNullOrEmpty())
             {
                 digimonDataContainer.Visible = false;
 
@@ -712,7 +736,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     var jumpDigimonTarget = senderEvoControlOption.SelectedDigimon;
                     if (jumpDigimonTarget != null && !String.IsNullOrEmpty(jumpDigimonTarget.ID))
                     {
-                        var list = new ListBox[]
+                        var boxList = new ListBox[]
                         {
                             digimonInTraining1List,
                             digimonInTraining2List,
@@ -725,14 +749,20 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         };
                         bool jumped = false;
 
-                        for (var item = 0; item < list.Length && !jumped; item++)
+                        for (int i = 0; i < digimonLists.Length && !jumped; i++)
                         {
-                            if (list[item].DataSource is List<Digimon> digimonTabList && digimonTabList.Contains(jumpDigimonTarget))
+                            for (var item = 0; item < digimonLists[i].Item1.Count() && !jumped; item++)
                             {
-                                list[item].SelectedIndex = digimonTabList.IndexOf(jumpDigimonTarget);
-                                digimonList.SelectedIndex = item;
-                                selectedDigimon = jumpDigimonTarget;
-                                jumped = true;
+                                if (String.Equals(digimonLists[i].Item1[item].Digimon.ID, jumpDigimonTarget.ID))
+                                {
+                                    if (boxList[i].DataSource as BindingSource == digimonLists[i].Item2)
+                                    {
+                                        selectedDigimon = digimonLists[i].Item1[item];
+                                        boxList[i].SelectedIndex = item;
+                                        digimonList.SelectedIndex = i;
+                                        jumped = true;
+                                    }
+                                }
                             }
                         }
                     }
@@ -783,6 +813,19 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         }
 
                         export.WriteMetadata(checkedmods);
+
+                        Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
+                        Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
+
+                        foreach (var list in digimonLists)
+                        {
+                            foreach (var item in list.Item1)
+                            {
+                                digimonDevolutions.Add(item.Digimon.ID, item.Devolutions);
+                                digimonEvolutions.Add(item.Digimon.ID, item.Evolutions);
+                            }
+                        }
+
                         export.WriteEvolutions(digimonDevolutions, digimonEvolutions);
 
                         LogMessage("Successfully saved generated " + export.Name + " mod.");

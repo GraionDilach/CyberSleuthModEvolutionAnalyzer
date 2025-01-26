@@ -17346,8 +17346,9 @@
             return digimonData;
         }
 
-        public static void LoadDigimonEvolutions(Form1 form, Dictionary<string, List<string>> digimonEvolutions)
+        public static Dictionary<string, List<string>> LoadDigimonEvolutions(Form1 form)
         {
+            Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
             foreach (var mon in baseDigimon)
             {
                 var evolution = new List<string>();
@@ -17363,6 +17364,8 @@
                     digimonEvolutions.Add(mon["id"], evolution);
                 }
             }
+
+            return digimonEvolutions;
         }
     }
 }
