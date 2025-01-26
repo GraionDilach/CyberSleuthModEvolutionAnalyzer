@@ -21,7 +21,7 @@ A tool to detect and resolve evolution conflicts within Digimon Story Cyber Sleu
 - Review the contents of the log window and make changes as necessary
   - **NOTE:** The tool will refuse to generate a mod if a Digimon has more than 6 options to (de-)digivolve, to adhere with Cyber Sleuth's limitations
 - After you're done, save the result mod
-- Install the newly generated mod with SimpleDSCSModManager
+- Install the newly generated mod as the last one in your SimpleDSCSModManager install order
 
 ## Known issues
 
