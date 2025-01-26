@@ -1,6 +1,3 @@
-using System.Linq;
-using System.Windows.Forms;
-
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
@@ -622,7 +619,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         }
                         else
                         {
-                            if (index == selectedDigimon.Devolutions.Count)
+                            if (index == selectedDigimon.Devolutions.Count && deevooption.SelectedDigimon != null && !String.IsNullOrEmpty(deevooption.SelectedDigimon.ID))
                             {
                                 selectedDigimon.Devolutions.Add(deevooption.SelectedDigimon.ID);
 
@@ -700,7 +697,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         }
                         else
                         {
-                            if (index == selectedDigimon.Evolutions.Count)
+                            if (index == selectedDigimon.Evolutions.Count && evooption.SelectedDigimon != null && !String.IsNullOrEmpty(evooption.SelectedDigimon.ID))
                             {
                                 selectedDigimon.Evolutions.Add(evooption.SelectedDigimon.ID);
 

@@ -44,8 +44,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
     public static class DigimonListEntryExtension
     {
-        [MemberNotNullWhen(true)]
-        public static bool IsNullOrEmpty(this DigimonListEntry? dle)
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this DigimonListEntry? dle)
         {
             if (dle == null || dle.Digimon == null || String.IsNullOrEmpty(dle.Digimon.ID))
             {
