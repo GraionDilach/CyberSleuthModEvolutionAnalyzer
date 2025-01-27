@@ -358,7 +358,7 @@
             digimonList.Controls.Add(digimonListUltraTab);
             digimonList.Dock = DockStyle.Fill;
             digimonList.DrawMode = TabDrawMode.OwnerDrawFixed;
-            digimonList.ItemSize = new Size(10, 25);
+            digimonList.ItemSize = new Size(10, 33);
             digimonList.Location = new Point(0, 0);
             digimonList.Multiline = true;
             digimonList.Name = "digimonList";
@@ -373,10 +373,10 @@
             // 
             digimonListInTraining1Tab.AutoScroll = true;
             digimonListInTraining1Tab.Controls.Add(digimonInTraining1List);
-            digimonListInTraining1Tab.Location = new Point(29, 4);
+            digimonListInTraining1Tab.Location = new Point(44, 4);
             digimonListInTraining1Tab.Name = "digimonListInTraining1Tab";
             digimonListInTraining1Tab.Padding = new Padding(3);
-            digimonListInTraining1Tab.Size = new Size(222, 470);
+            digimonListInTraining1Tab.Size = new Size(207, 470);
             digimonListInTraining1Tab.TabIndex = 0;
             digimonListInTraining1Tab.Text = "IT1";
             digimonListInTraining1Tab.UseVisualStyleBackColor = true;
@@ -388,7 +388,7 @@
             digimonInTraining1List.ItemHeight = 15;
             digimonInTraining1List.Location = new Point(3, 3);
             digimonInTraining1List.Name = "digimonInTraining1List";
-            digimonInTraining1List.Size = new Size(216, 464);
+            digimonInTraining1List.Size = new Size(201, 464);
             digimonInTraining1List.TabIndex = 0;
             digimonInTraining1List.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
@@ -396,10 +396,10 @@
             // 
             digimonListInTraining2Tab.AutoScroll = true;
             digimonListInTraining2Tab.Controls.Add(digimonInTraining2List);
-            digimonListInTraining2Tab.Location = new Point(29, 4);
+            digimonListInTraining2Tab.Location = new Point(44, 4);
             digimonListInTraining2Tab.Name = "digimonListInTraining2Tab";
             digimonListInTraining2Tab.Padding = new Padding(3);
-            digimonListInTraining2Tab.Size = new Size(222, 470);
+            digimonListInTraining2Tab.Size = new Size(207, 470);
             digimonListInTraining2Tab.TabIndex = 1;
             digimonListInTraining2Tab.Text = "IT2";
             digimonListInTraining2Tab.UseVisualStyleBackColor = true;
@@ -411,7 +411,7 @@
             digimonInTraining2List.ItemHeight = 15;
             digimonInTraining2List.Location = new Point(3, 3);
             digimonInTraining2List.Name = "digimonInTraining2List";
-            digimonInTraining2List.Size = new Size(216, 464);
+            digimonInTraining2List.Size = new Size(201, 464);
             digimonInTraining2List.TabIndex = 0;
             digimonInTraining2List.SelectedIndexChanged += digimonList_SelectedIndexChanged;
             // 
