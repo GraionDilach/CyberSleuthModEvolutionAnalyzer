@@ -41,6 +41,7 @@
             modListLabel = new Label();
             modReloadWrapper = new SplitContainer();
             modListBox = new CheckedListBox();
+            selectAllMods = new Button();
             modLoaderButton = new Button();
             digimonListWrapper = new SplitContainer();
             digimonList = new TabControl();
@@ -282,9 +283,10 @@
             // 
             // modReloadWrapper.Panel2
             // 
+            modReloadWrapper.Panel2.Controls.Add(selectAllMods);
             modReloadWrapper.Panel2.Controls.Add(modLoaderButton);
             modReloadWrapper.Size = new Size(142, 449);
-            modReloadWrapper.SplitterDistance = 420;
+            modReloadWrapper.SplitterDistance = 390;
             modReloadWrapper.TabIndex = 0;
             // 
             // modListBox
@@ -296,16 +298,27 @@
             modListBox.Location = new Point(0, 0);
             modListBox.Name = "modListBox";
             modListBox.ScrollAlwaysVisible = true;
-            modListBox.Size = new Size(142, 420);
+            modListBox.Size = new Size(142, 390);
             modListBox.TabIndex = 0;
             modListBox.DragDrop += modListBox_DragDrop;
             modListBox.DragOver += modListBox_DragOver;
             modListBox.MouseDown += modListBox_MouseDown;
             // 
+            // selectAllMods
+            // 
+            selectAllMods.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            selectAllMods.Location = new Point(0, -1);
+            selectAllMods.Name = "selectAllMods";
+            selectAllMods.Size = new Size(142, 25);
+            selectAllMods.TabIndex = 0;
+            selectAllMods.Text = "(De)Select All Mods";
+            selectAllMods.UseVisualStyleBackColor = true;
+            selectAllMods.Click += selectAllMods_Click;
+            // 
             // modLoaderButton
             // 
-            modLoaderButton.Dock = DockStyle.Fill;
-            modLoaderButton.Location = new Point(0, 0);
+            modLoaderButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            modLoaderButton.Location = new Point(0, 30);
             modLoaderButton.Name = "modLoaderButton";
             modLoaderButton.Size = new Size(142, 25);
             modLoaderButton.TabIndex = 0;
@@ -1032,5 +1045,6 @@
         private DigimonEvolutionOption digimonEvo9;
         private DigimonEvolutionOption digimonEvo10;
         private DigimonEvolutionOption digimonEvo11;
+        private Button selectAllMods;
     }
 }

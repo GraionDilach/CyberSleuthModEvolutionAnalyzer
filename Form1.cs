@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
@@ -618,7 +620,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                         if (String.Equals(evoMon.Digimon.ID, oldDeevo))
                                         {
                                             evoMon.Evolutions.Remove(selectedDigimon.Digimon.ID);
-                                            deevooption.SelectedDigimon = deevos[index+1].SelectedDigimon;
+                                            deevooption.SelectedDigimon = deevos[index + 1].SelectedDigimon;
                                         }
                                     }
                                 }
@@ -889,6 +891,24 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             _stringFlags.Alignment = StringAlignment.Center;
             _stringFlags.LineAlignment = StringAlignment.Center;
             g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
+        }
+
+        private void selectAllMods_Click(object sender, EventArgs e)
+        {
+            if (modListBox.CheckedItems.Count < modListBox.Items.Count)
+            {
+                for (int i = 0; i < modListBox.Items.Count; i++)
+                {
+                    modListBox.SetItemChecked(i, true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < modListBox.Items.Count; i++)
+                {
+                    modListBox.SetItemChecked(i, false);
+                }
+            }
         }
     }
 }
