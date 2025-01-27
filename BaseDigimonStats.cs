@@ -17322,7 +17322,7 @@
 
         public static Dictionary<string, Digimon> CollectDigimonData(Form1 form)
         {
-            var digimonData = new Dictionary<string, Digimon>(StringComparer.OrdinalIgnoreCase);
+            var digimonData = new Dictionary<string, Digimon>();
 
             foreach (var mon in baseDigimon)
             {
@@ -17349,7 +17349,7 @@
 
         public static Dictionary<string, List<string>> LoadDigimonEvolutions(Form1 form)
         {
-            Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, List<string>> digimonEvolutions = new();
             foreach (var mon in baseDigimon)
             {
                 var evolution = new List<string>();

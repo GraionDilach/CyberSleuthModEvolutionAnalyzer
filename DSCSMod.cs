@@ -15,7 +15,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public string Folder { get => folder; }
 
-        readonly HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
+        readonly HashSet<string> digimonIDs = new();
 
         /*
         string Description;
@@ -110,7 +110,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public Dictionary<string, Digimon> CollectDigimonData(Form1 form, int modIndex)
         {
-            var digimonData = new Dictionary<string, Digimon>(StringComparer.OrdinalIgnoreCase);
+            var digimonData = new Dictionary<string, Digimon>();
 
             if (digimonIDs.Count == 0)
             {
@@ -119,9 +119,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             // only read Digimons which appeared within the mod's own Digimon ID list
             // parse each CSV individually then build up the Digimon thenafter
-            var digimonNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            var digimonLevels = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-            var digimonEvoConditions = new Dictionary<string, List<Tuple<int, string>>>(StringComparer.OrdinalIgnoreCase);
+            var digimonNames = new Dictionary<string, string>();
+            var digimonLevels = new Dictionary<string, int>();
+            var digimonEvoConditions = new Dictionary<string, List<Tuple<int, string>>>();
 
             try
             {

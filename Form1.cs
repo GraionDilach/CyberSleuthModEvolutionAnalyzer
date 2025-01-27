@@ -3,7 +3,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     public partial class Form1 : Form
     {
         readonly List<DSCSMod> dscsMods = [];
-        readonly Dictionary<string, Digimon> digimons = new(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, Digimon> digimons = new();
         readonly DigimonEvolutionOption[] deevos;
         readonly DigimonEvolutionOption[] evos;
 
@@ -204,7 +204,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             selectedDigimon = null;
             UpdateSelectedDigimon();
-            HashSet<string> digimonIDs = new(StringComparer.OrdinalIgnoreCase);
+            HashSet<string> digimonIDs = new();
             var checkedItems = new List<DSCSMod>();
             for (var i = 0; i < modListBox.Items.Count; i++)
             {
@@ -248,12 +248,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                i.LoadDigimonEvolutions(this, digimons.Keys.ToHashSet(StringComparer.OrdinalIgnoreCase), digimonEvolutions);
+                i.LoadDigimonEvolutions(this, digimons.Keys.ToHashSet(), digimonEvolutions);
             }
 
             LogMessage("Loaded evolution records for " + digimonEvolutions.Count + " digimons from all mods.");
 
-            Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, List<string>> digimonDevolutions = new();
 
             foreach (var mon in digimonEvolutions.Keys)
             {
@@ -818,8 +818,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                         export.WriteMetadata(checkedmods);
 
-                        Dictionary<string, List<string>> digimonDevolutions = new(StringComparer.OrdinalIgnoreCase);
-                        Dictionary<string, List<string>> digimonEvolutions = new(StringComparer.OrdinalIgnoreCase);
+                        Dictionary<string, List<string>> digimonDevolutions = new();
+                        Dictionary<string, List<string>> digimonEvolutions = new();
 
                         foreach (var list in digimonLists)
                         {
