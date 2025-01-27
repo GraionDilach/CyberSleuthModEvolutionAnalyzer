@@ -306,6 +306,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[7] = new Tuple<List<DigimonListEntry>, BindingSource>(ultraList, ultraBind);
             digimonLists[7].Item2.DataSource = digimonLists[7].Item1;
             digimonUltraList.DataSource = digimonLists[7].Item2;
+            digimonListUltraTab.Text = "U+\n" + digimonLists[7].Item1.Count.ToString();
             if (digimonLists[7].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 7;
@@ -319,6 +320,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[6] = new Tuple<List<DigimonListEntry>, BindingSource>(megaList, megaBind);
             digimonLists[6].Item2.DataSource = digimonLists[6].Item1;
             digimonMegaList.DataSource = digimonLists[6].Item2;
+            digimonListMegaTab.Text = "M\n" + digimonLists[6].Item1.Count.ToString();
             if (digimonLists[6].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 6;
@@ -332,6 +334,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[5] = new Tuple<List<DigimonListEntry>, BindingSource>(ultimateList, ultimateBind);
             digimonLists[5].Item2.DataSource = digimonLists[5].Item1;
             digimonUltimateList.DataSource = digimonLists[5].Item2;
+            digimonListUltimateTab.Text = "U\n" + digimonLists[5].Item1.Count.ToString();
             if (digimonLists[5].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 5;
@@ -345,6 +348,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[4] = new Tuple<List<DigimonListEntry>, BindingSource>(armorList, armorBind);
             digimonLists[4].Item2.DataSource = digimonLists[4].Item1;
             digimonArmorList.DataSource = digimonLists[4].Item2;
+            digimonListArmorTab.Text = "A\n" + digimonLists[4].Item1.Count.ToString();
             if (digimonLists[4].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 4;
@@ -358,6 +362,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[3] = new Tuple<List<DigimonListEntry>, BindingSource>(championList, championBind);
             digimonLists[3].Item2.DataSource = digimonLists[3].Item1;
             digimonChampionList.DataSource = digimonLists[3].Item2;
+            digimonListChampionTab.Text = "C\n" + digimonLists[3].Item1.Count.ToString();
             if (digimonLists[3].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 3;
@@ -371,6 +376,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[2] = new Tuple<List<DigimonListEntry>, BindingSource>(rookieList, rookieBind);
             digimonLists[2].Item2.DataSource = digimonLists[2].Item1;
             digimonRookieList.DataSource = digimonLists[2].Item2;
+            digimonListRookieTab.Text = "R\n" + digimonLists[2].Item1.Count.ToString();
             if (digimonLists[2].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 2;
@@ -384,6 +390,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[1] = new Tuple<List<DigimonListEntry>, BindingSource>(it2List, it2Bind);
             digimonLists[1].Item2.DataSource = digimonLists[1].Item1;
             digimonInTraining2List.DataSource = digimonLists[1].Item2;
+            digimonListInTraining2Tab.Text = "IT2\n" + digimonLists[1].Item1.Count.ToString();
             if (digimonLists[1].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 1;
@@ -397,6 +404,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonLists[0] = new Tuple<List<DigimonListEntry>, BindingSource>(it1List, it1Bind);
             digimonLists[0].Item2.DataSource = digimonLists[0].Item1;
             digimonInTraining1List.DataSource = digimonLists[0].Item2;
+            digimonListInTraining1Tab.Text = "IT1\n" + digimonLists[0].Item1.Count.ToString();
             if (digimonLists[0].Item1.Count != 0)
             {
                 digimonList.SelectedIndex = 0;
