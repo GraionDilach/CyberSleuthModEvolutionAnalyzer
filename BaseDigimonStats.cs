@@ -17334,8 +17334,12 @@
                         var evoMode = int.Parse(mon["condType" + i.ToString()]);
                         switch (evoMode)
                         {
+                            case 15:
+                                evoConditions.Add(new Tuple<int, string>(evoMode, mon["condUnk" + i.ToString()]));
+                                break;
+
                             default:
-                                var evoCondition = new Tuple<int, string>(evoMode, mon["condValue" + i.ToString()]);
+                                evoConditions.Add(new Tuple<int, string>(evoMode, mon["condValue" + i.ToString()]));
                                 break;
                         }
                     }

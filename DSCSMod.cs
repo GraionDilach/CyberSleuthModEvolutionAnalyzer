@@ -221,8 +221,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             var evoConditions = new List<Tuple<int, string>>();
                             for (var i = 1; i < tableRow.Length; i += 3)
                             {
-                                if (int.TryParse(tableRow[i], out var condition)
-                                    && condition != 0)
+                                if (int.TryParse(tableRow[i], out var condition))
                                 {
                                     // separately handle "Cleared Hacker's Memory" condition
                                     if (condition != 15)
@@ -234,6 +233,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                         evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 2]));
                                     }
                                 }
+                            }
+
+                            while (evoConditions.Count < 10)
+                            {
+                                evoConditions.Add(new(0, ""));
                             }
 
                             digimonEvoConditions.Add(monID, evoConditions);
@@ -460,7 +464,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 Directory.CreateDirectory(path + @"\modfiles\data\degeneration_para.mbe");
             }
 
-            var degeneration = "id,digi1,digi2,digi3,digi4,digi5,digi6\n";
+            var degeneration = "id,digi1,digi2,digi3,digi4,digi5,digi6\r\n";
             foreach (var mon in digimonDevolutions)
             {
                 degeneration += mon.Key;
@@ -475,7 +479,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         degeneration += ",0";
                     }
                 }
-                degeneration += "\n";
+                degeneration += "\r\n";
             }
             File.WriteAllText(path + @"\modfiles\data\degeneration_para.mbe\digimon.csv", degeneration);
 
@@ -484,7 +488,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 Directory.CreateDirectory(path + @"\modfiles\data\evolution_next_para.mbe");
             }
 
-            var evolution = "id,digi1,digi2,digi3,digi4,digi5,digi6\n";
+            var evolution = "id,digi1,digi2,digi3,digi4,digi5,digi6\r\n";
             foreach (var mon in digimonEvolutions)
             {
                 evolution += mon.Key;
@@ -499,9 +503,55 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         evolution += ",0";
                     }
                 }
-                evolution += "\n";
+                evolution += "\r\n";
             }
             File.WriteAllText(path + @"\modfiles\data\evolution_next_para.mbe\digimon.csv", evolution);
+        }
+
+        public void WriteEvoConditions(Dictionary<string, List<Tuple<int, string>>> digimonEvoConditions)
+        {
+            if (!Directory.Exists(path + @"\modfiles"))
+            {
+                Directory.CreateDirectory(path + @"\modfiles");
+            }
+
+            if (!Directory.Exists(path + @"\modfiles\data"))
+            {
+                Directory.CreateDirectory(path + @"\modfiles\data");
+            }
+
+            if (!Directory.Exists(path + @"\modfiles\data\evolution_condition_para.mbe"))
+            {
+                Directory.CreateDirectory(path + @"\modfiles\data\evolution_condition_para.mbe");
+            }
+
+            var conditions = "id,condType1,condValue1,condUnk1,condType2,condValue2,condUnk2,condType3,condValue3,condUnk3,condType4,condValue4,condUnk4,condType5,condValue5,condUnk5,condType6,condValue6,condUnk6,condType7,condValue7,condUnk7,condType8,condValue8,condUnk8,condType9,condValue9,condUnk9,condType10,condValue10,condUnk10\r\n";
+            foreach (var mon in digimonEvoConditions)
+            {
+                conditions += mon.Key;
+                for (var i = 0;i < 10; i++)
+                {
+                    var validConditions = mon.Value.Where(x => x.Item1 != 0).ToList();
+                    if (i < validConditions.Count)
+                    {
+                        if (validConditions[i].Item1 == 15)
+                        {
+                            conditions += "," + validConditions[i].Item1.ToString() + ",0," + validConditions[i].Item2;
+                        } 
+                        else
+                        {
+                            conditions += "," + validConditions[i].Item1.ToString() + "," + validConditions[i].Item2 + ",0";
+                        }
+                    }
+                    else
+                    {
+                        conditions += ",0,0,0";
+                    }
+                }
+                conditions += "\r\n";
+            }
+
+            File.WriteAllText(path + @"\modfiles\data\evolution_condition_para.mbe\digimon.csv", conditions);
         }
     }
 }

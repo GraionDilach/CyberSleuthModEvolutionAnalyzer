@@ -8,6 +8,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         readonly Dictionary<string, Digimon> digimons = new();
         readonly DigimonEvolutionOption[] deevos;
         readonly DigimonEvolutionOption[] evos;
+        readonly DigimonEvoControlOption[] evocontrols;
 
         DigimonListEntry? selectedDigimon;
         bool edited;
@@ -40,6 +41,18 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonEvo9,
                 digimonEvo10,
                 digimonEvo11,
+            ];
+
+            evocontrols = [digimonEvoControl1,
+                digimonEvoControl2,
+                digimonEvoControl3,
+                digimonEvoControl4,
+                digimonEvoControl5,
+                digimonEvoControl6,
+                digimonEvoControl7,
+                digimonEvoControl8,
+                digimonEvoControl9,
+                digimonEvoControl10,
             ];
         }
 
@@ -493,6 +506,18 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 {
                     evos[selectedDigimon.Evolutions.Count].Visible = true;
                 }
+                for (var i = 0; i < evocontrols.Length; i++)
+                {
+                    if (i < selectedDigimon.Digimon.EvoConditions.Count)
+                    {
+                        evocontrols[i].EvoCondition = selectedDigimon.Digimon.EvoConditions[i];
+                        evocontrols[i].Visible = true;
+                    }
+                    else
+                    {
+                        evocontrols[i].EvoCondition = new(0, "");
+                    }
+                }
 
                 if (resetBind)
                 {
@@ -830,6 +855,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                         Dictionary<string, List<string>> digimonDevolutions = new();
                         Dictionary<string, List<string>> digimonEvolutions = new();
+                        Dictionary<string, List<Tuple<int, string>>> digimonEvoConditions = new();
 
                         foreach (var list in digimonLists)
                         {
@@ -837,10 +863,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             {
                                 digimonDevolutions.Add(item.Digimon.ID, item.Devolutions);
                                 digimonEvolutions.Add(item.Digimon.ID, item.Evolutions);
+                                digimonEvoConditions.Add(item.Digimon.ID, item.Digimon.EvoConditions);
                             }
                         }
 
                         export.WriteEvolutions(digimonDevolutions, digimonEvolutions);
+                        export.WriteEvoConditions(digimonEvoConditions);
 
                         LogMessage("Successfully saved generated " + export.Name + " mod.");
 
@@ -915,6 +943,27 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 for (int i = 0; i < modListBox.Items.Count; i++)
                 {
                     modListBox.SetItemChecked(i, false);
+                }
+            }
+        }
+
+        private void digimonEvoControl_SelectedEvoOptionChanged(object sender, EventArgs e)
+        {
+            if (digimonDataContainer.Visible && !selectedDigimon.IsNullOrEmpty())
+            {
+                for (var i = 0; i < evocontrols.Length; i++)
+                {
+                    if (sender is DigimonEvoControlOption currentEvoControl
+                        && currentEvoControl == evocontrols[i]
+                        && currentEvoControl.EvoCondition != null)
+                    {
+                        while (selectedDigimon.Digimon.EvoConditions.Count <= i)
+                        {
+                            selectedDigimon.Digimon.EvoConditions.Add(new(0, ""));
+                        }
+
+                        selectedDigimon.Digimon.EvoConditions[i] = currentEvoControl.EvoCondition;
+                    }
                 }
             }
         }
