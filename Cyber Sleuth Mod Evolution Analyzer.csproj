@@ -13,6 +13,7 @@
 	<Authors>Zimmermann Gyula</Authors>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 	<Version>0.1.0</Version>
   </PropertyGroup>
 
