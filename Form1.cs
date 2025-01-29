@@ -259,6 +259,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Loaded " + digimons.Count + " digimons from all mods.");
 
+            foreach (var i in checkedItems)
+            {
+                i.UpdateDigimonEvoConditions(this, digimons);
+            }
+
             var digimonEvolutions = BaseDigimonStats.LoadDigimonEvolutions(this);
 
             foreach (var i in checkedItems)

@@ -145,7 +145,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             // parse each CSV individually then build up the Digimon thenafter
             var digimonNames = new Dictionary<string, string>();
             var digimonLevels = new Dictionary<string, int>();
-            var digimonEvoConditions = new Dictionary<string, List<Tuple<int, string>>>();
 
             try
             {
@@ -224,6 +223,31 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 }
                 #endregion
+            }
+            catch (Exception)
+            {
+                form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
+            }
+
+            foreach (var id in digimonIDs)
+            {
+                if (digimonNames.ContainsKey(id)
+                    && digimonLevels.ContainsKey(id))
+                {
+                    var digimon = new Digimon(id, digimonNames[id], digimonLevels[id], modIndex, new());
+                    digimonData.Add(id, digimon);
+                }
+            }
+
+            form.LogMessage("Loaded " + digimonData.Count + " digimons from " + Name + ".");
+            return digimonData;
+        }
+
+        public void UpdateDigimonEvoConditions(Form1 form, Dictionary<string, Digimon> digimons)
+        {
+            try
+            {
+                var digimonEvoConditions = new Dictionary<string, List<Tuple<int, string>>>();
 
                 #region evolution_condition_para.mbe
                 var evoconditionpath = (formatVersion > 1)
@@ -276,30 +300,21 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             }
 
                             digimonEvoConditions.Add(monID, evoConditions);
+                            if (digimons.ContainsKey(monID))
+                            {
+                                digimons[monID].EvoConditions = evoConditions;
+                            }
                         }
                     }
-
                 }
                 #endregion
-            }
-            catch (Exception)
-            {
-                form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
-            }
 
-            foreach (var id in digimonIDs)
-            {
-                if (digimonNames.ContainsKey(id)
-                    && digimonLevels.ContainsKey(id))
-                {
-                    digimonEvoConditions.TryGetValue(id, out var evoCondition);
-                    var digimon = new Digimon(id, digimonNames[id], digimonLevels[id], modIndex, evoCondition!);
-                    digimonData.Add(id, digimon);
-                }
+                form.LogMessage("Loaded evolution conditions from " + Name + " mod.");
             }
+            catch
+            {
 
-            form.LogMessage("Loaded " + digimonData.Count + " digimons from " + Name + ".");
-            return digimonData;
+            }
         }
 
         public void LoadDigimonEvolutions(Form1 form, HashSet<string> globalIDs, Dictionary<string, List<string>> digimonEvolutions)

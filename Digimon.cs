@@ -6,9 +6,8 @@
         public readonly string Name;
         public readonly int Level;
         public readonly int ModIndex;
-        readonly List<Tuple<int, string>> evoConditions;
 
-        public List<Tuple<int, string>> EvoConditions { get { return evoConditions; } }
+        public List<Tuple<int, string>> EvoConditions;
 
         public Digimon(string id, string name, int level, int modindex, List<Tuple<int, string>> evoConditions)
         {
@@ -16,7 +15,7 @@
             Name = name;
             Level = level;
             ModIndex = modindex;
-            this.evoConditions = evoConditions ?? ([]);
+            EvoConditions = evoConditions ?? ([]);
         }
         public Digimon()
         {
@@ -24,7 +23,7 @@
             Name = "TEMP";
             Level = -1;
             ModIndex = 0;
-            evoConditions = [];
+            EvoConditions = [];
         }
 
         public override string ToString()
