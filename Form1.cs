@@ -259,6 +259,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Loaded " + digimons.Count + " digimons from all mods.");
 
+            var bossmons = digimons.Where(x => x.Value.Level > 8).ToArray();
+
+            foreach (var bossmon in bossmons)
+            {
+                digimons.Remove(bossmon.Key);
+            }
+            LogMessage("Disabled " + bossmons.Length + " boss digimons from being loaded.");
+
             foreach (var i in checkedItems)
             {
                 i.UpdateDigimonEvoConditions(this, digimons);
