@@ -947,7 +947,6 @@
             // 
             digimonEvoControl1.AutoSize = true;
             digimonEvoControl1.Dock = DockStyle.Fill;
-            digimonEvoControl1.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl1.EvoCondition");
             digimonEvoControl1.Location = new Point(170, 45);
             digimonEvoControl1.Name = "digimonEvoControl1";
             digimonEvoControl1.Size = new Size(162, 24);
@@ -958,7 +957,6 @@
             // 
             digimonEvoControl2.AutoSize = true;
             digimonEvoControl2.Dock = DockStyle.Fill;
-            digimonEvoControl2.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl2.EvoCondition");
             digimonEvoControl2.Location = new Point(170, 75);
             digimonEvoControl2.Name = "digimonEvoControl2";
             digimonEvoControl2.Size = new Size(162, 24);
@@ -969,7 +967,6 @@
             // 
             digimonEvoControl3.AutoSize = true;
             digimonEvoControl3.Dock = DockStyle.Fill;
-            digimonEvoControl3.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl3.EvoCondition");
             digimonEvoControl3.Location = new Point(170, 105);
             digimonEvoControl3.Name = "digimonEvoControl3";
             digimonEvoControl3.Size = new Size(162, 24);
@@ -980,7 +977,6 @@
             // 
             digimonEvoControl4.AutoSize = true;
             digimonEvoControl4.Dock = DockStyle.Fill;
-            digimonEvoControl4.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl4.EvoCondition");
             digimonEvoControl4.Location = new Point(170, 135);
             digimonEvoControl4.Name = "digimonEvoControl4";
             digimonEvoControl4.Size = new Size(162, 24);
@@ -991,7 +987,6 @@
             // 
             digimonEvoControl5.AutoSize = true;
             digimonEvoControl5.Dock = DockStyle.Fill;
-            digimonEvoControl5.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl5.EvoCondition");
             digimonEvoControl5.Location = new Point(170, 165);
             digimonEvoControl5.Name = "digimonEvoControl5";
             digimonEvoControl5.Size = new Size(162, 24);
@@ -1002,7 +997,6 @@
             // 
             digimonEvoControl6.AutoSize = true;
             digimonEvoControl6.Dock = DockStyle.Fill;
-            digimonEvoControl6.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl6.EvoCondition");
             digimonEvoControl6.Location = new Point(170, 195);
             digimonEvoControl6.Name = "digimonEvoControl6";
             digimonEvoControl6.Size = new Size(162, 24);
@@ -1013,7 +1007,6 @@
             // 
             digimonEvoControl7.AutoSize = true;
             digimonEvoControl7.Dock = DockStyle.Fill;
-            digimonEvoControl7.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl7.EvoCondition");
             digimonEvoControl7.Location = new Point(170, 225);
             digimonEvoControl7.Name = "digimonEvoControl7";
             digimonEvoControl7.Size = new Size(162, 24);
@@ -1024,7 +1017,6 @@
             // 
             digimonEvoControl8.AutoSize = true;
             digimonEvoControl8.Dock = DockStyle.Fill;
-            digimonEvoControl8.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl8.EvoCondition");
             digimonEvoControl8.Location = new Point(170, 255);
             digimonEvoControl8.Name = "digimonEvoControl8";
             digimonEvoControl8.Size = new Size(162, 24);
@@ -1035,7 +1027,6 @@
             // 
             digimonEvoControl9.AutoSize = true;
             digimonEvoControl9.Dock = DockStyle.Fill;
-            digimonEvoControl9.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl9.EvoCondition");
             digimonEvoControl9.Location = new Point(170, 285);
             digimonEvoControl9.Name = "digimonEvoControl9";
             digimonEvoControl9.Size = new Size(162, 24);
@@ -1046,7 +1037,6 @@
             // 
             digimonEvoControl10.AutoSize = true;
             digimonEvoControl10.Dock = DockStyle.Fill;
-            digimonEvoControl10.EvoCondition = (Tuple<int, string>)resources.GetObject("digimonEvoControl10.EvoCondition");
             digimonEvoControl10.Location = new Point(170, 315);
             digimonEvoControl10.Name = "digimonEvoControl10";
             digimonEvoControl10.Size = new Size(162, 24);
