@@ -132,7 +132,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             return digimonIDs;
         }
 
-        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, int modIndex)
+        public Dictionary<string, Digimon> CollectDigimonData(Form1 form, int modIndex, Dictionary<string, Digimon> baseMons)
         {
             var digimonData = new Dictionary<string, Digimon>();
 
@@ -189,7 +189,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                 }
                 #endregion
+            }
+            catch (Exception){ }
 
+            try
+            {
                 #region digimon_common_para.mbe
                 var digimoncommonparapath = (formatVersion > 1)
                     ? @"\modfiles\DSDBP\data\digimon_common_para.mbe\digimon.csv"
@@ -224,9 +228,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 }
                 #endregion
             }
-            catch (Exception)
+            catch (Exception) { }
+
+            if (digimonNames.Count == 0 && digimonLevels.Count == 0)
             {
                 form.LogMessage("Failed to parse Digimon data from " + Name + ", skipped...");
+                return digimonData;
             }
 
             foreach (var id in digimonIDs)
@@ -235,6 +242,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     && digimonLevels.ContainsKey(id))
                 {
                     var digimon = new Digimon(id, digimonNames[id], digimonLevels[id], modIndex, new());
+                    digimonData.Add(id, digimon);
+                }
+
+                if (!digimonNames.ContainsKey(id) && baseMons.ContainsKey(id) && digimonLevels.ContainsKey(id))
+                {
+                    var digimon = new Digimon(id, baseMons[id].Name, digimonLevels[id], modIndex, new());
                     digimonData.Add(id, digimon);
                 }
             }

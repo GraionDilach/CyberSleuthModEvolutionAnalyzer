@@ -244,7 +244,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var i in checkedItems)
             {
-                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i) + 1);
+                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i) + 1, baseMons);
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
