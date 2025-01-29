@@ -7,15 +7,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     {
         public readonly string Name;
         public readonly bool Generated;
-        public readonly string[] SourceMods = Array.Empty<string>();
+        public readonly string[] SourceMods = [];
 
         readonly string Version;
         readonly string path;
         readonly string folder;
+        readonly int formatVersion = 1;
 
         public string Folder { get => folder; }
 
-        readonly HashSet<string> digimonIDs = new();
+        readonly HashSet<string> digimonIDs = [];
 
         /*
         string Description;
@@ -29,15 +30,35 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 using var reader = new StreamReader(rootFolder + "\\" + modFolder + @"\METADATA.json");
                 {
-                    var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(reader.BaseStream) ?? throw new Exception();
+                    var dict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(reader.BaseStream) ?? throw new Exception();
                     path = rootFolder + "\\" + modFolder;
                     folder = modFolder;
-                    Name = dict["Name"];
-                    Version = dict["Version"];
-                    Generated = dict.ContainsKey("GeneratedByCSMEA");
-                    if (dict.ContainsKey("SourceMods"))
+
+                    if (dict.TryGetValue("Name", out var name))
                     {
-                        SourceMods = dict["SourceMods"].Split(",").ToArray();
+                        Name = name.ToString();
+                    }
+                    else
+                    {
+                        Name = modFolder;
+                    }
+                    if (dict.TryGetValue("Version", out var version))
+                    {
+                        Version = version.ToString();
+                    }
+                    else
+                    {
+                        Version = "";
+                    }
+                    Generated = dict.ContainsKey("GeneratedByCSMEA");
+                    if (dict.TryGetValue("SourceMods", out var sourcemods))
+                    {
+                        SourceMods = sourcemods.ToString().Split(",").ToArray();
+                    }
+
+                    if (dict.TryGetValue("FormatVersion", out var formatversionjson))
+                    {
+                        formatVersion = formatversionjson.GetInt32();
                     }
 
                     /*
@@ -65,11 +86,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         public HashSet<string> CollectDigimonIDs(Form1 form)
         {
             digimonIDs.Clear();
-            if (File.Exists(path + @"\modfiles\data\digimon_list.mbe\digimon.csv"))
+            var digimonlistpath = (formatVersion > 1)
+                ? @"\modfiles\DSDBP\data\digimon_list.mbe\digimon.csv"
+                : @"\modfiles\data\digimon_list.mbe\digimon.csv";
+            if (File.Exists(path + digimonlistpath))
             {
                 try
                 {
-                    using (var parser = new TextFieldParser(path + @"\modfiles\data\digimon_list.mbe\digimon.csv"))
+                    using (var parser = new TextFieldParser(path + digimonlistpath))
                     {
                         parser.Delimiters = [","];
                         parser.HasFieldsEnclosedInQuotes = true;
@@ -126,7 +150,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             try
             {
                 #region charname.mbe
-                using (var parser = new TextFieldParser(path + @"\modfiles\text\charname.mbe\Sheet1.csv"))
+                var charnamepath = (formatVersion > 1)
+                    ? @"\modfiles\DSDBP\text\charname.mbe\Sheet1.csv"
+                    : @"\modfiles\text\charname.mbe\Sheet1.csv";
+
+                using (var parser = new TextFieldParser(path + charnamepath))
                 {
                     parser.Delimiters = [","];
                     parser.HasFieldsEnclosedInQuotes = true;
@@ -164,7 +192,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 #endregion
 
                 #region digimon_common_para.mbe
-                using (var parser = new TextFieldParser(path + @"\modfiles\data\digimon_common_para.mbe\digimon.csv"))
+                var digimoncommonparapath = (formatVersion > 1)
+                    ? @"\modfiles\DSDBP\data\digimon_common_para.mbe\digimon.csv"
+                    : @"\modfiles\data\digimon_common_para.mbe\digimon.csv";
+
+                using (var parser = new TextFieldParser(path + digimoncommonparapath))
                 {
                     parser.Delimiters = [","];
                     parser.HasFieldsEnclosedInQuotes = true;
@@ -194,7 +226,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 #endregion
 
                 #region evolution_condition_para.mbe
-                using (var parser = new TextFieldParser(path + @"\modfiles\data\evolution_condition_para.mbe\digimon.csv"))
+                var evoconditionpath = (formatVersion > 1)
+                    ? @"\modfiles\DSDBP\data\evolution_condition_para.mbe\digimon.csv"
+                    : @"\modfiles\data\evolution_condition_para.mbe\digimon.csv";
+                using (var parser = new TextFieldParser(path + evoconditionpath))
                 {
                     parser.Delimiters = [","];
                     parser.HasFieldsEnclosedInQuotes = true;
@@ -272,9 +307,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             try
             {
                 #region evolution_next_para.mbe
-                if (File.Exists(path + @"\modfiles\data\evolution_next_para.mbe\digimon.csv"))
+                var evonextpath = (formatVersion > 1)
+                    ? @"\modfiles\DSDBP\data\evolution_next_para.mbe\digimon.csv"
+                    : @"\modfiles\data\evolution_next_para.mbe\digimon.csv";
+
+                if (File.Exists(path + evonextpath))
                 {
-                    using (var parser = new TextFieldParser(path + @"\modfiles\data\evolution_next_para.mbe\digimon.csv"))
+                    using (var parser = new TextFieldParser(path + evonextpath))
                     {
                         parser.Delimiters = [","];
                         parser.HasFieldsEnclosedInQuotes = true;
@@ -350,10 +389,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 #endregion
 
                 #region degeneration_para.mbe
+                var degenpath = (formatVersion > 1)
+                    ? @"\modfiles\DSDBP\data\degeneration_para.mbe\digimon.csv"
+                    : @"\modfiles\data\degeneration_para.mbe\digimon.csv";
+
                 // generated mods shouldn't need to read degen_para, because all generated mods have 2-way evos
-                if (!Generated && File.Exists(path + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
+                if (!Generated && File.Exists(path + degenpath))
                 {
-                    using (var parser = new TextFieldParser(path + @"\modfiles\data\degeneration_para.mbe\digimon.csv"))
+                    using (var parser = new TextFieldParser(path + degenpath))
                     {
                         parser.Delimiters = [","];
                         parser.HasFieldsEnclosedInQuotes = true;

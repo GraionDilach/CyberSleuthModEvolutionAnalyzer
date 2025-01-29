@@ -88,8 +88,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var unorderedMods = new List<DSCSMod>();
                 foreach (var potentialMod in potentialMods)
                 {
-                    try
-                    {
+                    //try
+                    //{
                         if (File.Exists(rootFolder + "\\" + potentialMod + @"\METADATA.json"))
                         {
                             var dscsMod = new DSCSMod(rootFolder, potentialMod);
@@ -97,11 +97,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                             LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name + ".");
                         }
-                    }
-                    catch (Exception)
-                    {
-                        LogMessage("Failed to parse " + potentialMod + " folder as a DSCS mod.");
-                    }
+                    //}
+                    //catch (Exception)
+                    //{
+                    //    LogMessage("Failed to parse " + potentialMod + " folder as a DSCS mod.");
+                    //}
                 }
                 var generatedMods = unorderedMods.Where(x => x.Generated);
 
