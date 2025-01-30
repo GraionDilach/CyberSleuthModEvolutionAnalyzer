@@ -272,6 +272,22 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 i.UpdateDigimonEvoConditions(this, digimons);
             }
 
+            var itemList = BaseItems.ItemList;
+
+            foreach (var i in checkedItems)
+            {
+                var modItemList = i.CollectItems(this, checkedItems.IndexOf(i) + 1);
+                foreach (var item in modItemList)
+                {
+                    if (!itemList.Contains(item))
+                    {
+                        itemList.Add(item);
+                    }
+                }
+            }
+
+            itemList.Sort();
+
             var digimonEvolutions = BaseDigimonStats.LoadDigimonEvolutions(this);
 
             foreach (var i in checkedItems)
@@ -440,7 +456,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             knownMons.Sort();
             foreach (var evocontrol in evocontrols)
             {
-                evocontrol.UpdateConditionOption(knownMons.ToList());
+                evocontrol.UpdateConditionOption(knownMons.ToList(), itemList.ToList());
             }
 
             digimonListWrapper.Visible = true;

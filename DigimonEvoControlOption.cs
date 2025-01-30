@@ -5,6 +5,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
     public partial class DigimonEvoControlOption : UserControl
     {
         List<Digimon> knownMons = [];
+        List<DigimonItem> knownItems = [];
 
         Tuple<int, string> evoCondition = new(0,"");
 
@@ -23,11 +24,25 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 case 10:
                     valueTextBox.Visible = false;
                     break;
+                */
                 // Item
                 case 11:
+                    valueDropBox.DataSource = knownItems;
+                    valueDropBox.Visible = true;
+                    if (!String.IsNullOrEmpty(evoCondition.Item2))
+                    {
+                        var selectedItem = knownItems.SingleOrDefault(x => String.Equals(x.ID, evoCondition.Item2));
+                        if (selectedItem != null)
+                        {
+                            valueDropBox.SelectedIndex = valueDropBox.Items.IndexOf(selectedItem);
+                        }
+                        else
+                        {
+                            valueDropBox.SelectedIndex = -1;
+                        }
+                    }
                     valueTextBox.Visible = false;
                     break;
-                */
                 // DNA
                 case 12:
                     valueDropBox.DataSource = knownMons;
@@ -80,6 +95,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 switch (modeBox.SelectedIndex)
                 {
+                    case 11:
+                        evoCondition = new(modeBox.SelectedIndex, knownItems[valueDropBox.SelectedIndex].ID);
+                        UpdateEvoControlState();
+                        SelectedEvoOptionChanged?.Invoke(this, e);
+                        break;
                     case 12:
                         evoCondition = new(modeBox.SelectedIndex, knownMons[valueDropBox.SelectedIndex].ID);
                         UpdateEvoControlState();
@@ -137,9 +157,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         [Browsable(true)]
         public event EventHandler? SelectedEvoOptionChanged;
 
-        public void UpdateConditionOption(List<Digimon> knownmons)
+        public void UpdateConditionOption(List<Digimon> knownmons, List<DigimonItem> knownitems)
         {
             knownMons = knownmons;
+            knownItems = knownitems;
         }
     }
 }

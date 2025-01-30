@@ -624,5 +624,46 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             File.WriteAllText(path + @"\modfiles\data\evolution_condition_para.mbe\digimon.csv", conditions);
         }
+
+        public List<DigimonItem> CollectItems (Form1 form, int modIndex)
+        {
+            var itemList = new List<DigimonItem>();
+
+            try
+            {
+                #region item_name.mbe
+                var digimoncommonparapath = (formatVersion > 1)
+                    ? @"\modfiles\DSDBP\text\item_name.mbe\Sheet1.csv"
+                    : @"\modfiles\text\item_name.mbe\Sheet1.csv";
+
+                using (var parser = new TextFieldParser(path + digimoncommonparapath))
+                {
+                    parser.Delimiters = [","];
+                    parser.HasFieldsEnclosedInQuotes = true;
+                    bool readHeader = false;
+                    while (readHeader == false)
+                    {
+                        var tableRow = parser.ReadFields()!;
+                        if (tableRow.Length == 0)
+                        {
+                            throw new Exception();
+                        }
+                        readHeader = true;
+                    }
+                    while (!parser.EndOfData)
+                    {
+                        var tableRow = parser.ReadFields()!;
+                        if (!string.IsNullOrEmpty(tableRow[0]) && !string.IsNullOrEmpty(tableRow[2]))
+                        {
+                            itemList.Add(new DigimonItem(tableRow[0], tableRow[2], modIndex));
+                        }
+                    }
+                }
+                #endregion
+            }
+            catch (Exception) { }
+
+            return itemList;
+        }
     }
 }
