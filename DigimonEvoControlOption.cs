@@ -19,6 +19,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             switch (modeBox.SelectedIndex)
             {
                 // Flag/Story Cleared
+                /*
                 case 10:
                     valueTextBox.Visible = false;
                     break;
@@ -26,6 +27,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 case 11:
                     valueTextBox.Visible = false;
                     break;
+                */
                 // DNA
                 case 12:
                     valueDropBox.DataSource = knownMons;
@@ -45,6 +47,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     valueTextBox.Visible = false;
                     break;
                 // DLC
+                /*
                 case 14:
                     valueTextBox.Visible = false;
                     break;
@@ -52,6 +55,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 case 15:
                     valueTextBox.Visible = false;
                     break;
+                */
                 case 0:
                 case 13:
                     valueDropBox.DataSource = null;
