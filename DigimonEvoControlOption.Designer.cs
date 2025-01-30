@@ -35,7 +35,7 @@
             // 
             // valueDropBox
             // 
-            valueDropBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            valueDropBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             valueDropBox.FormattingEnabled = true;
             valueDropBox.Location = new Point(58, 0);
             valueDropBox.Name = "valueDropBox";
@@ -45,7 +45,7 @@
             // 
             // valueTextBox
             // 
-            valueTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            valueTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             valueTextBox.Location = new Point(58, 0);
             valueTextBox.Name = "valueTextBox";
             valueTextBox.Size = new Size(101, 23);
@@ -69,8 +69,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             Controls.Add(modeBox);
-            Controls.Add(valueDropBox);
             Controls.Add(valueTextBox);
+            Controls.Add(valueDropBox);
             Name = "DigimonEvoControlOption";
             Size = new Size(162, 26);
             ResumeLayout(false);
