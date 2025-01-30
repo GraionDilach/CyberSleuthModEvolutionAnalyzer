@@ -4,8 +4,44 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class DigimonEvoControlOption : UserControl
     {
+        static List<string> Evo15Options = new()
+        {
+            "None",
+            "Case Solved: Facing Lust",
+            "Case Solved: Confrontation with Gluttony",
+            "Case Solved: Reunion with Greed",
+            "Case Solved: Chance meeting with Envy",
+            "Case Solved: Encountering Wrath",
+            "Case Solved: Greeting Pride",
+            "Case Solved: Greeting Pride",
+            "Case Solved: Witnessing Sloth",
+            "Case Solved: Great Challenge 7",
+            "Case Solved: Greeting Pride",
+            "Case Solved: Great Challenge 3",
+            "Case Solved: Great Challenge 7",
+            "Case Solved: Great Challenge 7",
+            "Case Solved: Great Challenge 5",
+            "Case Solved: Great Challenge 1",
+            "Case Solved: Great Challenge 7",
+            "Case Solved: Rina Shinomiya Challenge",
+            "Case Solved: Great Challenge 8",
+            "Case Solved: Great Challenge 6",
+            "Case Solved: Great Challenge 6",
+            "Case Solved: Great Challenge 4",
+            "Case Solved: Great Challenge 3",
+            "Case Solved: Great Challenge 4",
+            "Case Solved: Great Challenge 2",
+            "The door to another dimension opened.",
+            "Case Solved: Great Challenge 6",
+            "Case Solved: Great Challenge 7",
+            "DLC: Obtained 1st edition-exclusive Digimon!",
+            "DLC: Saved a punished Digimon!",
+            "Cleared Hacker's Memory"
+        };
+
         List<Digimon> knownMons = [];
         List<DigimonItem> knownItems = [];
+        List<string> evo15options = Evo15Options.ToList();
 
         Tuple<int, string> evoCondition = new(0,"");
 
@@ -66,11 +102,23 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 case 14:
                     valueTextBox.Visible = false;
                     break;
-                // Flag/Quest complete (using condUnk)
+                */
                 case 15:
                     valueTextBox.Visible = false;
+                    valueDropBox.DataSource = evo15options;
+                    valueDropBox.Visible = true;
+                    if (!String.IsNullOrEmpty(evoCondition.Item2))
+                    {
+                        if (int.TryParse(evoCondition.Item2, out var evo15index) && evo15index < evo15options.Count)
+                        {
+                            valueDropBox.SelectedIndex = evo15index;
+                        }
+                        else
+                        {
+                            valueDropBox.SelectedIndex = -1;
+                        }
+                    }
                     break;
-                */
                 case 0:
                 case 10: //?! - can't find an example
                 case 13:
@@ -102,6 +150,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         break;
                     case 12:
                         evoCondition = new(modeBox.SelectedIndex, knownMons[valueDropBox.SelectedIndex].ID);
+                        UpdateEvoControlState();
+                        SelectedEvoOptionChanged?.Invoke(this, e);
+                        break;
+                    case 15:
+                        evoCondition = new(modeBox.SelectedIndex, valueDropBox.SelectedIndex.ToString());
                         UpdateEvoControlState();
                         SelectedEvoOptionChanged?.Invoke(this, e);
                         break;
