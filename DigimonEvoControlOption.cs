@@ -4,7 +4,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class DigimonEvoControlOption : UserControl
     {
-        List<Digimon> knownmons = [];
+        List<Digimon> knownMons = [];
 
         Tuple<int, string> evoCondition = new(0,"");
 
@@ -18,24 +18,50 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             modeBox.SelectedIndex = evoCondition.Item1;
             switch (modeBox.SelectedIndex)
             {
+                // Flag/Story Cleared
                 case 10:
+                    valueTextBox.Visible = false;
                     break;
+                // Item
                 case 11:
+                    valueTextBox.Visible = false;
                     break;
+                // DNA
                 case 12:
+                    valueDropBox.DataSource = knownMons;
+                    valueDropBox.Visible = true;
+                    if (!String.IsNullOrEmpty(evoCondition.Item2))
+                    {
+                        var selectedMon = knownMons.SingleOrDefault(x => String.Equals(x.ID, evoCondition.Item2));
+                        if (selectedMon != null)
+                        {
+                            valueDropBox.SelectedIndex = valueDropBox.Items.IndexOf(selectedMon);
+                        }
+                        else
+                        {
+                            valueDropBox.SelectedIndex = -1;
+                        }
+                    }
+                    valueTextBox.Visible = false;
                     break;
+                // DLC
                 case 14:
+                    valueTextBox.Visible = false;
                     break;
+                // Flag/Quest complete (using condUnk)
                 case 15:
+                    valueTextBox.Visible = false;
                     break;
                 case 0:
                 case 13:
+                    valueDropBox.DataSource = null;
                     valueDropBox.Visible = false;
                     valueTextBox.Visible = false;
                     break;
                 // load simple values into textbox as default
                 // that's being 1,2,3,4,5,6,7,8,9
                 default:
+                    valueDropBox.DataSource = null;
                     valueDropBox.Visible = false;
                     valueTextBox.Text = evoCondition.Item2;
                     valueTextBox.Visible = true;
@@ -45,7 +71,19 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void valueBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            SelectedEvoOptionChanged?.Invoke(this, e);
+            if (valueDropBox.Visible)
+            {
+                switch (modeBox.SelectedIndex)
+                {
+                    case 12:
+                        evoCondition = new(modeBox.SelectedIndex, knownMons[valueDropBox.SelectedIndex].ID);
+                        UpdateEvoControlState();
+                        SelectedEvoOptionChanged?.Invoke(this, e);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         private void modeBox_SelectionChangeCommitted(object sender, EventArgs e)
@@ -94,39 +132,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         [Browsable(true)]
         public event EventHandler? SelectedEvoOptionChanged;
 
-        /*
-        [Browsable(true)]
-        public Digimon? SelectedDigimon
+        public void UpdateConditionOption(List<Digimon> knownmons)
         {
-            get
-            {
-                if (valueDropBox.SelectedIndex > -1)
-                {
-                    return options[valueDropBox.SelectedIndex];
-                }
-
-                return null;
-            }
-            set
-            {
-                if (value != null && options.Contains(value))
-                {
-                    valueDropBox.DataSource = options;
-                    valueDropBox.SelectedIndex = options.IndexOf(value);
-                    valueDropBox.Visible = true;
-                    clearButton.Visible = true;
-                    enableButton.Visible = false;
-                }
-                else
-                {
-                    valueDropBox.DataSource = null;
-                    valueDropBox.SelectedIndex = -1;
-                    valueDropBox.Visible = false;
-                    clearButton.Visible = false;
-                    enableButton.Visible = true;
-                }
-            }
+            knownMons = knownmons;
         }
-        */
     }
 }

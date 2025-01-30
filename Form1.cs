@@ -436,6 +436,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonList.SelectedIndex = 0;
             }
 
+            var knownMons = digimons.Values.ToList();
+            knownMons.Sort();
+            foreach (var evocontrol in evocontrols)
+            {
+                evocontrol.UpdateConditionOption(knownMons.ToList());
+            }
+
             digimonListWrapper.Visible = true;
             ValidateEvolutions();
             modGenerator.Visible = true;
