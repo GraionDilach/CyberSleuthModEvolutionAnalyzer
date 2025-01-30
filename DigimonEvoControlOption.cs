@@ -57,6 +57,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     break;
                 */
                 case 0:
+                case 10: //?! - can't find an example
                 case 13:
                     valueDropBox.DataSource = null;
                     valueDropBox.Visible = false;
