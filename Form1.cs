@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
@@ -14,6 +15,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         bool edited;
         string? rootFolder;
         Tuple<List<DigimonListEntry>, BindingSource>[] digimonLists = new Tuple<List<DigimonListEntry>, BindingSource>[8];
+        Form3 settingsForm;
+
+        public Tuple<List<DigimonListEntry>, BindingSource>[] DigimonLists
+        {
+            get { return digimonLists; }
+        }
 
         public Form1()
         {
@@ -54,6 +61,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimonEvoControl9,
                 digimonEvoControl10,
             ];
+
+            settingsForm = new Form3(this);
         }
 
         private void modsLocationBrowser_Click(object sender, EventArgs e)
@@ -90,13 +99,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 {
                     //try
                     //{
-                        if (File.Exists(rootFolder + "\\" + potentialMod + @"\METADATA.json"))
-                        {
-                            var dscsMod = new DSCSMod(rootFolder, potentialMod);
-                            unorderedMods.Add(dscsMod);
+                    if (File.Exists(rootFolder + "\\" + potentialMod + @"\METADATA.json"))
+                    {
+                        var dscsMod = new DSCSMod(rootFolder, potentialMod);
+                        unorderedMods.Add(dscsMod);
 
-                            LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name + ".");
-                        }
+                        LogMessage("Parsed " + potentialMod + " as " + dscsMod.Name + ".");
+                    }
                     //}
                     //catch (Exception)
                     //{
@@ -1001,6 +1010,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         selectedDigimon.Digimon.EvoConditions[i] = currentEvoControl.EvoCondition;
                     }
                 }
+            }
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = settingsForm.ShowDialog();
+            Enabled = false;
+
+            if (result != DialogResult.None)
+            {
+                Enabled = true;
             }
         }
     }

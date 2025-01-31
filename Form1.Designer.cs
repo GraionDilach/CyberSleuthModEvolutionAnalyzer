@@ -32,6 +32,7 @@
             folderRoot = new SplitContainer();
             aboutLabel = new Label();
             modGenerator = new Button();
+            settingsButton = new Button();
             modsLocationBrowser = new Button();
             modsLocationLabel = new Label();
             modsLocation = new TextBox();
@@ -153,6 +154,7 @@
             // 
             folderRoot.Panel1.Controls.Add(aboutLabel);
             folderRoot.Panel1.Controls.Add(modGenerator);
+            folderRoot.Panel1.Controls.Add(settingsButton);
             folderRoot.Panel1.Controls.Add(modsLocationBrowser);
             folderRoot.Panel1.Controls.Add(modsLocationLabel);
             folderRoot.Panel1.Controls.Add(modsLocation);
@@ -188,9 +190,19 @@
             modGenerator.Visible = false;
             modGenerator.Click += modGenerator_Click;
             // 
+            // settingsButton
+            // 
+            settingsButton.Location = new Point(580, 20);
+            settingsButton.Name = "settingsButton";
+            settingsButton.Size = new Size(157, 23);
+            settingsButton.TabIndex = 2;
+            settingsButton.Text = "Settings && Analyzers...";
+            settingsButton.UseVisualStyleBackColor = true;
+            settingsButton.Click += settingsButton_Click;
+            // 
             // modsLocationBrowser
             // 
-            modsLocationBrowser.Location = new Point(664, 21);
+            modsLocationBrowser.Location = new Point(499, 20);
             modsLocationBrowser.Name = "modsLocationBrowser";
             modsLocationBrowser.Size = new Size(75, 23);
             modsLocationBrowser.TabIndex = 2;
@@ -211,7 +223,7 @@
             // 
             modsLocation.Location = new Point(3, 21);
             modsLocation.Name = "modsLocation";
-            modsLocation.Size = new Size(655, 23);
+            modsLocation.Size = new Size(490, 23);
             modsLocation.TabIndex = 0;
             // 
             // rootLogging
@@ -1189,5 +1201,6 @@
         private DigimonEvoControlOption digimonEvoControl8;
         private DigimonEvoControlOption digimonEvoControl9;
         private DigimonEvoControlOption digimonEvoControl10;
+        private Button settingsButton;
     }
 }
