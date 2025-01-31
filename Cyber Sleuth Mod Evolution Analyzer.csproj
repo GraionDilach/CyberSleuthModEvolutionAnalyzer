@@ -14,7 +14,7 @@
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
-	<Version>0.2.0</Version>
+	<Version>0.2.1</Version>
 	<ApplicationIcon>csmea-monzae.ico</ApplicationIcon>
   </PropertyGroup>
 
