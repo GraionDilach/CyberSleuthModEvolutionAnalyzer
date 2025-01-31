@@ -102,7 +102,11 @@
             Controls.Add(folderNameLabel);
             Controls.Add(cancelButton);
             Controls.Add(okButton);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Form2";
+            ShowIcon = false;
+            ShowInTaskbar = false;
             Text = "CSMEA - Save Generated Mod";
             ResumeLayout(false);
             PerformLayout();
