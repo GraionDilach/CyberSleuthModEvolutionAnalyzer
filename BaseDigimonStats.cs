@@ -17349,10 +17349,33 @@
             #endregion
         };
 
+        public static HashSet<string> CollectDigimonIDs(Form1 form)
+        {
+            var digimonIDs = new HashSet<string>();
+
+            foreach (var mon in baseDigimon)
+            {
+                digimonIDs.Add(mon["id"]);
+            }
+
+            return digimonIDs;
+        }
+
         public static Dictionary<string, Digimon> CollectDigimonData(Form1 form)
         {
             var digimonData = new Dictionary<string, Digimon>();
 
+            foreach (var mon in baseDigimon)
+            {
+                var digimon = new Digimon(mon["id"], mon["Name"], int.Parse(mon["level"]), 0, new List<Tuple<int, string>>());
+                digimonData.Add(mon["id"], digimon);
+            }
+
+            return digimonData;
+        }
+
+        public static void LoadDigimonEvoConditions(Form1 form, Dictionary<string, Digimon> digimons)
+        {
             foreach (var mon in baseDigimon)
             {
                 var evoConditions = new List<Tuple<int, string>>();
@@ -17374,10 +17397,8 @@
                     }
                 }
                 var digimon = new Digimon(mon["id"], mon["Name"], int.Parse(mon["level"]), 0, evoConditions);
-                digimonData.Add(mon["id"], digimon);
+                digimons["id"] = digimon;
             }
-
-            return digimonData;
         }
 
         public static Dictionary<string, List<string>> LoadDigimonEvolutions(Form1 form)
@@ -17400,6 +17421,77 @@
             }
 
             return digimonEvolutions;
+        }
+
+        public static HashSet<string> CollectCostumedAgumonIDs(Form1 form)
+        {
+            var digimonIDs = new HashSet<string>();
+
+            foreach (var mon in costumedAgumon)
+            {
+                digimonIDs.Add(mon["id"]);
+            }
+
+            return digimonIDs;
+        }
+
+        public static Dictionary<string, Digimon> CollectCostumedAgumonData(Form1 form)
+        {
+            var digimonData = new Dictionary<string, Digimon>();
+
+            foreach (var mon in costumedAgumon)
+            {
+                var digimon = new Digimon(mon["id"], mon["Name"], int.Parse(mon["level"]), 0, new List<Tuple<int, string>>());
+                digimonData.Add(mon["id"], digimon);
+            }
+
+            return digimonData;
+        }
+
+        public static void LoadCostumedAgumonEvoConditions(Form1 form, Dictionary<string, Digimon> digimons)
+        {
+            foreach (var mon in costumedAgumon)
+            {
+                var evoConditions = new List<Tuple<int, string>>();
+                for (var i = 1; i < 11; i++)
+                {
+                    if (!String.Equals(mon["condType" + i.ToString()], "0"))
+                    {
+                        var evoMode = int.Parse(mon["condType" + i.ToString()]);
+                        switch (evoMode)
+                        {
+                            case 15:
+                                evoConditions.Add(new Tuple<int, string>(evoMode, mon["condUnk" + i.ToString()]));
+                                break;
+
+                            default:
+                                evoConditions.Add(new Tuple<int, string>(evoMode, mon["condValue" + i.ToString()]));
+                                break;
+                        }
+                    }
+                }
+                var digimon = new Digimon(mon["id"], mon["Name"], int.Parse(mon["level"]), 0, evoConditions);
+                digimons["id"] = digimon;
+            }
+        }
+
+        public static void LoadCostumedAgumonEvolutions(Form1 form, Dictionary<string, List<string>> digimonEvolutions)
+        {
+            foreach (var mon in costumedAgumon)
+            {
+                var evolution = new List<string>();
+                for (var i = 1; i < 7; i++)
+                {
+                    if (!String.Equals(mon["evodigi" + i.ToString()], "0"))
+                    {
+                        evolution.Add(mon["evodigi" + i.ToString()]);
+                    }
+                }
+                if (evolution.Count != 0)
+                {
+                    digimonEvolutions.Add(mon["id"], evolution);
+                }
+            }
         }
     }
 }

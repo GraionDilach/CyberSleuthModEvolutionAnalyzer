@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-
-namespace Cyber_Sleuth_Mod_Evolution_Analyzer
+﻿namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form3 : Form
     {
@@ -27,11 +25,31 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             "Flag Cleared"
         ];
 
+        List<string> vanillaMonHandlingStates = [
+            "Ignore",
+            "Only load Digimon IDs",
+            "Only load full data",
+            "Load and export full data"
+            ];
+
         public Form3(Form1 source)
         {
             InitializeComponent();
             sourceForm = source;
             massEvoDeleterComboBox.DataSource = evoConditionTypes;
+            baseMonHandlerComboBox.DataSource = vanillaMonHandlingStates.ToArray();
+            baseMonHandlerComboBox.SelectedIndex = 3;
+            costumedAgumonLoaderComboBox.DataSource = vanillaMonHandlingStates.ToArray();
+        }
+
+        public int VanillaMonHandle
+        {
+            get { return baseMonHandlerComboBox.SelectedIndex; }
+        }
+
+        public int CostumedAgumonHandle
+        {
+            get { return costumedAgumonLoaderComboBox.SelectedIndex; }
         }
 
         public void LogMessage(string message, bool timestamp = true)
@@ -127,7 +145,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public void SetupForm()
         {
-            analyzerLayoutPanel.Visible = KnownMons.Count > 0;
+            analyzerLayoutPanel.Visible = modsAlreadyLoadedLabel.Visible = KnownMons.Count > 0;
         }
 
         private void dumpModSourcingButton_Click(object sender, EventArgs e)
@@ -264,6 +282,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             sourceForm.Edited = true;
             LogMessage("Operation completed.");
+        }
+
+        private void baseMonHandlerComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            costumedAgumonLoaderComboBox.SelectedIndex = 0;
+            costumedAgumonLoaderComboBox.DataSource = vanillaMonHandlingStates.Take(baseMonHandlerComboBox.SelectedIndex + 1).ToList();
         }
     }
 }

@@ -236,6 +236,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             UpdateSelectedDigimon();
             HashSet<string> digimonIDs = new();
             activeMods = new List<DSCSMod>();
+            if (settingsForm.VanillaMonHandle > 0)
+            {
+                digimonIDs.UnionWith(BaseDigimonStats.CollectDigimonIDs(this));
+            }
+
+            if (settingsForm.CostumedAgumonHandle > 0)
+            {
+                digimonIDs.UnionWith(BaseDigimonStats.CollectCostumedAgumonIDs(this));
+            }
+
             for (var i = 0; i < modListBox.Items.Count; i++)
             {
                 if (modListBox.GetItemChecked(i))
@@ -250,16 +260,27 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Found information about " + digimonIDs.Count + " digimons from all mods.");
 
-            var baseMons = BaseDigimonStats.CollectDigimonData(this);
-
-            foreach (var item in baseMons)
+            if (settingsForm.VanillaMonHandle > 0)
             {
-                digimons.Add(item.Key, item.Value);
+                var baseMons = BaseDigimonStats.CollectDigimonData(this);
+                foreach (var item in baseMons)
+                {
+                    digimons.Add(item.Key, item.Value);
+                }
+            }
+
+            if (settingsForm.CostumedAgumonHandle > 0)
+            {
+                var baseMons = BaseDigimonStats.CollectCostumedAgumonData(this);
+                foreach (var item in baseMons)
+                {
+                    digimons.Add(item.Key, item.Value);
+                }
             }
 
             foreach (var i in activeMods)
             {
-                var modDigimonData = i.CollectDigimonData(this, activeMods.IndexOf(i) + 1, baseMons);
+                var modDigimonData = i.CollectDigimonData(this, activeMods.IndexOf(i) + 1, digimons);
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
@@ -282,6 +303,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Disabled " + bossmons.Length + " boss digimons from being loaded.");
 
+            if (settingsForm.VanillaMonHandle > 1)
+            {
+                BaseDigimonStats.LoadDigimonEvoConditions(this, digimons);
+            }
+
+            if (settingsForm.CostumedAgumonHandle > 1)
+            {
+                BaseDigimonStats.LoadCostumedAgumonEvoConditions(this, digimons);
+            }
+
             foreach (var i in activeMods)
             {
                 i.UpdateDigimonEvoConditions(this, digimons);
@@ -303,7 +334,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             itemList.Sort();
 
-            var digimonEvolutions = BaseDigimonStats.LoadDigimonEvolutions(this);
+            var digimonEvolutions = settingsForm.VanillaMonHandle > 1 
+                ? BaseDigimonStats.LoadDigimonEvolutions(this)
+                : new();
+
+            if (settingsForm.CostumedAgumonHandle > 1)
+            {
+                BaseDigimonStats.LoadCostumedAgumonEvolutions(this, digimonEvolutions);
+            }
 
             foreach (var i in activeMods)
             {
@@ -900,13 +938,21 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         Dictionary<string, List<string>> digimonEvolutions = new();
                         Dictionary<string, List<Tuple<int, string>>> digimonEvoConditions = new();
 
+                        var baseDigimonIDs = BaseDigimonStats.CollectDigimonIDs(this);
+                        var costumedAgumonIDs = BaseDigimonStats.CollectCostumedAgumonIDs(this);
+
                         foreach (var list in digimonLists)
                         {
                             foreach (var item in list.Item1)
                             {
-                                digimonDevolutions.Add(item.Digimon.ID, item.Devolutions);
-                                digimonEvolutions.Add(item.Digimon.ID, item.Evolutions);
-                                digimonEvoConditions.Add(item.Digimon.ID, item.Digimon.EvoConditions);
+                                if (item.Digimon.ModIndex > 0
+                                    || (settingsForm.VanillaMonHandle > 2 && baseDigimonIDs.Contains(item.Digimon.ID))
+                                    || (settingsForm.CostumedAgumonHandle > 2 && costumedAgumonIDs.Contains(item.Digimon.ID)))
+                                {
+                                    digimonDevolutions.Add(item.Digimon.ID, item.Devolutions);
+                                    digimonEvolutions.Add(item.Digimon.ID, item.Evolutions);
+                                    digimonEvoConditions.Add(item.Digimon.ID, item.Digimon.EvoConditions);
+                                }
                             }
                         }
 
