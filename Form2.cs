@@ -21,13 +21,26 @@
             }
             else
             {
-                modName.Text = folderName.Text.Trim();
+                modName.Text = folderName.Text;
+            }
+        }
+
+        private void modName_TextChanged(object sender, EventArgs e)
+        {
+            folderName.Text = modName.Text.Trim().ToLower();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            if (folderName.Text.Length > 0)
+            {
+                this.DialogResult = DialogResult.OK;
             }
         }
 
         public string ModName { get { return modName.Text; } }
-        
-        public string ModFolder {  get { return folderName.Text; } }
+
+        public string ModFolder { get { return folderName.Text; } }
 
     }
 }

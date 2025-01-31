@@ -38,13 +38,13 @@
             // 
             // okButton
             // 
-            okButton.DialogResult = DialogResult.OK;
             okButton.Location = new Point(12, 100);
             okButton.Name = "okButton";
             okButton.Size = new Size(75, 23);
             okButton.TabIndex = 0;
             okButton.Text = "OK";
             okButton.UseVisualStyleBackColor = true;
+            okButton.Click += okButton_Click;
             // 
             // cancelButton
             // 
@@ -59,7 +59,7 @@
             // folderNameLabel
             // 
             folderNameLabel.AutoSize = true;
-            folderNameLabel.Location = new Point(12, 9);
+            folderNameLabel.Location = new Point(11, 53);
             folderNameLabel.Name = "folderNameLabel";
             folderNameLabel.Size = new Size(76, 15);
             folderNameLabel.TabIndex = 3;
@@ -67,15 +67,16 @@
             // 
             // modName
             // 
-            modName.Location = new Point(12, 71);
+            modName.Location = new Point(12, 27);
             modName.Name = "modName";
             modName.Size = new Size(310, 23);
-            modName.TabIndex = 4;
+            modName.TabIndex = 0;
+            modName.TextChanged += modName_TextChanged;
             // 
             // modNameLabel
             // 
             modNameLabel.AutoSize = true;
-            modNameLabel.Location = new Point(12, 53);
+            modNameLabel.Location = new Point(12, 9);
             modNameLabel.Name = "modNameLabel";
             modNameLabel.Size = new Size(68, 15);
             modNameLabel.TabIndex = 5;
@@ -84,7 +85,7 @@
             // folderName
             // 
             folderName.FormattingEnabled = true;
-            folderName.Location = new Point(12, 27);
+            folderName.Location = new Point(11, 71);
             folderName.Name = "folderName";
             folderName.Size = new Size(310, 23);
             folderName.TabIndex = 6;
@@ -96,12 +97,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = cancelButton;
             ClientSize = new Size(334, 134);
-            Controls.Add(folderName);
             Controls.Add(modNameLabel);
-            Controls.Add(modName);
             Controls.Add(folderNameLabel);
             Controls.Add(cancelButton);
             Controls.Add(okButton);
+            Controls.Add(folderName);
+            Controls.Add(modName);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form2";
