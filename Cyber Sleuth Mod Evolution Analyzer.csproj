@@ -15,6 +15,7 @@
 	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 	<Version>0.1.0</Version>
+	<ApplicationIcon>csmea-monzae.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,5 +25,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="csmea-monzae.ico" />
+  </ItemGroup>
 
 </Project>

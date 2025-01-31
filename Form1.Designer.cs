@@ -1080,6 +1080,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(909, 642);
             Controls.Add(folderRoot);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Cyber Sleuth Mod Evolution Analyzer";
             folderRoot.Panel1.ResumeLayout(false);
