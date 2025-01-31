@@ -1015,6 +1015,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
+            settingsForm.SetupForm();
             DialogResult result = settingsForm.ShowDialog();
             Enabled = false;
 

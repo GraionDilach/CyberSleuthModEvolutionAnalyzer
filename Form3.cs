@@ -91,7 +91,11 @@
             {
                 LogMessage("Analysis completed. No such Digimon encountered.");
             }
+        }
 
+        public void SetupForm()
+        {
+            analyzerLayoutPanel.Visible = sourceForm.DigimonLists.Any(x => x != null && x.Item1 != null && x.Item1.Count > 0);
         }
     }
 }
