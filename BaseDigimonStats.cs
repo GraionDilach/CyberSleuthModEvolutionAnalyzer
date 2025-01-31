@@ -17397,7 +17397,7 @@
                     }
                 }
                 var digimon = new Digimon(mon["id"], mon["Name"], int.Parse(mon["level"]), 0, evoConditions);
-                digimons["id"] = digimon;
+                digimons[digimon.ID] = digimon;
             }
         }
 
@@ -17471,7 +17471,7 @@
                     }
                 }
                 var digimon = new Digimon(mon["id"], mon["Name"], int.Parse(mon["level"]), 0, evoConditions);
-                digimons["id"] = digimon;
+                digimons[digimon.ID] = digimon;
             }
         }
 
