@@ -34,6 +34,8 @@
             validateEvoLabel = new Label();
             validateEvoButton = new Button();
             analyzerLogBox = new TextBox();
+            pipeEvolutionsLabel = new Label();
+            pipeEvolutionsButton = new Button();
             ((System.ComponentModel.ISupportInitialize)logContainer).BeginInit();
             logContainer.Panel1.SuspendLayout();
             logContainer.Panel2.SuspendLayout();
@@ -57,8 +59,8 @@
             // logContainer.Panel2
             // 
             logContainer.Panel2.Controls.Add(analyzerLogBox);
-            logContainer.Size = new Size(800, 450);
-            logContainer.SplitterDistance = 465;
+            logContainer.Size = new Size(864, 506);
+            logContainer.SplitterDistance = 502;
             logContainer.TabIndex = 0;
             // 
             // settingsSplitter
@@ -71,8 +73,8 @@
             // settingsSplitter.Panel2
             // 
             settingsSplitter.Panel2.Controls.Add(analyzerLayoutPanel);
-            settingsSplitter.Size = new Size(465, 450);
-            settingsSplitter.SplitterDistance = 218;
+            settingsSplitter.Size = new Size(502, 506);
+            settingsSplitter.SplitterDistance = 245;
             settingsSplitter.TabIndex = 0;
             // 
             // analyzerLayoutPanel
@@ -82,6 +84,8 @@
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            analyzerLayoutPanel.Controls.Add(pipeEvolutionsButton, 3, 0);
+            analyzerLayoutPanel.Controls.Add(pipeEvolutionsLabel, 2, 0);
             analyzerLayoutPanel.Controls.Add(validateEvoLabel, 0, 0);
             analyzerLayoutPanel.Controls.Add(validateEvoButton, 1, 0);
             analyzerLayoutPanel.Dock = DockStyle.Fill;
@@ -93,7 +97,7 @@
             analyzerLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             analyzerLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             analyzerLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            analyzerLayoutPanel.Size = new Size(465, 228);
+            analyzerLayoutPanel.Size = new Size(502, 257);
             analyzerLayoutPanel.TabIndex = 0;
             // 
             // validateEvoLabel
@@ -101,7 +105,7 @@
             validateEvoLabel.Dock = DockStyle.Fill;
             validateEvoLabel.Location = new Point(3, 0);
             validateEvoLabel.Name = "validateEvoLabel";
-            validateEvoLabel.Size = new Size(180, 45);
+            validateEvoLabel.Size = new Size(194, 51);
             validateEvoLabel.TabIndex = 0;
             validateEvoLabel.Text = "Collect Digimons with more than 6 evolution options";
             validateEvoLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -109,9 +113,9 @@
             // validateEvoButton
             // 
             validateEvoButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            validateEvoButton.Location = new Point(189, 3);
+            validateEvoButton.Location = new Point(203, 3);
             validateEvoButton.Name = "validateEvoButton";
-            validateEvoButton.Size = new Size(40, 39);
+            validateEvoButton.Size = new Size(44, 45);
             validateEvoButton.TabIndex = 1;
             validateEvoButton.Text = "Run!";
             validateEvoButton.UseVisualStyleBackColor = true;
@@ -126,14 +130,35 @@
             analyzerLogBox.Name = "analyzerLogBox";
             analyzerLogBox.ReadOnly = true;
             analyzerLogBox.ScrollBars = ScrollBars.Vertical;
-            analyzerLogBox.Size = new Size(331, 450);
+            analyzerLogBox.Size = new Size(358, 506);
             analyzerLogBox.TabIndex = 0;
+            // 
+            // pipeEvolutionsLabel
+            // 
+            pipeEvolutionsLabel.Dock = DockStyle.Fill;
+            pipeEvolutionsLabel.Location = new Point(253, 0);
+            pipeEvolutionsLabel.Name = "pipeEvolutionsLabel";
+            pipeEvolutionsLabel.Size = new Size(194, 51);
+            pipeEvolutionsLabel.TabIndex = 2;
+            pipeEvolutionsLabel.Text = "Collect Pipe Digimons (only have access to a single digimon in both evolution directions)";
+            pipeEvolutionsLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pipeEvolutionsButton
+            // 
+            pipeEvolutionsButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pipeEvolutionsButton.Location = new Point(453, 3);
+            pipeEvolutionsButton.Name = "pipeEvolutionsButton";
+            pipeEvolutionsButton.Size = new Size(46, 45);
+            pipeEvolutionsButton.TabIndex = 3;
+            pipeEvolutionsButton.Text = "Run!";
+            pipeEvolutionsButton.UseVisualStyleBackColor = true;
+            pipeEvolutionsButton.Click += pipeEvolutionsButton_Click;
             // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(864, 506);
             Controls.Add(logContainer);
             MinimizeBox = false;
             Name = "Form3";
@@ -160,5 +185,7 @@
         private TextBox analyzerLogBox;
         private Label validateEvoLabel;
         private Button validateEvoButton;
+        private Button pipeEvolutionsButton;
+        private Label pipeEvolutionsLabel;
     }
 }

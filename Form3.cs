@@ -25,7 +25,7 @@
 
         private void validateEvoButton_Click(object sender, EventArgs e)
         {
-            bool valid = true;
+            var valid = true;
             var levels = new string[] { "In-Training 1", "In-Training 2", "Rookie", "Champion", "Armor", "Ultimate", "Mega", "Ultra" };
             var digimonPreEvos = new List<Digimon>[8];
             var digimonEvos = new List<Digimon>[8];
@@ -59,8 +59,39 @@
 
             if (valid)
             {
-                LogMessage("No such Digimons encountered.");
+                LogMessage("Analysis completed. No such Digimon encountered.");
             }
+        }
+
+        private void pipeEvolutionsButton_Click(object sender, EventArgs e)
+        {
+            LogMessage("Looking for Digimons with only 1 evolution options in both directions...");
+
+            var valid = true;
+            var levels = new string[] { "In-Training 1", "In-Training 2", "Rookie", "Champion", "Armor", "Ultimate", "Mega", "Ultra" };
+
+            for (var i = 0; i < sourceForm.DigimonLists.Length; i++)
+            {
+                var monlist = sourceForm.DigimonLists[i].Item1.Where(x =>
+                    (x.Devolutions.Count == 1 && x.Evolutions.Count == 1))
+                    .ToList();
+
+                if (monlist.Count > 0)
+                {
+                    valid = false;
+                    LogMessage("The following " + levels[i] + " Digimon are pipe Digimons:");
+                    foreach (var mon in monlist)
+                    {
+                        LogMessage(mon.ToString(), false);
+                    }
+                }
+            }
+
+            if (valid)
+            {
+                LogMessage("Analysis completed. No such Digimon encountered.");
+            }
+
         }
     }
 }
