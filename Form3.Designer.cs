@@ -31,11 +31,15 @@
             logContainer = new SplitContainer();
             settingsSplitter = new SplitContainer();
             analyzerLayoutPanel = new TableLayoutPanel();
+            dumpModSourcingButton = new Button();
+            validateJogressButton = new Button();
+            dumpModSourcingLabel = new Label();
+            validateJogressLabel = new Label();
+            pipeEvolutionsButton = new Button();
+            pipeEvolutionsLabel = new Label();
             validateEvoLabel = new Label();
             validateEvoButton = new Button();
             analyzerLogBox = new TextBox();
-            pipeEvolutionsLabel = new Label();
-            pipeEvolutionsButton = new Button();
             ((System.ComponentModel.ISupportInitialize)logContainer).BeginInit();
             logContainer.Panel1.SuspendLayout();
             logContainer.Panel2.SuspendLayout();
@@ -84,6 +88,10 @@
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            analyzerLayoutPanel.Controls.Add(dumpModSourcingButton, 3, 1);
+            analyzerLayoutPanel.Controls.Add(validateJogressButton, 1, 1);
+            analyzerLayoutPanel.Controls.Add(dumpModSourcingLabel, 2, 1);
+            analyzerLayoutPanel.Controls.Add(validateJogressLabel, 0, 1);
             analyzerLayoutPanel.Controls.Add(pipeEvolutionsButton, 3, 0);
             analyzerLayoutPanel.Controls.Add(pipeEvolutionsLabel, 2, 0);
             analyzerLayoutPanel.Controls.Add(validateEvoLabel, 0, 0);
@@ -99,6 +107,69 @@
             analyzerLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             analyzerLayoutPanel.Size = new Size(502, 257);
             analyzerLayoutPanel.TabIndex = 0;
+            // 
+            // dumpModSourcingButton
+            // 
+            dumpModSourcingButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dumpModSourcingButton.Location = new Point(453, 54);
+            dumpModSourcingButton.Name = "dumpModSourcingButton";
+            dumpModSourcingButton.Size = new Size(46, 45);
+            dumpModSourcingButton.TabIndex = 7;
+            dumpModSourcingButton.Text = "Run!";
+            dumpModSourcingButton.UseVisualStyleBackColor = true;
+            dumpModSourcingButton.Click += dumpModSourcingButton_Click;
+            // 
+            // validateJogressButton
+            // 
+            validateJogressButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            validateJogressButton.Location = new Point(203, 54);
+            validateJogressButton.Name = "validateJogressButton";
+            validateJogressButton.Size = new Size(44, 45);
+            validateJogressButton.TabIndex = 6;
+            validateJogressButton.Text = "Run!";
+            validateJogressButton.UseVisualStyleBackColor = true;
+            validateJogressButton.Click += validateJogressButton_Click;
+            // 
+            // dumpModSourcingLabel
+            // 
+            dumpModSourcingLabel.Dock = DockStyle.Fill;
+            dumpModSourcingLabel.Location = new Point(253, 51);
+            dumpModSourcingLabel.Name = "dumpModSourcingLabel";
+            dumpModSourcingLabel.Size = new Size(194, 51);
+            dumpModSourcingLabel.TabIndex = 5;
+            dumpModSourcingLabel.Text = "Dump origin data of the loaded Digimon";
+            dumpModSourcingLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // validateJogressLabel
+            // 
+            validateJogressLabel.Dock = DockStyle.Fill;
+            validateJogressLabel.Location = new Point(3, 51);
+            validateJogressLabel.Name = "validateJogressLabel";
+            validateJogressLabel.Size = new Size(194, 51);
+            validateJogressLabel.TabIndex = 4;
+            validateJogressLabel.Text = "Check if DNA (Jogress) Evolutions refers all source mons and them only";
+            validateJogressLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pipeEvolutionsButton
+            // 
+            pipeEvolutionsButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pipeEvolutionsButton.Location = new Point(453, 3);
+            pipeEvolutionsButton.Name = "pipeEvolutionsButton";
+            pipeEvolutionsButton.Size = new Size(46, 45);
+            pipeEvolutionsButton.TabIndex = 3;
+            pipeEvolutionsButton.Text = "Run!";
+            pipeEvolutionsButton.UseVisualStyleBackColor = true;
+            pipeEvolutionsButton.Click += pipeEvolutionsButton_Click;
+            // 
+            // pipeEvolutionsLabel
+            // 
+            pipeEvolutionsLabel.Dock = DockStyle.Fill;
+            pipeEvolutionsLabel.Location = new Point(253, 0);
+            pipeEvolutionsLabel.Name = "pipeEvolutionsLabel";
+            pipeEvolutionsLabel.Size = new Size(194, 51);
+            pipeEvolutionsLabel.TabIndex = 2;
+            pipeEvolutionsLabel.Text = "Collect Pipe Digimons (only have access to a single digimon in both evolution directions)";
+            pipeEvolutionsLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // validateEvoLabel
             // 
@@ -133,27 +204,6 @@
             analyzerLogBox.Size = new Size(358, 506);
             analyzerLogBox.TabIndex = 0;
             // 
-            // pipeEvolutionsLabel
-            // 
-            pipeEvolutionsLabel.Dock = DockStyle.Fill;
-            pipeEvolutionsLabel.Location = new Point(253, 0);
-            pipeEvolutionsLabel.Name = "pipeEvolutionsLabel";
-            pipeEvolutionsLabel.Size = new Size(194, 51);
-            pipeEvolutionsLabel.TabIndex = 2;
-            pipeEvolutionsLabel.Text = "Collect Pipe Digimons (only have access to a single digimon in both evolution directions)";
-            pipeEvolutionsLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // pipeEvolutionsButton
-            // 
-            pipeEvolutionsButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pipeEvolutionsButton.Location = new Point(453, 3);
-            pipeEvolutionsButton.Name = "pipeEvolutionsButton";
-            pipeEvolutionsButton.Size = new Size(46, 45);
-            pipeEvolutionsButton.TabIndex = 3;
-            pipeEvolutionsButton.Text = "Run!";
-            pipeEvolutionsButton.UseVisualStyleBackColor = true;
-            pipeEvolutionsButton.Click += pipeEvolutionsButton_Click;
-            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -187,5 +237,9 @@
         private Button validateEvoButton;
         private Button pipeEvolutionsButton;
         private Label pipeEvolutionsLabel;
+        private Label validateJogressLabel;
+        private Button dumpModSourcingButton;
+        private Button validateJogressButton;
+        private Label dumpModSourcingLabel;
     }
 }

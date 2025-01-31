@@ -16,10 +16,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         string? rootFolder;
         Tuple<List<DigimonListEntry>, BindingSource>[] digimonLists = new Tuple<List<DigimonListEntry>, BindingSource>[8];
         Form3 settingsForm;
+        List<DSCSMod> activeMods = new();
 
         public Tuple<List<DigimonListEntry>, BindingSource>[] DigimonLists
         {
             get { return digimonLists; }
+        }
+
+        public List<DSCSMod> ActiveMods
+        {
+            get { return activeMods; }
         }
 
         public Form1()
@@ -229,15 +235,15 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             selectedDigimon = null;
             UpdateSelectedDigimon();
             HashSet<string> digimonIDs = new();
-            var checkedItems = new List<DSCSMod>();
+            activeMods = new List<DSCSMod>();
             for (var i = 0; i < modListBox.Items.Count; i++)
             {
                 if (modListBox.GetItemChecked(i))
                 {
-                    checkedItems.Add(dscsMods[i]);
+                    activeMods.Add(dscsMods[i]);
                 }
             }
-            foreach (var i in checkedItems)
+            foreach (var i in activeMods)
             {
                 var modDigimonIDs = i.CollectDigimonIDs(this);
                 digimonIDs.UnionWith(modDigimonIDs);
@@ -251,9 +257,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 digimons.Add(item.Key, item.Value);
             }
 
-            foreach (var i in checkedItems)
+            foreach (var i in activeMods)
             {
-                var modDigimonData = i.CollectDigimonData(this, checkedItems.IndexOf(i) + 1, baseMons);
+                var modDigimonData = i.CollectDigimonData(this, activeMods.IndexOf(i) + 1, baseMons);
                 foreach (var item in modDigimonData.Keys)
                 {
                     if (!digimons.ContainsKey(item))
@@ -276,16 +282,16 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             }
             LogMessage("Disabled " + bossmons.Length + " boss digimons from being loaded.");
 
-            foreach (var i in checkedItems)
+            foreach (var i in activeMods)
             {
                 i.UpdateDigimonEvoConditions(this, digimons);
             }
 
             var itemList = BaseItems.ItemList;
 
-            foreach (var i in checkedItems)
+            foreach (var i in activeMods)
             {
-                var modItemList = i.CollectItems(this, checkedItems.IndexOf(i) + 1);
+                var modItemList = i.CollectItems(this, activeMods.IndexOf(i) + 1);
                 foreach (var item in modItemList)
                 {
                     if (!itemList.Contains(item))
@@ -299,7 +305,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             var digimonEvolutions = BaseDigimonStats.LoadDigimonEvolutions(this);
 
-            foreach (var i in checkedItems)
+            foreach (var i in activeMods)
             {
                 i.LoadDigimonEvolutions(this, digimons.Keys.ToHashSet(), digimonEvolutions);
             }
@@ -467,6 +473,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 evocontrol.UpdateConditionOption(knownMons.ToList(), itemList.ToList());
             }
+            settingsForm.KnownMons = knownMons;
 
             digimonListWrapper.Visible = true;
             ValidateEvolutions();
@@ -887,16 +894,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             export = new DSCSMod(rootFolder, dialog.ModFolder, dialog.ModName);
                         }
 
-                        var checkedmods = new List<DSCSMod>();
-                        for (var i = 0; i < modListBox.Items.Count; i++)
-                        {
-                            if (modListBox.GetItemChecked(i))
-                            {
-                                checkedmods.Add(dscsMods[i]);
-                            }
-                        }
-
-                        export.WriteMetadata(checkedmods);
+                        export.WriteMetadata(activeMods);
 
                         Dictionary<string, List<string>> digimonDevolutions = new();
                         Dictionary<string, List<string>> digimonEvolutions = new();
