@@ -260,8 +260,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         {
             try
             {
-                var digimonEvoConditions = new Dictionary<string, List<Tuple<int, string>>>();
-
                 #region evolution_condition_para.mbe
                 var evoconditionpath = (formatVersion > 1)
                     ? @"\modfiles\DSDBP\data\evolution_condition_para.mbe\digimon.csv"
@@ -295,14 +293,26 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             {
                                 if (int.TryParse(tableRow[i], out var condition))
                                 {
-                                    // separately handle "Cleared Hacker's Memory" condition
-                                    if (condition != 15)
+                                    switch (condition)
                                     {
-                                        evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
-                                    }
-                                    else
-                                    {
-                                        evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 2]));
+                                        // separately handle "Cleared Hacker's Memory" condition
+                                        case 15:
+                                            evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 2]));
+                                            break;
+                                        // ignore nonexistant mons as DNA options
+                                        case 12:
+                                            if (digimons.ContainsKey(tableRow[i + 1]))
+                                            {
+                                                evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
+                                            }
+                                            else
+                                            {
+                                                form.LogMessage("Mod " + Name + " - " + monID + ": Ignored unknown Digimon ID of DNA option  " + tableRow[i + 1] + ", skipped...");
+                                            }
+                                            break;
+                                        default:
+                                            evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
+                                            break;
                                     }
                                 }
                             }
@@ -312,7 +322,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                 evoConditions.Add(new(0, ""));
                             }
 
-                            digimonEvoConditions.Add(monID, evoConditions);
                             if (digimons.ContainsKey(monID))
                             {
                                 digimons[monID].EvoConditions = evoConditions;

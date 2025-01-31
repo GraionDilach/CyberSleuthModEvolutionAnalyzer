@@ -1,15 +1,37 @@
-﻿namespace Cyber_Sleuth_Mod_Evolution_Analyzer
+﻿using System.Diagnostics.Eventing.Reader;
+
+namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form3 : Form
     {
         Form1 sourceForm;
-        
+
         public List<Digimon> KnownMons = [];
+
+        List<string> evoConditionTypes = [
+            "All",
+            "Level",
+            "Max. HP",
+            "Max. SP",
+            "ATK",
+            "DEF",
+            "INT",
+            "SPD",
+            "ABI",
+            "CAM",
+            "Game Cleared",
+            "Item Held",
+            "DNA (Other Digimon)",
+            "Mode Change",
+            "DLC Flag",
+            "Flag Cleared"
+        ];
 
         public Form3(Form1 source)
         {
             InitializeComponent();
             sourceForm = source;
+            massEvoDeleterComboBox.DataSource = evoConditionTypes;
         }
 
         public void LogMessage(string message, bool timestamp = true)
@@ -63,6 +85,10 @@
             {
                 LogMessage("Analysis completed. No such Digimon encountered.");
             }
+            else
+            {
+                LogMessage("Analysis completed.");
+            }
         }
 
         private void pipeEvolutionsButton_Click(object sender, EventArgs e)
@@ -92,6 +118,10 @@
             if (valid)
             {
                 LogMessage("Analysis completed. No such Digimon encountered.");
+            }
+            else
+            {
+                LogMessage("Analysis completed.");
             }
         }
 
@@ -173,7 +203,7 @@
                             }
                         }
 
-                        foreach(var item in mon.Devolutions)
+                        foreach (var item in mon.Devolutions)
                         {
                             if (!jogressevos.Contains(item))
                             {
@@ -194,6 +224,46 @@
             {
                 LogMessage("Analysis completed. No such Digimon encountered.");
             }
+            else
+            {
+                LogMessage("Analysis completed.");
+            }
+        }
+
+        private void massEvoDeleterButton_Click(object sender, EventArgs e)
+        {
+            if (massEvoDeleterComboBox.SelectedIndex == 0)
+            {
+                LogMessage("Deleting all evolution requirements from all Digimon...");
+            }
+            else
+            {
+                LogMessage("Deleting all evolution requirements of type " + evoConditionTypes[massEvoDeleterComboBox.SelectedIndex] + " from all Digimon...");
+            }
+
+            foreach (var list in sourceForm.DigimonLists)
+            {
+                foreach (var item in list.Item1)
+                {
+                    for (var i = 0; i < item.Digimon.EvoConditions.Count; i++)
+                    {
+                        if (massEvoDeleterComboBox.SelectedIndex == 0)
+                        {
+                            item.Digimon.EvoConditions[i] = new(0, "");
+                        }
+                        else
+                        {
+                            if (massEvoDeleterComboBox.SelectedIndex == item.Digimon.EvoConditions[i].Item1)
+                            {
+                                item.Digimon.EvoConditions[i] = new(0, "");
+                            }
+                        }
+                    }
+                }
+            }
+
+            sourceForm.Edited = true;
+            LogMessage("Operation completed.");
         }
     }
 }

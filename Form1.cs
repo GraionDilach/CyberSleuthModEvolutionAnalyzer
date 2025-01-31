@@ -11,8 +11,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         readonly DigimonEvolutionOption[] evos;
         readonly DigimonEvoControlOption[] evocontrols;
 
+        public bool Edited;
         DigimonListEntry? selectedDigimon;
-        bool edited;
         string? rootFolder;
         Tuple<List<DigimonListEntry>, BindingSource>[] digimonLists = new Tuple<List<DigimonListEntry>, BindingSource>[8];
         Form3 settingsForm;
@@ -73,7 +73,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void modsLocationBrowser_Click(object sender, EventArgs e)
         {
-            if (edited)
+            if (Edited)
             {
                 var warningResult = MessageBox.Show(
                     "Reloading the mods will overwrite the ongoing changes.\n"
@@ -214,7 +214,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void modLoaderButton_Click(object sender, EventArgs e)
         {
-            if (edited)
+            if (Edited)
             {
                 var warningResult = MessageBox.Show(
                     "Reloading the mods will overwrite the ongoing changes.\n"
@@ -478,7 +478,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             digimonListWrapper.Visible = true;
             ValidateEvolutions();
             modGenerator.Visible = true;
-            edited = false;
+            Edited = false;
         }
 
         private bool ValidateEvolutions()
@@ -732,7 +732,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
 
-                edited = true;
+                Edited = true;
                 UpdateSelectedDigimon();
                 digimonDataContainer.Visible = true;
             }
@@ -810,7 +810,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                 }
 
-                edited = true;
+                Edited = true;
                 UpdateSelectedDigimon();
                 digimonDataContainer.Visible = true;
             }
@@ -915,7 +915,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
                         LogMessage("Successfully saved generated " + export.Name + " mod.");
 
-                        edited = false;
+                        Edited = false;
                     }
                 }
             }
@@ -1013,6 +1013,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
+            var hadDigimonLoaded = false;
+            if (digimonDataContainer.Visible && !selectedDigimon.IsNullOrEmpty())
+            {
+                hadDigimonLoaded = true;
+                digimonDataContainer.Visible = false;
+            }
+
             settingsForm.SetupForm();
             DialogResult result = settingsForm.ShowDialog();
             Enabled = false;
@@ -1020,6 +1027,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             if (result != DialogResult.None)
             {
                 Enabled = true;
+                if (hadDigimonLoaded)
+                {
+                    UpdateSelectedDigimon();
+                    digimonDataContainer.Visible = true;
+                }
             }
         }
     }
