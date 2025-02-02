@@ -289,5 +289,78 @@
             costumedAgumonLoaderComboBox.SelectedIndex = 0;
             costumedAgumonLoaderComboBox.DataSource = vanillaMonHandlingStates.Take(baseMonHandlerComboBox.SelectedIndex + 1).ToList();
         }
+
+        private void modeChangeValidatorButton_Click(object sender, EventArgs e)
+        {
+            LogMessage("Looking for Digimons with the Mode Change evolution option");
+
+            var valid = true;
+            var levels = new string[] { "In-Training 1", "In-Training 2", "Rookie", "Champion", "Armor", "Ultimate", "Mega", "Ultra" };
+
+            for (var i = 0; i < sourceForm.DigimonLists.Length; i++)
+            {
+                var monlist = sourceForm.DigimonLists[i].Item1.Where(x =>
+                    (x.Digimon.EvoConditions.Any(y => y.Item1 == 13)))
+                    .ToList();
+
+                if (monlist.Count > 0)
+                {
+                    foreach (var mon in monlist)
+                    {
+                        var monstring = "";
+                        var modechanges = mon.Digimon.EvoConditions.Where(x => x.Item1 == 13).Select(x => x.Item2).ToList();
+
+                        if (modechanges.Count > 1)
+                        {
+                            monstring += "\t > Has multiple Mode Changes" + Environment.NewLine;
+                        }
+
+                        foreach (var item in modechanges)
+                        {
+                            if (String.IsNullOrEmpty(item) || String.Equals("0", item))
+                            {
+                                monstring += "\t > Missing Mode Change parameter";
+                            }
+
+                            if (!mon.Evolutions.Contains(item))
+                            {
+                                var faultyMon = KnownMons.SingleOrDefault(x => String.Equals(x.ID, item));
+                                if (faultyMon == null)
+                                {
+                                    monstring += "\t > Requires external mon ID " + item + " as a mode change option" + Environment.NewLine;
+                                }
+                                else
+                                {
+                                    monstring += "\t > Requires external mon " + faultyMon.Name + " as a Mode Change option" + Environment.NewLine;
+                                }
+                            }
+                        }
+
+                        foreach (var item in mon.Evolutions)
+                        {
+                            if (!modechanges.Contains(item))
+                            {
+                                monstring += "\t > Missing evolution " + KnownMons.Single(x => String.Equals(x.ID, item)).Name + " as Mode Change option" + Environment.NewLine;
+                            }
+                        }
+
+                        if (monstring.Length > 0)
+                        {
+                            valid = false;
+                            LogMessage(mon + " [" + levels[i] + "]" + Environment.NewLine + monstring);
+                        }
+                    }
+                }
+            }
+
+            if (valid)
+            {
+                LogMessage("Analysis completed. No such Digimon encountered.");
+            }
+            else
+            {
+                LogMessage("Analysis completed.");
+            }
+        }
     }
 }

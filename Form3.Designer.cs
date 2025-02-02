@@ -36,6 +36,8 @@
             costumedAgumonLoaderComboBox = new ComboBox();
             baseMonHandlerComboBox = new ComboBox();
             analyzerLayoutPanel = new TableLayoutPanel();
+            modeChangeValidatorButton = new Button();
+            modeChangeValidatorLabel = new Label();
             massEvoDeleterButton = new Button();
             dumpModSourcingButton = new Button();
             validateJogressButton = new Button();
@@ -159,6 +161,8 @@
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             analyzerLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            analyzerLayoutPanel.Controls.Add(modeChangeValidatorButton, 3, 2);
+            analyzerLayoutPanel.Controls.Add(modeChangeValidatorLabel, 2, 2);
             analyzerLayoutPanel.Controls.Add(massEvoDeleterButton, 1, 2);
             analyzerLayoutPanel.Controls.Add(dumpModSourcingButton, 3, 1);
             analyzerLayoutPanel.Controls.Add(validateJogressButton, 1, 1);
@@ -180,6 +184,27 @@
             analyzerLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             analyzerLayoutPanel.Size = new Size(502, 295);
             analyzerLayoutPanel.TabIndex = 0;
+            // 
+            // modeChangeValidatorButton
+            // 
+            modeChangeValidatorButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            modeChangeValidatorButton.Location = new Point(453, 149);
+            modeChangeValidatorButton.Name = "modeChangeValidatorButton";
+            modeChangeValidatorButton.Size = new Size(46, 67);
+            modeChangeValidatorButton.TabIndex = 11;
+            modeChangeValidatorButton.Text = "Run!";
+            modeChangeValidatorButton.UseVisualStyleBackColor = true;
+            modeChangeValidatorButton.Click += modeChangeValidatorButton_Click;
+            // 
+            // modeChangeValidatorLabel
+            // 
+            modeChangeValidatorLabel.Dock = DockStyle.Fill;
+            modeChangeValidatorLabel.Location = new Point(253, 146);
+            modeChangeValidatorLabel.Name = "modeChangeValidatorLabel";
+            modeChangeValidatorLabel.Size = new Size(194, 73);
+            modeChangeValidatorLabel.TabIndex = 10;
+            modeChangeValidatorLabel.Text = "Validate Mode Change (it's assigned to a valid mon in the evo options)";
+            modeChangeValidatorLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // massEvoDeleterButton
             // 
@@ -377,5 +402,7 @@
         private Label costumedAgumonLoaderLabel;
         private ComboBox costumedAgumonLoaderComboBox;
         private Label modsAlreadyLoadedLabel;
+        private Button modeChangeValidatorButton;
+        private Label modeChangeValidatorLabel;
     }
 }
