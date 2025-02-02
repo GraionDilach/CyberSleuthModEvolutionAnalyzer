@@ -215,7 +215,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         public void UpdateConditionOption(List<Digimon> knownmons, List<DigimonItem> knownitems)
         {
             knownMons = knownmons;
-            knownItems = knownitems;
+            knownItems = knownitems.Distinct().ToList();
         }
     }
 }

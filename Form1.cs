@@ -318,7 +318,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 i.UpdateDigimonEvoConditions(this, digimons);
             }
 
-            var itemList = BaseItems.ItemList;
+            var itemList = BaseItems.ItemList.ToList();
 
             foreach (var i in activeMods)
             {
