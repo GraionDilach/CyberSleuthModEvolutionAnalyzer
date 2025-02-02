@@ -310,6 +310,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                                 form.LogMessage("Mod " + Name + " - " + monID + ": Ignored unknown Digimon ID of DNA option  " + tableRow[i + 1] + ", skipped...");
                                             }
                                             break;
+                                        // same for mode change
+                                        case 13:
+                                            if (digimons.ContainsKey(tableRow[i + 1]))
+                                            {
+                                                evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
+                                            }
+                                            else
+                                            {
+                                                form.LogMessage("Mod " + Name + " - " + monID + ": Ignored unknown Digimon ID of Mode Change  " + tableRow[i + 1] + ", skipped...");
+                                            }
+                                            break;
                                         default:
                                             evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
                                             break;

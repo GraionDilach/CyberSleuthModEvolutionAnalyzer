@@ -80,7 +80,9 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     valueTextBox.Visible = false;
                     break;
                 // DNA
+                // Mode Change
                 case 12:
+                case 13:
                     valueDropBox.DataSource = knownMons;
                     valueDropBox.Visible = true;
                     if (!String.IsNullOrEmpty(evoCondition.Item2))
@@ -121,7 +123,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     break;
                 case 0:
                 case 10: //?! - can't find an example
-                case 13:
                     valueDropBox.DataSource = null;
                     valueDropBox.Visible = false;
                     valueTextBox.Visible = false;
@@ -149,6 +150,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         SelectedEvoOptionChanged?.Invoke(this, e);
                         break;
                     case 12:
+                    case 13:
                         evoCondition = new(modeBox.SelectedIndex, knownMons[valueDropBox.SelectedIndex].ID);
                         UpdateEvoControlState();
                         SelectedEvoOptionChanged?.Invoke(this, e);
