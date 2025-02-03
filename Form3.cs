@@ -336,14 +336,6 @@
                             }
                         }
 
-                        foreach (var item in mon.Evolutions)
-                        {
-                            if (!modechanges.Contains(item))
-                            {
-                                monstring += "\t > Missing evolution " + KnownMons.Single(x => String.Equals(x.ID, item)).Name + " as Mode Change option" + Environment.NewLine;
-                            }
-                        }
-
                         if (monstring.Length > 0)
                         {
                             valid = false;

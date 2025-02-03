@@ -301,9 +301,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                             break;
                                         // ignore nonexistant mons as DNA options
                                         case 12:
-                                            if (digimons.ContainsKey(tableRow[i + 1]))
+                                            var evomon = tableRow[i + 1];
+                                            if (BaseDigimonStats.ModLoaderLUT.TryGetValue(evomon, out string? evomonvalue))
                                             {
-                                                evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
+                                                evomon = evomonvalue;
+                                            }
+                                            if (digimons.ContainsKey(evomon))
+                                            {
+                                                evoConditions.Add(new Tuple<int, string>(condition, evomon));
                                             }
                                             else
                                             {
@@ -312,9 +317,14 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                                             break;
                                         // same for mode change
                                         case 13:
-                                            if (digimons.ContainsKey(tableRow[i + 1]))
+                                            var modemon = tableRow[i + 1];
+                                            if (BaseDigimonStats.ModLoaderLUT.TryGetValue(modemon, out string? modemonvalue))
                                             {
-                                                evoConditions.Add(new Tuple<int, string>(condition, tableRow[i + 1]));
+                                                modemon = modemonvalue;
+                                            }
+                                            if (digimons.ContainsKey(modemon))
+                                            {
+                                                evoConditions.Add(new Tuple<int, string>(condition, modemon));
                                             }
                                             else
                                             {
