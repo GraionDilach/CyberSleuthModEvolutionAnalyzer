@@ -538,7 +538,10 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             for (var i = 0; i < digimonLists.Length; i++)
             {
                 digimonPreEvos[i] = digimonLists[i].Item1.Where(x => x.Devolutions.Count > 6).Select(x => x.Digimon).ToList();
-                digimonEvos[i] = digimonLists[i].Item1.Where(x => x.Evolutions.Count > 6).Select(x => x.Digimon).ToList();
+                digimonEvos[i] = digimonLists[i].Item1.Where(
+                    x => x.Evolutions.Count > 6
+                    || (x.Evolutions.Count > 5 && x.Digimon.EvoConditions.Any(y => y.Item1 == 13)))
+                    .Select(x => x.Digimon).ToList();
 
                 if (digimonPreEvos[i].Count != 0)
                 {
