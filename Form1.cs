@@ -334,7 +334,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             itemList.Sort();
 
-            var digimonEvolutions = settingsForm.VanillaMonHandle > 1 
+            var digimonEvolutions = settingsForm.VanillaMonHandle > 1
                 ? BaseDigimonStats.LoadDigimonEvolutions(this)
                 : new();
 
@@ -1063,7 +1063,64 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             selectedDigimon.Digimon.EvoConditions.Add(new(0, ""));
                         }
 
+                        // delete old mode change
+                        if (selectedDigimon.Digimon.EvoConditions[i].Item1 == 13)
+                        {
+                            var oldModeChangeTargetID = selectedDigimon.Digimon.EvoConditions[i].Item2;
+                            foreach (var lists in digimonLists)
+                            {
+                                foreach (var targetMon in lists.Item1)
+                                {
+                                    if (String.Equals(targetMon.Digimon.ID, oldModeChangeTargetID))
+                                    {
+                                        for (var targetMonEvoCond = 0; targetMonEvoCond < targetMon.Digimon.EvoConditions.Count; targetMonEvoCond++)
+                                        {
+                                            if (targetMon.Digimon.EvoConditions[targetMonEvoCond].Item1 == 13
+                                                && String.Equals(targetMon.Digimon.EvoConditions[targetMonEvoCond].Item2, selectedDigimon.Digimon.ID))
+                                            {
+                                                targetMon.Digimon.EvoConditions[targetMonEvoCond] = new(0, "");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         selectedDigimon.Digimon.EvoConditions[i] = currentEvoControl.EvoCondition;
+
+                        if (currentEvoControl.EvoCondition.Item1 == 13)
+                        {
+                            var newModeChangeTargetID = selectedDigimon.Digimon.EvoConditions[i].Item2;
+                            foreach (var lists in digimonLists)
+                            {
+                                foreach (var targetMon in lists.Item1)
+                                {
+                                    if (String.Equals(targetMon.Digimon.ID, newModeChangeTargetID))
+                                    {
+                                        var placed = false;
+                                        for (var targetMonEvoCond = 0; targetMonEvoCond < targetMon.Digimon.EvoConditions.Count; targetMonEvoCond++)
+                                        {
+                                            if (targetMon.Digimon.EvoConditions[targetMonEvoCond].Item1 == 13
+                                                && String.Equals(targetMon.Digimon.EvoConditions[targetMonEvoCond].Item2, selectedDigimon.Digimon.ID))
+                                            {
+                                                targetMon.Digimon.EvoConditions[targetMonEvoCond] = new(0, "");
+                                            }
+
+                                            if (!placed && targetMon.Digimon.EvoConditions[targetMonEvoCond].Item1 == 0)
+                                            {
+                                                targetMon.Digimon.EvoConditions[targetMonEvoCond] = new Tuple<int, string>(13, selectedDigimon.Digimon.ID);
+                                                placed = true;
+                                            }
+                                        }
+
+                                        if (!placed)
+                                        {
+                                            targetMon.Digimon.EvoConditions.Add(new Tuple<int, string>(13, selectedDigimon.Digimon.ID));
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

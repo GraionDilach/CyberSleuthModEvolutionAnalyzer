@@ -174,6 +174,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             {
                 valueTextBox.Text = 0.ToString();
             }
+            if (valueDropBox.Visible && valueDropBox.SelectedIndex == 0)
+            {
+                evoCondition = new(modeBox.SelectedIndex, knownMons[valueDropBox.SelectedIndex].ID);
+                UpdateEvoControlState();
+            }
             SelectedEvoOptionChanged?.Invoke(this, e);
         }
 
