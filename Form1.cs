@@ -350,6 +350,15 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             LogMessage("Loaded evolution records for " + digimonEvolutions.Count + " digimons from all mods.");
 
+            foreach (var mon in digimonEvolutions.Keys)
+            {
+                var modeChangeEvolution = digimons[mon].EvoConditions.SingleOrDefault(x => x.Item1 == 13);
+                if (modeChangeEvolution != null)
+                {
+                    digimonEvolutions[mon].RemoveAll(x => String.Equals(modeChangeEvolution.Item2, x));
+                }
+            }
+
             Dictionary<string, List<string>> digimonDevolutions = new();
 
             foreach (var mon in digimonEvolutions.Keys)
@@ -956,7 +965,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                             }
                         }
 
-                        export.WriteEvolutions(digimonDevolutions, digimonEvolutions);
+                        export.WriteEvolutions(digimonDevolutions, digimonEvolutions, digimonEvoConditions);
                         export.WriteEvoConditions(digimonEvoConditions);
 
                         LogMessage("Successfully saved generated " + export.Name + " mod.");

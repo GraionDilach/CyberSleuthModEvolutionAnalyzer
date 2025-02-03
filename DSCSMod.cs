@@ -548,7 +548,8 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         }
 
         public void WriteEvolutions(Dictionary<string, List<string>> digimonDevolutions,
-            Dictionary<string, List<string>> digimonEvolutions)
+            Dictionary<string, List<string>> digimonEvolutions,
+            Dictionary<string, List<Tuple<int, string>>> digimonEvoConditions)
         {
             if (!Directory.Exists(path + @"\modfiles"))
             {
@@ -593,7 +594,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             foreach (var mon in digimonEvolutions)
             {
                 evolution += mon.Key;
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     if (i < digimonEvolutions[mon.Key].Count)
                     {
@@ -604,6 +605,24 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         evolution += ",0";
                     }
                 }
+
+                var modeChangeCondition = digimonEvoConditions[mon.Key].SingleOrDefault(x => x.Item1 == 13);
+                if (modeChangeCondition != null)
+                {
+                    evolution += "," + modeChangeCondition.Item2;
+                }
+                else
+                {
+                    if (5 < digimonEvolutions[mon.Key].Count)
+                    {
+                        evolution += "," + digimonEvolutions[mon.Key][5];
+                    }
+                    else
+                    {
+                        evolution += ",0";
+                    }
+                }
+
                 evolution += "\r\n";
             }
             File.WriteAllText(path + @"\modfiles\data\evolution_next_para.mbe\digimon.csv", evolution);

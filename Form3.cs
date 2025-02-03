@@ -322,16 +322,22 @@
                                 monstring += "\t > Missing Mode Change parameter";
                             }
 
-                            if (!mon.Evolutions.Contains(item))
+                            for (var j = 0; j < sourceForm.DigimonLists.Length; j++)
                             {
-                                var faultyMon = KnownMons.SingleOrDefault(x => String.Equals(x.ID, item));
-                                if (faultyMon == null)
+                                var targetMon = sourceForm.DigimonLists[j].Item1.SingleOrDefault(x => String.Equals(x.Digimon.ID, item));
+                                if (targetMon != null)
                                 {
-                                    monstring += "\t > Requires external mon ID " + item + " as a mode change option" + Environment.NewLine;
-                                }
-                                else
-                                {
-                                    monstring += "\t > Requires external mon " + faultyMon.Name + " as a Mode Change option" + Environment.NewLine;
+                                    var targetModeChanges = targetMon.Digimon.EvoConditions.Where(x =>  x.Item1 == 13).ToList();
+                                    foreach (var targetModeChange in targetModeChanges)
+                                    {
+                                        if (targetModeChange != null)
+                                        {
+                                            if (String.Equals(targetModeChange.Item2, mon.Digimon.ID))
+                                            {
+                                                monstring += "\t > Mode Change link broken: " + targetMon.Digimon.ID + " lacks the Mode Change condition to revert.";
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
