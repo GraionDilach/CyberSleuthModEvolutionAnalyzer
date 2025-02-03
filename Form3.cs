@@ -332,7 +332,7 @@
                                     {
                                         if (targetModeChange != null)
                                         {
-                                            if (String.Equals(targetModeChange.Item2, mon.Digimon.ID))
+                                            if (!String.Equals(targetModeChange.Item2, mon.Digimon.ID))
                                             {
                                                 monstring += "\t > Mode Change link broken: " + targetMon.Digimon.ID + " lacks the Mode Change condition to revert.";
                                             }
