@@ -12,10 +12,11 @@ A tool to detect and resolve evolution conflicts within Digimon Story Cyber Sleu
 - Support for both numeric and SimpleDSCSModManager softcode IDs
 - A visual editor to track/edit evolution conditions and paths, with a detailed list view
 - Auto-ordering mods during load based on the orders of previous tool-generated results
-- Notification if a Digimon has more than 6 options to (de-)digivolve
+- Notification if a Digimon has more than 6 options (including a Mode Change) to (de-)digivolve
 - Checks to prevent overwriting a content mod with generated result
 - Mass-deletion of specific types of evolution requirements
-- Helpful analyzers to check for pipe evolutions and the state of Jogress/DNA evolutions
+- Helpful analyzers to check for pipe evolutions and the state of Jogress/DNA evolutions and Mode Changes
+- **NOTE:** The UI hack of Cyber Sleuth's where Mode Changes are also listed as a forward evolution path **is NOT** implemented. Mode Change targets are only listed in the Evolution Requirements coloumn.
 
 ## Usage
 
