@@ -42,6 +42,7 @@
             modListLabel = new Label();
             modReloadWrapper = new SplitContainer();
             modListBox = new CheckedListBox();
+            modLoaderContainer = new SplitContainer();
             selectAllMods = new Button();
             modLoaderButton = new Button();
             digimonListWrapper = new SplitContainer();
@@ -122,6 +123,10 @@
             modReloadWrapper.Panel1.SuspendLayout();
             modReloadWrapper.Panel2.SuspendLayout();
             modReloadWrapper.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)modLoaderContainer).BeginInit();
+            modLoaderContainer.Panel1.SuspendLayout();
+            modLoaderContainer.Panel2.SuspendLayout();
+            modLoaderContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)digimonListWrapper).BeginInit();
             digimonListWrapper.Panel1.SuspendLayout();
             digimonListWrapper.Panel2.SuspendLayout();
@@ -306,8 +311,7 @@
             // 
             // modReloadWrapper.Panel2
             // 
-            modReloadWrapper.Panel2.Controls.Add(selectAllMods);
-            modReloadWrapper.Panel2.Controls.Add(modLoaderButton);
+            modReloadWrapper.Panel2.Controls.Add(modLoaderContainer);
             modReloadWrapper.Size = new Size(142, 449);
             modReloadWrapper.SplitterDistance = 390;
             modReloadWrapper.TabIndex = 0;
@@ -327,12 +331,30 @@
             modListBox.DragOver += modListBox_DragOver;
             modListBox.MouseDown += modListBox_MouseDown;
             // 
+            // modLoaderContainer
+            // 
+            modLoaderContainer.Dock = DockStyle.Fill;
+            modLoaderContainer.Location = new Point(0, 0);
+            modLoaderContainer.Name = "modLoaderContainer";
+            modLoaderContainer.Orientation = Orientation.Horizontal;
+            // 
+            // modLoaderContainer.Panel1
+            // 
+            modLoaderContainer.Panel1.Controls.Add(selectAllMods);
+            // 
+            // modLoaderContainer.Panel2
+            // 
+            modLoaderContainer.Panel2.Controls.Add(modLoaderButton);
+            modLoaderContainer.Size = new Size(142, 55);
+            modLoaderContainer.SplitterDistance = 26;
+            modLoaderContainer.TabIndex = 0;
+            // 
             // selectAllMods
             // 
-            selectAllMods.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            selectAllMods.Location = new Point(0, -1);
+            selectAllMods.Dock = DockStyle.Fill;
+            selectAllMods.Location = new Point(0, 0);
             selectAllMods.Name = "selectAllMods";
-            selectAllMods.Size = new Size(142, 25);
+            selectAllMods.Size = new Size(142, 26);
             selectAllMods.TabIndex = 0;
             selectAllMods.Text = "(De)Select All Mods";
             selectAllMods.UseVisualStyleBackColor = true;
@@ -340,8 +362,8 @@
             // 
             // modLoaderButton
             // 
-            modLoaderButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            modLoaderButton.Location = new Point(0, 30);
+            modLoaderButton.Dock = DockStyle.Fill;
+            modLoaderButton.Location = new Point(0, 0);
             modLoaderButton.Name = "modLoaderButton";
             modLoaderButton.Size = new Size(142, 25);
             modLoaderButton.TabIndex = 0;
@@ -1105,6 +1127,10 @@
             modReloadWrapper.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)modReloadWrapper).EndInit();
             modReloadWrapper.ResumeLayout(false);
+            modLoaderContainer.Panel1.ResumeLayout(false);
+            modLoaderContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)modLoaderContainer).EndInit();
+            modLoaderContainer.ResumeLayout(false);
             digimonListWrapper.Panel1.ResumeLayout(false);
             digimonListWrapper.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)digimonListWrapper).EndInit();
@@ -1142,7 +1168,6 @@
         private Button modsLocationBrowser;
         private SplitContainer modReloadWrapper;
         private CheckedListBox modListBox;
-        private Button modLoaderButton;
         private SplitContainer digimonListWrapper;
         private TabControl digimonList;
         private TabPage digimonListInTraining1Tab;
@@ -1190,7 +1215,6 @@
         private DigimonEvolutionOption digimonEvo9;
         private DigimonEvolutionOption digimonEvo10;
         private DigimonEvolutionOption digimonEvo11;
-        private Button selectAllMods;
         private Label label1;
         private DigimonEvoControlOption digimonEvoControl1;
         private DigimonEvoControlOption digimonEvoControl2;
@@ -1203,5 +1227,8 @@
         private DigimonEvoControlOption digimonEvoControl9;
         private DigimonEvoControlOption digimonEvoControl10;
         private Button settingsButton;
+        private SplitContainer modLoaderContainer;
+        private Button selectAllMods;
+        private Button modLoaderButton;
     }
 }
