@@ -352,10 +352,13 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             foreach (var mon in digimonEvolutions.Keys)
             {
-                var modeChangeEvolution = digimons[mon].EvoConditions.SingleOrDefault(x => x.Item1 == 13);
-                if (modeChangeEvolution != null)
+                var modeChangeEvolutions = digimons[mon].EvoConditions.Where(x => x.Item1 == 13).ToList();
+                if (modeChangeEvolutions.Count > 0)
                 {
-                    digimonEvolutions[mon].RemoveAll(x => String.Equals(modeChangeEvolution.Item2, x));
+                    foreach (var modeChangeEvolution in modeChangeEvolutions)
+                    {
+                        digimonEvolutions[mon].RemoveAll(x => String.Equals(modeChangeEvolution.Item2, x));
+                    }
                 }
             }
 
