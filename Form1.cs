@@ -322,7 +322,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 var modItemList = i.CollectItems(this, activeMods.IndexOf(i) + 1);
                 foreach (var item in modItemList)
                 {
-                    if (!itemList.Contains(item))
+                    if (!itemList.Any(x => String.Equals(x.ID, item.ID)))
                     {
                         itemList.Add(item);
                     }
