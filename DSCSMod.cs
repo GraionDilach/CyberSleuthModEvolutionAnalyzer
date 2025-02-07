@@ -9,7 +9,6 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         public readonly bool Generated;
         public readonly string[] SourceMods = [];
 
-        readonly string Version;
         readonly string path;
         readonly string folder;
         readonly int formatVersion = 1;
@@ -17,6 +16,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
         public string Folder { get => folder; }
 
         readonly HashSet<string> digimonIDs = [];
+        string version;
 
         /*
         string Description;
@@ -44,11 +44,11 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     }
                     if (dict.TryGetValue("Version", out var version))
                     {
-                        Version = version.ToString();
+                        this.version = version.ToString();
                     }
                     else
                     {
-                        Version = "";
+                        this.version = "";
                     }
                     Generated = dict.ContainsKey("GeneratedByCSMEA");
                     if (dict.TryGetValue("SourceMods", out var sourcemods))
@@ -71,16 +71,17 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
             else
             {
                 Name = modName;
+                Generated = true;
                 path = rootFolder + "\\" + modFolder;
                 folder = modFolder;
-                Version = "";
+                version = "";
                 Directory.CreateDirectory(path);
             }
         }
 
         public override string ToString()
         {
-            return Name + " (" + Version + ")";
+            return Name + " (" + version + ")";
         }
 
         public HashSet<string> CollectDigimonIDs(Form1 form)
@@ -529,10 +530,12 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
         public void WriteMetadata(List<DSCSMod> sourceMods)
         {
+            version = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+
             var metadata = new Dictionary<string, string>
             {
                 ["Name"] = Name,
-                ["Version"] = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+                ["Version"] = version,
                 ["GeneratedByCSMEA"] = "true",
                 ["Description"] = "Auto-generated evolution results based on the following mods:\n",
                 ["SourceMods"] = ""

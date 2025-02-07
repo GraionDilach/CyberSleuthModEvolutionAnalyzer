@@ -1,6 +1,3 @@
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-
 namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 {
     public partial class Form1 : Form
@@ -1012,9 +1009,29 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                         else
                         {
                             export = new DSCSMod(rootFolder, dialog.ModFolder, dialog.ModName);
+                            dscsMods.Add(export);
                         }
 
                         export.WriteMetadata(activeMods);
+
+                        var checkedItems = new HashSet<DSCSMod>();
+                        for (var i = 0; i < modListBox.Items.Count; i++)
+                        {
+                            if (modListBox.GetItemChecked(i))
+                            {
+                                checkedItems.Add(dscsMods[i]);
+                            }
+                        }
+                        checkedItems.Add(export);
+                        modListBox.DataSource = null;
+                        modListBox.DataSource = dscsMods;
+                        for (var i = 0; i < modListBox.Items.Count; i++)
+                        {
+                            if (checkedItems.Contains(dscsMods[i]))
+                            {
+                                modListBox.SetItemChecked(i, true);
+                            }
+                        }
 
                         Dictionary<string, List<string>> digimonDevolutions = new();
                         Dictionary<string, List<string>> digimonEvolutions = new();
