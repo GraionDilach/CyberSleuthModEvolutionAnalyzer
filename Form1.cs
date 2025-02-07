@@ -527,6 +527,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
 
             digimonListWrapper.Visible = true;
             ValidateEvolutions();
+            ValidateModeChanges();
             modGenerator.Visible = true;
             Edited = false;
         }
@@ -563,6 +564,72 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                     foreach (var mon in digimonEvos[i])
                     {
                         LogMessage(mon.ToString(), false);
+                    }
+                }
+            }
+
+            return valid;
+        }
+
+        private bool ValidateModeChanges()
+        {
+            var valid = true;
+            var levels = new string[] { "In-Training 1", "In-Training 2", "Rookie", "Champion", "Armor", "Ultimate", "Mega", "Ultra" };
+
+            for (var i = 0; i < digimonLists.Length; i++)
+            {
+                var monlist = digimonLists[i].Item1.Where(x =>
+                    (x.Digimon.EvoConditions.Any(y => y.Item1 == 13)))
+                    .ToList();
+
+                if (monlist.Count > 0)
+                {
+                    foreach (var mon in monlist)
+                    {
+                        var monstring = "";
+                        var modechanges = mon.Digimon.EvoConditions.Where(x => x.Item1 == 13).Select(x => x.Item2).ToList();
+
+                        if (modechanges.Count > 1)
+                        {
+                            monstring += "\t > Has multiple Mode Changes" + Environment.NewLine;
+                        }
+
+                        foreach (var item in modechanges)
+                        {
+                            if (String.IsNullOrEmpty(item) || String.Equals("0", item))
+                            {
+                                monstring += "\t > Missing Mode Change parameter";
+                            }
+
+                            for (var j = 0; j < digimonLists.Length; j++)
+                            {
+                                var targetMon = digimonLists[j].Item1.SingleOrDefault(x => String.Equals(x.Digimon.ID, item));
+                                if (targetMon != null)
+                                {
+                                    var targetModeChanges = targetMon.Digimon.EvoConditions.Where(x => x.Item1 == 13).ToList();
+                                    foreach (var targetModeChange in targetModeChanges)
+                                    {
+                                        if (targetModeChange != null)
+                                        {
+                                            if (!String.Equals(targetModeChange.Item2, mon.Digimon.ID))
+                                            {
+                                                monstring += "\t > Mode Change link broken: " + targetMon.Digimon.ID + " lacks the Mode Change condition to revert.";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (monstring.Length > 0)
+                        {
+                            if (valid)
+                            {
+                                LogMessage("The following Digimon has issues with their Mode Change:");
+                                valid = false;
+                            }
+                            LogMessage(mon + " [" + levels[i] + "]" + Environment.NewLine + monstring, false);
+                        }
                     }
                 }
             }
@@ -924,7 +991,7 @@ namespace Cyber_Sleuth_Mod_Evolution_Analyzer
                 return;
             }
 
-            if (ValidateEvolutions())
+            if (ValidateEvolutions() && ValidateModeChanges())
             {
                 using (Form2 dialog = new(dscsMods))
                 {
